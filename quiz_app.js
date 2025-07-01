@@ -19,6 +19,7 @@ class QuizApp {
     async init() {
         try {
             this.setupThemeDetection();
+            this.setupResizeListener();
             await this.loadQuestions();
             this.setupQuestionOrder();
             this.displayQuestion();
@@ -27,6 +28,13 @@ class QuizApp {
             console.error('初始化失败:', error);
             document.getElementById('questionText').textContent = '加载题目失败，请检查questions_data.json文件';
         }
+    }
+
+    setupResizeListener() {
+        // 监听窗口大小变化，更新按钮布局
+        window.addEventListener('resize', () => {
+            this.updateButtons();
+        });
     }
 
     setupThemeDetection() {
@@ -360,29 +368,45 @@ class QuizApp {
         const prevBtn = document.getElementById('prevBtn');
 
         const hasAnswered = document.getElementById('resultPanel').classList.contains('show');
+        const isLastQuestion = this.currentQuestionIndex >= this.questionOrder.length - 1;
 
-        if (hasAnswered) {
-            // 已提交答案
-            submitBtn.style.display = 'none';
-            nextBtn.style.display = 'inline-block';
-            nextOnlyBtn.style.display = 'none';
-        } else {
-            // 未提交答案
-            submitBtn.style.display = 'inline-block';
-            submitBtn.disabled = this.selectedAnswer === null;
-            nextBtn.style.display = 'none';
+        // 检测是否为移动端
+        const isMobile = window.innerWidth <= 768;
+
+        if (isMobile) {
+            // 移动端布局：上一题 | 下一题 | 提交答案
             nextOnlyBtn.style.display = 'inline-block';
+            nextOnlyBtn.disabled = isLastQuestion;
+
+            if (hasAnswered) {
+                // 已提交答案，隐藏提交按钮，显示下一题按钮
+                submitBtn.style.display = 'none';
+                nextBtn.style.display = 'inline-block';
+                nextBtn.disabled = isLastQuestion;
+            } else {
+                // 未提交答案，显示提交按钮
+                submitBtn.style.display = 'inline-block';
+                submitBtn.disabled = this.selectedAnswer === null;
+                nextBtn.style.display = 'none';
+            }
+        } else {
+            // 桌面端布局：保持原有逻辑
+            if (hasAnswered) {
+                submitBtn.style.display = 'none';
+                nextBtn.style.display = 'inline-block';
+                nextBtn.disabled = isLastQuestion;
+                nextOnlyBtn.style.display = 'none';
+            } else {
+                submitBtn.style.display = 'inline-block';
+                submitBtn.disabled = this.selectedAnswer === null;
+                nextBtn.style.display = 'none';
+                nextOnlyBtn.style.display = 'inline-block';
+                nextOnlyBtn.disabled = isLastQuestion;
+            }
         }
 
         // 上一题按钮
         prevBtn.disabled = this.currentQuestionIndex === 0;
-
-        // 下一题按钮状态
-        const isLastQuestion = this.currentQuestionIndex >= this.questionOrder.length - 1;
-        if (nextBtn.style.display !== 'none') {
-            nextBtn.disabled = isLastQuestion;
-        }
-        nextOnlyBtn.disabled = isLastQuestion;
     }
 
     nextQuestion() {

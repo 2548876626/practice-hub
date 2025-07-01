@@ -21,20 +21,20 @@
 /* 暗色主题 */
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-        --container-bg: #2d3748;
-        --text-color: #e2e8f0;
-        --card-bg: #4a5568;
-        --border-color: #718096;
-        --option-bg: #2d3748;
-        --option-hover: #4a5568;
-        --option-selected: #3182ce;
-        --primary-color: #667eea;
-        --secondary-color: #a0aec0;
-        --success-color: #48bb78;
-        --danger-color: #f56565;
-        --warning-color: #ed8936;
-        --stats-bg: #4a5568;
+        --bg-gradient: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+        --container-bg: #0d1117;
+        --text-color: #f0f6fc;
+        --card-bg: #161b22;
+        --border-color: #30363d;
+        --option-bg: #21262d;
+        --option-hover: #30363d;
+        --option-selected: #1f6feb;
+        --primary-color: #58a6ff;
+        --secondary-color: #8b949e;
+        --success-color: #3fb950;
+        --danger-color: #f85149;
+        --warning-color: #d29922;
+        --stats-bg: #161b22;
     }
 }
 
@@ -256,6 +256,21 @@ body {
     color: #721c24;
 }
 
+/* 暗色主题下的选项颜色 */
+@media (prefers-color-scheme: dark) {
+    .option.correct {
+        background: #1a2e1a;
+        color: #7ee787;
+        border-color: var(--success-color);
+    }
+
+    .option.incorrect {
+        background: #2e1a1a;
+        color: #ffa198;
+        border-color: var(--danger-color);
+    }
+}
+
 .option-label {
     background: var(--primary-color);
     color: white;
@@ -374,6 +389,21 @@ body {
     color: #721c24;
 }
 
+/* 暗色主题下的结果面板颜色 */
+@media (prefers-color-scheme: dark) {
+    .result-correct {
+        background: #1a2e1a;
+        color: #7ee787;
+        border-color: var(--success-color);
+    }
+
+    .result-incorrect {
+        background: #2e1a1a;
+        color: #ffa198;
+        border-color: var(--danger-color);
+    }
+}
+
 .auto-next {
     margin-top: 10px;
     padding: 8px;
@@ -428,7 +458,8 @@ body {
 }
 
 .auto-next-controls {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--stats-bg);
+    border: 1px solid var(--border-color);
     padding: 8px 12px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -444,7 +475,8 @@ body {
     align-items: center;
     gap: 8px;
     font-size: 12px;
-    color: #333;
+    color: var(--text-color);
+    font-weight: 500;
 }
 
 .toggle-switch {
@@ -518,14 +550,14 @@ body {
         border-top: 1px solid var(--border-color);
         padding: 10px;
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         gap: 10px;
         z-index: 100;
         box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
     }
 
     .center-controls {
-        grid-column: 2;
+        grid-column: 3;
         justify-self: end;
         display: flex;
         gap: 10px;
@@ -537,7 +569,9 @@ body {
     }
 
     #nextOnlyBtn {
-        display: none !important; /* 移动端隐藏这个按钮 */
+        grid-column: 2;
+        justify-self: center;
+        display: block !important; /* 移动端显示这个按钮 */
     }
 
     .btn {
@@ -558,6 +592,7 @@ body {
         align-self: center;
         background: var(--stats-bg);
         border: 1px solid var(--border-color);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
 
     .option {
