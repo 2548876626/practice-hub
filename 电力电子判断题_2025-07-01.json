@@ -1,0 +1,252 @@
+[
+  {
+    "id": 1,
+    "question": "电压型逆变电路输出电压波形是幅值一定的矩形波，而电流波形则不一定（由负阻决定）。",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：√\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 1
+  },
+  {
+    "id": 2,
+    "question": "电力晶体管属电压驱动型开关管",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：×\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 2
+  },
+  {
+    "id": 3,
+    "question": "电力二极管和普通二极管的工作原理一样的，具有单向导电性。",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：√\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 3
+  },
+  {
+    "id": 4,
+    "question": "给晶闸管加上正向阳极电压它就会导通。",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：×\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 4
+  },
+  {
+    "id": 5,
+    "question": "普通晶闸管外部有三个电极，分别是基极、发射极和集电极。",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：×\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 5
+  },
+  {
+    "id": 6,
+    "question": "在电压型逆变器中，同一桥臂上的上、下开关管允许同时导通。",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：×\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 6
+  },
+  {
+    "id": 7,
+    "question": "电压型无源逆变电路的输出电压波形与负载性质无关。",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：√\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 7
+  },
+  {
+    "id": 8,
+    "question": "电压型无源逆变电路输出电流波形与负载性质无关。",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：×\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 8
+  },
+  {
+    "id": 9,
+    "question": "电压型无源逆变电路上、下桥臂的控制需遵循“先断后开”的原则。",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：√\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 9
+  },
+  {
+    "id": 10,
+    "question": "三相桥式电压型逆变电路采用180°导电方式",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：√\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 10
+  },
+  {
+    "id": 11,
+    "question": "三相桥式电流型逆变电路采用120°导电方式。",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：√\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 11
+  },
+  {
+    "id": 12,
+    "question": "有源逆变指的是把直流电能转换成交流电能送给交流电网。 （    ）",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：√\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 12
+  },
+  {
+    "id": 13,
+    "question": "在PWM控制技术中，通常保持载波频率fc固定不变,因而当信号波频率ft变化时,载波比N是变化的，该调制方式称为同步调制方式。（      ）",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：×\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 13
+  },
+  {
+    "id": 14,
+    "question": "SPWM 即正弦脉宽调制波形，是指与正弦波等效的一系列等幅不等宽的矩形脉冲列。                                             （    ）",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：√\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 14
+  },
+  {
+    "id": 15,
+    "question": "变频器只改变交流电频率不改变交流电电压。             （    ）",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：×\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 15
+  },
+  {
+    "id": 16,
+    "question": "变频调速中的交-直-交PWM型变频器一般由整流器、滤波器及PWM逆变器三部分组成（ ）",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：√\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 16
+  },
+  {
+    "id": 17,
+    "question": "boost电路中，其输出电压低于输入电压。                （     ）",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：×\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 17
+  },
+  {
+    "id": 18,
+    "question": "降压斩波电路中，其输出电压的瞬时值低于输入电压瞬时值。（     ）",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：√\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t \n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t0.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 18
+  },
+  {
+    "id": 19,
+    "question": "对于三相全控桥整流电路，控制角α的计量起点为自然换相点。",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：√\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 19
+  },
+  {
+    "id": 20,
+    "question": "IGBT属于电压驱动型器件。",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：√\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 20
+  },
+  {
+    "id": 21,
+    "question": "三相可控整流电路中晶闸管采用“共阴”接法或“共阳”接法，输出结果都一样。",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：×\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 21
+  },
+  {
+    "id": 22,
+    "question": "可控整流电路通过调整晶闸管控制角即可改变输出电压。",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：√\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 22
+  },
+  {
+    "id": 23,
+    "question": "电力场效应晶体管和绝缘栅双极型晶体管都属电压驱动型开关管。",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：√\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 23
+  },
+  {
+    "id": 24,
+    "question": "非隔离型DC/DC变换电路与隔离型DC/DC变换电路的主要区别在于变换电路中有无高频脉冲变压器。",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：√\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 24
+  },
+  {
+    "id": 25,
+    "question": "占空比用D来表示，D=ton/T。其中，ton表示开关管一个周期导通时间，T表示开关周期。",
+    "options": "",
+    "answer": "",
+    "myAnswer": "我的答案：√\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t    \t\t\t\t\t\t\t\t\t\t\n    \t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t                    \t\t\t\t\t得分：\n                    \t\t\t\t\t\t4.0分",
+    "timestamp": "2025/7/1 23:40:27",
+    "url": "https://mooc1-2.chaoxing.com/mooc-ans/work/selectWorkQuestionYiPiYue?courseId=232928745&classId=117033397&workId=44392452&workAnswerId=54143729&isdisplaytable=2&mooc=1&ut=s&evaluation=0&enc=a6495f13c443500050308df53fbbff25&workSystem=0&cpi=358910498",
+    "containerIndex": 25
+  }
+]

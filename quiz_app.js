@@ -178,16 +178,31 @@ class QuizApp {
         const optionsList = document.getElementById('optionsList');
         optionsList.innerHTML = '';
 
+        // 检测是否为判断题（只有两个选项且为"正确"/"错误"）
+        const isJudgmentQuestion = options.length === 2 &&
+            (options.includes('正确') && options.includes('错误'));
+
         options.forEach((option, index) => {
             const li = document.createElement('li');
             li.className = 'option';
             li.onclick = () => this.selectOption(index);
-            
-            li.innerHTML = `
-                <div class="option-label">${String.fromCharCode(65 + index)}</div>
-                <div class="option-text">${option}</div>
-            `;
-            
+
+            if (isJudgmentQuestion) {
+                // 判断题使用 ✓ 和 ✗ 符号
+                const symbol = option === '正确' ? '✓' : '✗';
+                const color = option === '正确' ? '#28a745' : '#dc3545';
+                li.innerHTML = `
+                    <div class="option-label" style="background: ${color};">${symbol}</div>
+                    <div class="option-text">${option}</div>
+                `;
+            } else {
+                // 选择题使用 A、B、C、D
+                li.innerHTML = `
+                    <div class="option-label">${String.fromCharCode(65 + index)}</div>
+                    <div class="option-text">${option}</div>
+                `;
+            }
+
             optionsList.appendChild(li);
         });
     }
@@ -374,23 +389,30 @@ class QuizApp {
         const isMobile = window.innerWidth <= 768;
 
         if (isMobile) {
-            // 移动端布局：上一题 | 下一题 | 提交答案
+            // 移动端布局：上一题 | 下一题 | 提交答案（三个按钮同一行）
             nextOnlyBtn.style.display = 'inline-block';
             nextOnlyBtn.disabled = isLastQuestion;
 
+            // 移动端始终显示提交按钮，答题后变为下一题按钮
             if (hasAnswered) {
-                // 已提交答案，隐藏提交按钮，显示下一题按钮
-                submitBtn.style.display = 'none';
-                nextBtn.style.display = 'inline-block';
-                nextBtn.disabled = isLastQuestion;
+                // 已提交答案，提交按钮变为下一题按钮
+                submitBtn.innerHTML = '➡️ 下一题';
+                submitBtn.disabled = isLastQuestion;
+                submitBtn.setAttribute('onclick', 'nextQuestion()');
+                nextBtn.style.display = 'none';
             } else {
                 // 未提交答案，显示提交按钮
-                submitBtn.style.display = 'inline-block';
+                submitBtn.innerHTML = '✅ 提交答案';
                 submitBtn.disabled = this.selectedAnswer === null;
+                submitBtn.setAttribute('onclick', 'submitAnswer()');
                 nextBtn.style.display = 'none';
             }
         } else {
             // 桌面端布局：保持原有逻辑
+            // 重置提交按钮文本和事件
+            submitBtn.innerHTML = '✅ 提交答案';
+            submitBtn.setAttribute('onclick', 'submitAnswer()');
+
             if (hasAnswered) {
                 submitBtn.style.display = 'none';
                 nextBtn.style.display = 'inline-block';
