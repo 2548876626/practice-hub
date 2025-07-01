@@ -7,9 +7,11 @@ class QuizApp {
         this.correctCount = 0;
         this.answeredQuestions = [];
         this.wrongQuestions = [];
-        this.mode = 'sequential'; // sequential, random, wrong
+        this.favoriteQuestions = this.loadFavorites(); // 收藏的题目
+        this.mode = 'sequential'; // sequential, random, wrong, favorites
         this.questionOrder = [];
         this.autoNextTimer = null; // 自动跳转定时器
+        this.autoNextEnabled = true; // 自动跳转开关
 
         this.init();
     }
@@ -77,6 +79,15 @@ class QuizApp {
                     return;
                 }
                 break;
+            case 'favorites':
+                this.questionOrder = [...this.favoriteQuestions];
+                if (this.questionOrder.length === 0) {
+                    alert('暂无收藏题目，切换到顺序练习模式');
+                    this.mode = 'sequential';
+                    this.setupQuestionOrder();
+                    return;
+                }
+                break;
         }
         this.currentQuestionIndex = 0;
     }
@@ -121,6 +132,9 @@ class QuizApp {
 
         // 生成选项
         this.displayOptions(question.options);
+
+        // 更新收藏状态
+        this.updateFavoriteButton(questionIndex);
 
         // 重置状态
         this.selectedAnswer = null;
@@ -202,9 +216,11 @@ class QuizApp {
         this.updateStats();
         this.updateButtons();
 
-        // 如果答对了，显示倒计时并自动跳转到下一题
-        if (isCorrect) {
-            this.showAutoNextCountdown();
+        // 如果答对了且开启自动跳转，则自动跳转到下一题
+        if (isCorrect && this.autoNextEnabled) {
+            this.autoNextTimer = setTimeout(() => {
+                this.nextQuestion();
+            }, 300); // 0.3秒后自动跳转
         }
     }
 
@@ -229,39 +245,84 @@ class QuizApp {
         }
     }
 
-    showAutoNextCountdown() {
-        const resultText = document.getElementById('resultText');
-        let countdown = 2;
-
-        const updateCountdown = () => {
-            const currentContent = resultText.innerHTML;
-            const baseContent = currentContent.replace(/<div class="auto-next">.*?<\/div>/s, '');
-
-            if (countdown > 0) {
-                resultText.innerHTML = baseContent + `
-                    <div class="auto-next" style="margin-top: 10px; padding: 8px; background: rgba(255,255,255,0.2); border-radius: 5px; font-size: 14px;">
-                        🚀 ${countdown}秒后自动跳转到下一题... <button onclick="window.quizApp.cancelAutoNext()" style="margin-left: 10px; padding: 2px 8px; border: none; border-radius: 3px; background: white; color: #333; cursor: pointer;">取消</button>
-                    </div>
-                `;
-                countdown--;
-                this.autoNextTimer = setTimeout(updateCountdown, 1000);
-            } else {
-                this.nextQuestion();
-            }
-        };
-
-        updateCountdown();
-    }
-
     cancelAutoNext() {
         if (this.autoNextTimer) {
             clearTimeout(this.autoNextTimer);
             this.autoNextTimer = null;
+        }
+    }
 
-            // 移除倒计时显示
-            const resultText = document.getElementById('resultText');
-            const currentContent = resultText.innerHTML;
-            resultText.innerHTML = currentContent.replace(/<div class="auto-next">.*?<\/div>/s, '');
+    toggleAutoNext() {
+        this.autoNextEnabled = !this.autoNextEnabled;
+        const toggle = document.getElementById('autoNextToggle');
+        if (this.autoNextEnabled) {
+            toggle.classList.add('active');
+        } else {
+            toggle.classList.remove('active');
+            this.cancelAutoNext(); // 取消当前的自动跳转
+        }
+    }
+
+    // 收藏相关方法
+    loadFavorites() {
+        try {
+            const saved = localStorage.getItem('quiz_favorites');
+            return saved ? JSON.parse(saved) : [];
+        } catch (error) {
+            console.error('加载收藏失败:', error);
+            return [];
+        }
+    }
+
+    saveFavorites() {
+        try {
+            localStorage.setItem('quiz_favorites', JSON.stringify(this.favoriteQuestions));
+        } catch (error) {
+            console.error('保存收藏失败:', error);
+        }
+    }
+
+    toggleFavorite() {
+        const questionIndex = this.questionOrder[this.currentQuestionIndex];
+        const isFavorited = this.favoriteQuestions.includes(questionIndex);
+
+        if (isFavorited) {
+            // 取消收藏
+            const index = this.favoriteQuestions.indexOf(questionIndex);
+            this.favoriteQuestions.splice(index, 1);
+        } else {
+            // 添加收藏
+            this.favoriteQuestions.push(questionIndex);
+        }
+
+        this.saveFavorites();
+        this.updateFavoriteButton(questionIndex);
+
+        // 如果当前在收藏模式且取消了收藏，需要更新题目列表
+        if (this.mode === 'favorites' && !isFavorited) {
+            this.setupQuestionOrder();
+            if (this.currentQuestionIndex >= this.questionOrder.length) {
+                this.currentQuestionIndex = Math.max(0, this.questionOrder.length - 1);
+            }
+            if (this.questionOrder.length > 0) {
+                this.displayQuestion();
+            }
+        }
+    }
+
+    updateFavoriteButton(questionIndex) {
+        const favoriteBtn = document.getElementById('favoriteBtn');
+        const favoriteIcon = document.getElementById('favoriteIcon');
+        const isFavorited = this.favoriteQuestions.includes(questionIndex);
+
+        if (isFavorited) {
+            favoriteBtn.classList.add('favorited');
+            favoriteIcon.textContent = '★';
+            favoriteBtn.title = '取消收藏';
+        } else {
+            favoriteBtn.classList.remove('favorited');
+            favoriteIcon.textContent = '☆';
+            favoriteBtn.title = '收藏题目';
         }
     }
 
@@ -273,20 +334,33 @@ class QuizApp {
     updateButtons() {
         const submitBtn = document.getElementById('submitBtn');
         const nextBtn = document.getElementById('nextBtn');
+        const nextOnlyBtn = document.getElementById('nextOnlyBtn');
         const prevBtn = document.getElementById('prevBtn');
 
-        if (this.selectedAnswer !== null && submitBtn.style.display !== 'none') {
-            // 已选择答案，显示提交按钮
-            submitBtn.style.display = 'inline-block';
-            nextBtn.style.display = 'none';
-        } else if (document.getElementById('resultPanel').classList.contains('show')) {
-            // 已提交答案，显示下一题按钮
+        const hasAnswered = document.getElementById('resultPanel').classList.contains('show');
+
+        if (hasAnswered) {
+            // 已提交答案
             submitBtn.style.display = 'none';
             nextBtn.style.display = 'inline-block';
+            nextOnlyBtn.style.display = 'none';
+        } else {
+            // 未提交答案
+            submitBtn.style.display = 'inline-block';
+            submitBtn.disabled = this.selectedAnswer === null;
+            nextBtn.style.display = 'none';
+            nextOnlyBtn.style.display = 'inline-block';
         }
 
         // 上一题按钮
         prevBtn.disabled = this.currentQuestionIndex === 0;
+
+        // 下一题按钮状态
+        const isLastQuestion = this.currentQuestionIndex >= this.questionOrder.length - 1;
+        if (nextBtn.style.display !== 'none') {
+            nextBtn.disabled = isLastQuestion;
+        }
+        nextOnlyBtn.disabled = isLastQuestion;
     }
 
     nextQuestion() {
@@ -348,7 +422,9 @@ function setMode(mode, buttonElement) {
     // 如果没有传入按钮元素，通过模式查找
     if (!buttonElement) {
         const buttons = document.querySelectorAll('.mode-btn');
-        const modeIndex = mode === 'sequential' ? 0 : mode === 'random' ? 1 : 2;
+        const modeIndex = mode === 'sequential' ? 0 :
+                         mode === 'random' ? 1 :
+                         mode === 'wrong' ? 2 : 3;
         buttonElement = buttons[modeIndex];
     }
 
@@ -382,7 +458,18 @@ function resetQuiz() {
     window.quizApp.resetQuiz();
 }
 
+function toggleAutoNext() {
+    window.quizApp.toggleAutoNext();
+}
+
+function toggleFavorite() {
+    window.quizApp.toggleFavorite();
+}
+
 // 初始化应用
 document.addEventListener('DOMContentLoaded', () => {
     window.quizApp = new QuizApp();
+
+    // 显示自动跳转控制面板
+    document.getElementById('autoNextControls').classList.add('show');
 });
