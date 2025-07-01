@@ -90,7 +90,7 @@ class QuizApp {
 
     async loadQuestions() {
         try {
-            const fileName = this.quizType === 'choice' ? 'questions_data.json' : '电力电子判断题_清理版.json';
+            const fileName = this.quizType === 'choice' ? 'questions_data.json' : 'judgment_questions.json';
             const response = await fetch(fileName);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -506,11 +506,11 @@ class QuizApp {
     }
 
     updateStats() {
-        document.getElementById('totalQuestions').textContent = this.questionOrder.length;
+        document.getElementById('totalQuestions').textContent = this.questions.length;
         document.getElementById('currentQuestion').textContent = this.currentQuestionIndex + 1;
         document.getElementById('correctCount').textContent = this.correctCount;
-        
-        const accuracy = this.answeredQuestions.length > 0 ? 
+
+        const accuracy = this.answeredQuestions.length > 0 ?
             Math.round((this.correctCount / this.answeredQuestions.length) * 100) : 0;
         document.getElementById('accuracy').textContent = accuracy + '%';
     }
