@@ -12,6 +12,8 @@ class QuizApp {
         this.questionOrder = [];
         this.autoNextTimer = null; // 自动跳转定时器
         this.autoNextEnabled = true; // 自动跳转开关
+        this.quizType = null; // 'choice' 或 'judgment'
+        this.isQuizStarted = false; // 是否已开始答题
 
         this.init();
     }
@@ -20,13 +22,41 @@ class QuizApp {
         try {
             this.setupThemeDetection();
             this.setupResizeListener();
+            this.showHomePage();
+        } catch (error) {
+            console.error('初始化失败:', error);
+        }
+    }
+
+    showHomePage() {
+        document.getElementById('quizTypeSelector').style.display = 'block';
+        document.getElementById('quizInterface').style.display = 'none';
+        this.isQuizStarted = false;
+    }
+
+    async startQuiz(type) {
+        this.quizType = type;
+        this.isQuizStarted = true;
+
+        // 隐藏主页，显示答题界面
+        document.getElementById('quizTypeSelector').style.display = 'none';
+        document.getElementById('quizInterface').style.display = 'block';
+
+        // 更新标题
+        const title = type === 'choice' ? '📝 选择题练习' : '⚡ 判断题练习';
+        document.getElementById('quizTitle').textContent = title;
+
+        try {
             await this.loadQuestions();
             this.setupQuestionOrder();
             this.displayQuestion();
             this.updateStats();
+
+            // 显示自动跳转控制面板
+            document.getElementById('autoNextControls').classList.add('show');
         } catch (error) {
-            console.error('初始化失败:', error);
-            document.getElementById('questionText').textContent = '加载题目失败，请检查questions_data.json文件';
+            console.error('加载题目失败:', error);
+            document.getElementById('questionText').textContent = '加载题目失败，请检查数据文件';
         }
     }
 
@@ -60,12 +90,14 @@ class QuizApp {
 
     async loadQuestions() {
         try {
-            const response = await fetch('questions_data.json');
+            const fileName = this.quizType === 'choice' ? 'questions_data.json' : '电力电子判断题_清理版.json';
+            const response = await fetch(fileName);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             this.questions = await response.json();
-            console.log(`成功加载 ${this.questions.length} 道题目`);
+            const typeText = this.quizType === 'choice' ? '选择题' : '判断题';
+            console.log(`成功加载 ${this.questions.length} 道${typeText}`);
         } catch (error) {
             console.error('加载题目失败:', error);
             // 如果加载失败，使用示例数据
@@ -74,22 +106,41 @@ class QuizApp {
     }
 
     getSampleQuestions() {
-        return [
-            {
-                "id": 1,
-                "question": "晶闸管属于",
-                "options": ["不可控器件", "半控器件", "全控器件"],
-                "correctAnswer": 1,
-                "explanation": ""
-            },
-            {
-                "id": 2,
-                "question": "电力二极管属于",
-                "options": ["全控器件", "不可控器件", "半控器件"],
-                "correctAnswer": 1,
-                "explanation": ""
-            }
-        ];
+        if (this.quizType === 'choice') {
+            return [
+                {
+                    "id": 1,
+                    "question": "晶闸管属于",
+                    "options": ["不可控器件", "半控器件", "全控器件"],
+                    "correctAnswer": 1,
+                    "explanation": ""
+                },
+                {
+                    "id": 2,
+                    "question": "电力二极管属于",
+                    "options": ["全控器件", "不可控器件", "半控器件"],
+                    "correctAnswer": 1,
+                    "explanation": ""
+                }
+            ];
+        } else {
+            return [
+                {
+                    "id": 1,
+                    "question": "电压型逆变电路输出电压波形是幅值一定的矩形波，而电流波形则不一定（由负阻决定）。",
+                    "options": ["正确", "错误"],
+                    "correctAnswer": 0,
+                    "explanation": ""
+                },
+                {
+                    "id": 2,
+                    "question": "电力晶体管属电压驱动型开关管",
+                    "options": ["正确", "错误"],
+                    "correctAnswer": 1,
+                    "explanation": ""
+                }
+            ];
+        }
     }
 
     setupQuestionOrder() {
@@ -389,7 +440,7 @@ class QuizApp {
         const isMobile = window.innerWidth <= 768;
 
         if (isMobile) {
-            // 移动端布局：上一题 | 下一题 | 提交答案（三个按钮同一行）
+            // 移动端布局：上一题 | 下一题 | 提交答案（三个按钮网格布局）
             nextOnlyBtn.style.display = 'inline-block';
             nextOnlyBtn.disabled = isLastQuestion;
 
@@ -534,10 +585,15 @@ function toggleFavorite() {
     window.quizApp.toggleFavorite();
 }
 
+function startQuiz(type) {
+    window.quizApp.startQuiz(type);
+}
+
+function backToHome() {
+    window.quizApp.showHomePage();
+}
+
 // 初始化应用
 document.addEventListener('DOMContentLoaded', () => {
     window.quizApp = new QuizApp();
-
-    // 显示自动跳转控制面板
-    document.getElementById('autoNextControls').classList.add('show');
 });

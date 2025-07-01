@@ -13,83 +13,118 @@
             <p>掌握电力电子技术核心知识点，提升专业技能</p>
         </div>
 
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-number" id="totalQuestions">40</div>
-                <div class="stat-label">总题数</div>
+        <!-- 题目类型选择 -->
+        <div class="quiz-type-selector" id="quizTypeSelector">
+            <div class="type-card" onclick="startQuiz('choice')">
+                <div class="type-icon">📝</div>
+                <h3>选择题练习</h3>
+                <p>40道选择题</p>
+                <p>涵盖电力电子技术核心知识点</p>
+                <div class="type-features">
+                    <span>• 单选题</span>
+                    <span>• 多选项</span>
+                    <span>• 图片题</span>
+                </div>
             </div>
-            <div class="stat-item">
-                <div class="stat-number" id="currentQuestion">1</div>
-                <div class="stat-label">当前题目</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" id="correctCount">0</div>
-                <div class="stat-label">答对题数</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" id="accuracy">0%</div>
-                <div class="stat-label">正确率</div>
+
+            <div class="type-card" onclick="startQuiz('judgment')">
+                <div class="type-icon">⚡</div>
+                <h3>判断题练习</h3>
+                <p>25道判断题</p>
+                <p>快速检验概念理解能力</p>
+                <div class="type-features">
+                    <span>• 正确/错误</span>
+                    <span>• 快速判断</span>
+                    <span>• 概念理解</span>
+                </div>
             </div>
         </div>
 
-        <div class="quiz-container">
-            <div class="top-controls">
-                <div class="control-row">
-                    <div class="auto-next-controls" id="autoNextControls">
-                        <div class="auto-next-toggle">
-                            <span>答对自动跳转</span>
-                            <div class="toggle-switch active" id="autoNextToggle" onclick="toggleAutoNext()">
-                                <div class="toggle-slider"></div>
+        <!-- 题目练习界面（初始隐藏） -->
+        <div class="quiz-interface" id="quizInterface" style="display: none;">
+            <div class="quiz-header">
+                <button class="btn btn-back" onclick="backToHome()">⬅️ 返回主页</button>
+                <h2 id="quizTitle">题目练习</h2>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalQuestions">0</div>
+                    <div class="stat-label">总题数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="currentQuestion">1</div>
+                    <div class="stat-label">当前题目</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="correctCount">0</div>
+                    <div class="stat-label">答对题数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="accuracy">0%</div>
+                    <div class="stat-label">正确率</div>
+                </div>
+            </div>
+
+            <div class="quiz-container">
+                <div class="top-controls">
+                    <div class="control-row">
+                        <div class="auto-next-controls" id="autoNextControls">
+                            <div class="auto-next-toggle">
+                                <span>答对自动跳转</span>
+                                <div class="toggle-switch active" id="autoNextToggle" onclick="toggleAutoNext()">
+                                    <div class="toggle-slider"></div>
+                                </div>
                             </div>
                         </div>
+                        <button class="btn btn-reset" onclick="resetQuiz()">🔄 重新开始</button>
                     </div>
-                    <button class="btn btn-reset" onclick="resetQuiz()">🔄 重新开始</button>
+
+                    <div class="mode-selector">
+                        <button class="mode-btn active" onclick="setMode('sequential', this)">顺序练习</button>
+                        <button class="mode-btn" onclick="setMode('random', this)">随机练习</button>
+                        <button class="mode-btn" onclick="setMode('wrong', this)">错题练习</button>
+                        <button class="mode-btn" onclick="setMode('favorites', this)">收藏练习</button>
+                    </div>
                 </div>
 
-                <div class="mode-selector">
-                    <button class="mode-btn active" onclick="setMode('sequential', this)">顺序练习</button>
-                    <button class="mode-btn" onclick="setMode('random', this)">随机练习</button>
-                    <button class="mode-btn" onclick="setMode('wrong', this)">错题练习</button>
-                    <button class="mode-btn" onclick="setMode('favorites', this)">收藏练习</button>
-                </div>
-            </div>
-
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-
-            <div class="question-card">
-                <div class="question-header">
-                    <span class="question-number" id="questionNumber">第 1 题</span>
-                    <button class="btn-favorite" id="favoriteBtn" onclick="toggleFavorite()" title="收藏题目">
-                        <span id="favoriteIcon">☆</span>
-                    </button>
-                </div>
-                
-                <div class="question-text" id="questionText">
-                    正在加载题目...
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
                 </div>
 
-                <div class="question-image" id="questionImage" style="display: none;">
-                    <img id="questionImg" src="" alt="题目图片">
+                <div class="question-card">
+                    <div class="question-header">
+                        <span class="question-number" id="questionNumber">第 1 题</span>
+                        <button class="btn-favorite" id="favoriteBtn" onclick="toggleFavorite()" title="收藏题目">
+                            <span id="favoriteIcon">☆</span>
+                        </button>
+                    </div>
+
+                    <div class="question-text" id="questionText">
+                        正在加载题目...
+                    </div>
+
+                    <div class="question-image" id="questionImage" style="display: none;">
+                        <img id="questionImg" src="" alt="题目图片">
+                    </div>
+
+                    <ul class="options" id="optionsList">
+                        <!-- 选项将通过JavaScript动态生成 -->
+                    </ul>
+
+                    <div class="result-panel" id="resultPanel">
+                        <div id="resultText"></div>
+                    </div>
                 </div>
 
-                <ul class="options" id="optionsList">
-                    <!-- 选项将通过JavaScript动态生成 -->
-                </ul>
-
-                <div class="result-panel" id="resultPanel">
-                    <div id="resultText"></div>
+                <div class="controls">
+                    <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()">⬅️ 上一题</button>
+                    <div class="center-controls">
+                        <button class="btn btn-primary" id="submitBtn" onclick="submitAnswer()" disabled>✅ 提交答案</button>
+                        <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" style="display: none;">➡️ 下一题</button>
+                    </div>
+                    <button class="btn btn-secondary" id="nextOnlyBtn" onclick="nextQuestion()">➡️ 下一题</button>
                 </div>
-            </div>
-
-            <div class="controls">
-                <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()">⬅️ 上一题</button>
-                <div class="center-controls">
-                    <button class="btn btn-primary" id="submitBtn" onclick="submitAnswer()" disabled>✅ 提交答案</button>
-                    <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" style="display: none;">➡️ 下一题</button>
-                </div>
-                <button class="btn btn-secondary" id="nextOnlyBtn" onclick="nextQuestion()">➡️ 下一题</button>
             </div>
         </div>
     </div>
