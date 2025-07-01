@@ -18,6 +18,7 @@ class QuizApp {
 
     async init() {
         try {
+            this.setupThemeDetection();
             await this.loadQuestions();
             this.setupQuestionOrder();
             this.displayQuestion();
@@ -25,6 +26,27 @@ class QuizApp {
         } catch (error) {
             console.error('初始化失败:', error);
             document.getElementById('questionText').textContent = '加载题目失败，请检查questions_data.json文件';
+        }
+    }
+
+    setupThemeDetection() {
+        // 监听系统主题变化
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+        const handleThemeChange = (e) => {
+            console.log('主题模式:', e.matches ? '暗色' : '浅色');
+            // CSS变量会自动应用，无需额外处理
+        };
+
+        // 初始检测
+        handleThemeChange(mediaQuery);
+
+        // 监听变化（使用现代API）
+        if (mediaQuery.addEventListener) {
+            mediaQuery.addEventListener('change', handleThemeChange);
+        } else {
+            // 兼容旧版浏览器
+            mediaQuery.addListener(handleThemeChange);
         }
     }
 

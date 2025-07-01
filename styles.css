@@ -1,5 +1,43 @@
 /* 电力电子技术题目训练系统样式 */
 
+:root {
+    /* 浅色主题 */
+    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --container-bg: #ffffff;
+    --text-color: #333333;
+    --card-bg: #f8f9fa;
+    --border-color: #dee2e6;
+    --option-bg: #ffffff;
+    --option-hover: #f8f9ff;
+    --option-selected: #e7f3ff;
+    --primary-color: #667eea;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --stats-bg: #f8f9fa;
+}
+
+/* 暗色主题 */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        --container-bg: #2d3748;
+        --text-color: #e2e8f0;
+        --card-bg: #4a5568;
+        --border-color: #718096;
+        --option-bg: #2d3748;
+        --option-hover: #4a5568;
+        --option-selected: #3182ce;
+        --primary-color: #667eea;
+        --secondary-color: #a0aec0;
+        --success-color: #48bb78;
+        --danger-color: #f56565;
+        --warning-color: #ed8936;
+        --stats-bg: #4a5568;
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -8,23 +46,24 @@
 
 body {
     font-family: 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--bg-gradient);
     min-height: 100vh;
     padding: 10px;
     line-height: 1.6;
+    color: var(--text-color);
 }
 
 .container {
     max-width: 900px;
     margin: 0 auto;
-    background: white;
+    background: var(--container-bg);
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     overflow: hidden;
 }
 
 .header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--bg-gradient);
     color: white;
     padding: 25px 20px;
     text-align: center;
@@ -44,9 +83,9 @@ body {
 .stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    background: #f8f9fa;
+    background: var(--stats-bg);
     padding: 15px;
-    border-bottom: 1px solid #dee2e6;
+    border-bottom: 1px solid var(--border-color);
     gap: 10px;
 }
 
@@ -57,12 +96,12 @@ body {
 .stat-number {
     font-size: 20px;
     font-weight: bold;
-    color: #667eea;
+    color: var(--primary-color);
 }
 
 .stat-label {
     font-size: 12px;
-    color: #6c757d;
+    color: var(--secondary-color);
     margin-top: 3px;
 }
 
@@ -101,11 +140,11 @@ body {
 }
 
 .question-card {
-    background: #f8f9fa;
+    background: var(--card-bg);
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
-    border-left: 4px solid #667eea;
+    border-left: 4px solid var(--primary-color);
 }
 
 .question-header {
@@ -116,7 +155,7 @@ body {
 }
 
 .question-number {
-    background: #667eea;
+    background: var(--primary-color);
     color: white;
     padding: 6px 12px;
     border-radius: 15px;
@@ -127,12 +166,17 @@ body {
 .btn-favorite {
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: 28px;
     cursor: pointer;
-    padding: 5px;
+    padding: 8px;
     border-radius: 50%;
     transition: all 0.2s ease;
-    color: #ccc;
+    color: var(--secondary-color);
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-favorite:hover {
@@ -141,7 +185,7 @@ body {
 }
 
 .btn-favorite.favorited {
-    color: #ffc107;
+    color: var(--warning-color);
 }
 
 .btn-favorite.favorited:hover {
@@ -152,7 +196,7 @@ body {
     font-size: 16px;
     line-height: 1.6;
     margin-bottom: 15px;
-    color: #333;
+    color: var(--text-color);
     font-weight: 500;
 }
 
@@ -173,8 +217,8 @@ body {
 }
 
 .option {
-    background: white;
-    border: 2px solid #e9ecef;
+    background: var(--option-bg);
+    border: 2px solid var(--border-color);
     border-radius: 8px;
     padding: 12px;
     margin-bottom: 8px;
@@ -186,8 +230,8 @@ body {
 }
 
 .option:hover {
-    border-color: #667eea;
-    background: #f8f9ff;
+    border-color: var(--primary-color);
+    background: var(--option-hover);
     transform: translateY(-1px);
 }
 
@@ -196,24 +240,24 @@ body {
 }
 
 .option.selected {
-    border-color: #667eea;
-    background: #e7f3ff;
+    border-color: var(--primary-color);
+    background: var(--option-selected);
 }
 
 .option.correct {
-    border-color: #28a745;
+    border-color: var(--success-color);
     background: #d4edda;
     color: #155724;
 }
 
 .option.incorrect {
-    border-color: #dc3545;
+    border-color: var(--danger-color);
     background: #f8d7da;
     color: #721c24;
 }
 
 .option-label {
-    background: #667eea;
+    background: var(--primary-color);
     color: white;
     width: 28px;
     height: 28px;
@@ -228,16 +272,17 @@ body {
 }
 
 .option.correct .option-label {
-    background: #28a745;
+    background: var(--success-color);
 }
 
 .option.incorrect .option-label {
-    background: #dc3545;
+    background: var(--danger-color);
 }
 
 .option-text {
     flex: 1;
     font-size: 14px;
+    color: var(--text-color);
 }
 
 .controls {
@@ -267,7 +312,7 @@ body {
 }
 
 .btn-primary {
-    background: #667eea;
+    background: var(--primary-color);
     color: white;
 }
 
@@ -277,7 +322,7 @@ body {
 }
 
 .btn-secondary {
-    background: #6c757d;
+    background: var(--secondary-color);
     color: white;
 }
 
@@ -286,7 +331,7 @@ body {
 }
 
 .btn-cancel {
-    background: #ffc107;
+    background: var(--warning-color);
     color: #212529;
     font-size: 12px;
     padding: 6px 12px;
@@ -304,12 +349,13 @@ body {
 }
 
 .result-panel {
-    background: #e7f3ff;
-    border: 1px solid #b3d9ff;
+    background: var(--option-selected);
+    border: 1px solid var(--primary-color);
     border-radius: 8px;
     padding: 15px;
     margin-top: 15px;
     display: none;
+    color: var(--text-color);
 }
 
 .result-panel.show {
@@ -318,13 +364,13 @@ body {
 
 .result-correct {
     background: #d4edda;
-    border-color: #c3e6cb;
+    border-color: var(--success-color);
     color: #155724;
 }
 
 .result-incorrect {
     background: #f8d7da;
-    border-color: #f5c6cb;
+    border-color: var(--danger-color);
     color: #721c24;
 }
 
@@ -362,9 +408,9 @@ body {
 
 .mode-btn {
     padding: 8px 16px;
-    border: 2px solid #667eea;
-    background: white;
-    color: #667eea;
+    border: 2px solid var(--primary-color);
+    background: var(--container-bg);
+    color: var(--primary-color);
     border-radius: 15px;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -373,7 +419,7 @@ body {
 }
 
 .mode-btn.active {
-    background: #667eea;
+    background: var(--primary-color);
     color: white;
 }
 
@@ -405,14 +451,14 @@ body {
     position: relative;
     width: 40px;
     height: 20px;
-    background: #ccc;
+    background: var(--secondary-color);
     border-radius: 10px;
     cursor: pointer;
     transition: background 0.2s;
 }
 
 .toggle-switch.active {
-    background: #667eea;
+    background: var(--primary-color);
 }
 
 .toggle-slider {
@@ -450,31 +496,56 @@ body {
     
     .quiz-container {
         padding: 15px;
+        padding-bottom: 80px; /* 为固定按钮留出空间 */
     }
-    
+
     .question-card {
         padding: 15px;
     }
-    
+
     .stats {
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
         padding: 15px;
     }
-    
+
     .controls {
-        flex-direction: column;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--container-bg);
+        border-top: 1px solid var(--border-color);
+        padding: 10px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        z-index: 100;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    }
+
+    .center-controls {
+        grid-column: 2;
+        justify-self: end;
+        display: flex;
         gap: 10px;
     }
-    
-    .center-controls {
-        width: 100%;
-        justify-content: center;
+
+    #prevBtn {
+        grid-column: 1;
+        justify-self: start;
+    }
+
+    #nextOnlyBtn {
+        display: none !important; /* 移动端隐藏这个按钮 */
     }
 
     .btn {
-        flex: 1;
         min-height: 44px;
+        padding: 12px 20px;
+        font-size: 14px;
+        border-radius: 22px;
+        font-weight: 600;
     }
 
     .control-row {
@@ -485,22 +556,25 @@ body {
 
     .auto-next-controls {
         align-self: center;
+        background: var(--stats-bg);
+        border: 1px solid var(--border-color);
     }
-    
+
     .option {
         padding: 15px 12px;
         min-height: 60px;
     }
-    
+
     .option-text {
         font-size: 15px;
     }
-    
-    .auto-next-controls {
-        position: static;
-        margin-bottom: 15px;
-        background: #f8f9fa;
-        border: 1px solid #dee2e6;
+
+    /* 收藏按钮在移动端更大更明显 */
+    .btn-favorite {
+        font-size: 32px;
+        min-width: 48px;
+        min-height: 48px;
+        padding: 10px;
     }
 }
 
