@@ -605,25 +605,32 @@
             }
 
             .center-controls {
-                grid-column: 3 !important;
-                justify-self: stretch !important;
-                display: flex !important;
+                display: none !important;
             }
 
             #prevBtn {
                 grid-column: 1 !important;
                 justify-self: stretch !important;
                 display: block !important;
+                order: 1;
             }
 
             #nextOnlyBtn {
                 grid-column: 2 !important;
                 justify-self: stretch !important;
                 display: block !important;
+                order: 2;
             }
 
-            #submitBtn, #nextBtn {
+            #submitBtn {
+                grid-column: 3 !important;
+                justify-self: stretch !important;
                 display: block !important;
+                order: 3;
+            }
+
+            #nextBtn {
+                display: none !important;
             }
 
             .btn {
@@ -796,11 +803,11 @@
 
                 <div class="controls">
                     <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()">⬅️ 上一题</button>
-                    <div class="center-controls">
-                        <button class="btn btn-primary" id="submitBtn" onclick="submitAnswer()" disabled>✅ 提交答案</button>
+                    <button class="btn btn-secondary" id="nextOnlyBtn" onclick="nextQuestion()">➡️ 下一题</button>
+                    <button class="btn btn-primary" id="submitBtn" onclick="submitAnswer()" disabled>✅ 提交答案</button>
+                    <div class="center-controls" style="display: none;">
                         <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" style="display: none;">➡️ 下一题</button>
                     </div>
-                    <button class="btn btn-secondary" id="nextOnlyBtn" onclick="nextQuestion()">➡️ 下一题</button>
                 </div>
             </div>
         </div>
@@ -1345,21 +1352,26 @@
                 const isMobile = window.innerWidth <= 768;
 
                 if (isMobile) {
-                    // 移动端：确保三个按钮都显示，使用CSS Grid布局
+                    // 移动端：三个按钮固定布局 - 上一题 | 下一题 | 提交答案
+                    // 第二列：下一题按钮（始终显示）
                     nextOnlyBtn.style.display = 'block';
                     nextOnlyBtn.disabled = isLastQuestion;
 
+                    // 第三列：提交答案按钮（不变功能，答题后禁用或变为完成）
                     if (hasAnswered) {
-                        submitBtn.innerHTML = '➡️ 下一题';
-                        submitBtn.disabled = isLastQuestion;
-                        submitBtn.setAttribute('onclick', 'nextQuestion()');
-                        nextBtn.style.display = 'none';
+                        // 答题后，提交按钮变为"完成"或禁用
+                        submitBtn.innerHTML = '✅ 已完成';
+                        submitBtn.disabled = true;
+                        submitBtn.setAttribute('onclick', '');
                     } else {
+                        // 未答题时，显示"提交答案"
                         submitBtn.innerHTML = '✅ 提交答案';
                         submitBtn.disabled = this.selectedAnswer === null;
                         submitBtn.setAttribute('onclick', 'submitAnswer()');
-                        nextBtn.style.display = 'none';
                     }
+
+                    // 移动端不使用nextBtn
+                    nextBtn.style.display = 'none';
                 } else {
                     submitBtn.innerHTML = '✅ 提交答案';
                     submitBtn.setAttribute('onclick', 'submitAnswer()');
