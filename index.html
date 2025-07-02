@@ -4,7 +4,676 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>电力电子技术题目训练系统</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* CSS变量 */
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --border-color: #e0e0e0;
+            --card-bg: #ffffff;
+            --container-bg: #ffffff;
+        }
+
+        /* 暗黑模式 */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0d1117;
+                --text-color: #f0f6fc;
+                --border-color: #30363d;
+                --card-bg: #161b22;
+                --container-bg: #0d1117;
+                --primary-color: #58a6ff;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--bg-color) 0%, var(--card-bg) 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary-color), #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: var(--secondary-color);
+            font-size: 16px;
+        }
+
+        /* 主页面样式 */
+        .quiz-type-selector {
+            padding: 30px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .type-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .type-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+        }
+
+        .type-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .type-card h3 {
+            color: var(--text-color);
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .type-card p {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .type-features {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top: 15px;
+        }
+
+        .type-features span {
+            color: var(--primary-color);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .quiz-interface {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .quiz-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .btn-back {
+            background: var(--secondary-color);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .btn-back:hover {
+            background: #5a6268;
+            transform: translateY(-1px);
+        }
+
+        #quizTitle {
+            color: var(--text-color);
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            padding: 20px;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: var(--bg-color);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        .quiz-container {
+            padding: 20px;
+        }
+
+        .top-controls {
+            margin-bottom: 20px;
+        }
+
+        .control-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .auto-next-controls {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .auto-next-controls.show {
+            opacity: 1;
+        }
+
+        .auto-next-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--card-bg);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .auto-next-toggle span {
+            font-size: 14px;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .toggle-switch {
+            width: 40px;
+            height: 20px;
+            background: var(--border-color);
+            border-radius: 10px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: var(--primary-color);
+        }
+
+        .toggle-slider {
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(20px);
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .mode-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-color);
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .mode-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .mode-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--border-color);
+            border-radius: 3px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), #764ba2);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .question-number {
+            background: var(--primary-color);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .btn-favorite {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--border-color);
+            transition: all 0.2s ease;
+            padding: 5px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-favorite:hover {
+            color: #ffc107;
+            background: rgba(255, 193, 7, 0.1);
+        }
+
+        .btn-favorite.favorited {
+            color: #ffc107;
+        }
+
+        .question-text {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .options {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: var(--bg-color);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option:hover {
+            border-color: var(--primary-color);
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .option.selected {
+            border-color: var(--primary-color);
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .option.correct {
+            border-color: var(--success-color);
+            background: rgba(40, 167, 69, 0.1);
+        }
+
+        .option.incorrect {
+            border-color: var(--danger-color);
+            background: rgba(220, 53, 69, 0.1);
+        }
+
+        .option-label {
+            width: 35px;
+            height: 35px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .option.correct .option-label {
+            background: var(--success-color);
+        }
+
+        .option.incorrect .option-label {
+            background: var(--danger-color);
+        }
+
+        .option-text {
+            flex: 1;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .result-panel {
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .result-panel.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .result-panel.result-correct {
+            background: rgba(40, 167, 69, 0.1);
+            border: 1px solid var(--success-color);
+            color: var(--success-color);
+        }
+
+        .result-panel.result-incorrect {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid var(--danger-color);
+            color: var(--danger-color);
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--container-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            z-index: 100;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+
+        .center-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #5a67d8;
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: #5a6268;
+        }
+
+        .btn-reset {
+            background: var(--warning-color);
+            color: #212529;
+        }
+
+        .btn-reset:hover {
+            background: #e0a800;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 移动端样式 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                padding: 15px;
+            }
+
+            .stat-item {
+                padding: 10px;
+            }
+
+            .stat-number {
+                font-size: 20px;
+            }
+
+            .question-card {
+                padding: 20px 15px;
+                margin-bottom: 80px;
+            }
+
+            .question-text {
+                font-size: 16px;
+            }
+
+            .option {
+                padding: 12px;
+            }
+
+            .option-text {
+                font-size: 15px;
+            }
+
+            .controls {
+                padding: 10px;
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 8px;
+            }
+
+            .center-controls {
+                grid-column: 3;
+                justify-self: stretch;
+            }
+
+            #prevBtn {
+                grid-column: 1;
+                justify-self: stretch;
+            }
+
+            #nextOnlyBtn {
+                grid-column: 2;
+                justify-self: stretch;
+                display: block !important;
+            }
+
+            .btn {
+                min-height: 44px;
+                padding: 10px 12px;
+                font-size: 13px;
+                border-radius: 22px;
+                font-weight: 600;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .btn-favorite {
+                font-size: 32px;
+                min-width: 48px;
+                min-height: 48px;
+                padding: 10px;
+            }
+
+            .quiz-type-selector {
+                padding: 20px 15px;
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .type-card {
+                padding: 25px 15px;
+            }
+
+            .type-icon {
+                font-size: 40px;
+                margin-bottom: 12px;
+            }
+
+            .type-card h3 {
+                font-size: 20px;
+                margin-bottom: 8px;
+            }
+
+            .quiz-header {
+                padding: 15px;
+            }
+
+            #quizTitle {
+                font-size: 18px;
+            }
+
+            .mode-selector {
+                justify-content: center;
+            }
+
+            .mode-btn {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -129,6 +798,732 @@
         </div>
     </div>
 
-    <script src="quiz_app.js"></script>
+    <script>
+        // 题目数据直接嵌入
+        const choiceQuestions = [
+            {
+                "id": 1,
+                "question": "晶闸管属于",
+                "options": ["不可控器件", "半控器件", "全控器件"],
+                "correctAnswer": 1,
+                "explanation": ""
+            },
+            {
+                "id": 2,
+                "question": "电力二极管属于",
+                "options": ["全控器件", "不可控器件", "半控器件"],
+                "correctAnswer": 1,
+                "explanation": ""
+            },
+            {
+                "id": 3,
+                "question": "IGBT是",
+                "options": ["电压驱动型器件", "电流驱动型器件", "混合驱动型器件"],
+                "correctAnswer": 0,
+                "explanation": ""
+            },
+            {
+                "id": 4,
+                "question": "PWM控制技术的优点是",
+                "options": ["控制简单", "谐波含量低", "功耗大", "成本高"],
+                "correctAnswer": 1,
+                "explanation": ""
+            },
+            {
+                "id": 5,
+                "question": "三相桥式整流电路的输出电压纹波频率是",
+                "options": ["50Hz", "100Hz", "150Hz", "300Hz"],
+                "correctAnswer": 3,
+                "explanation": ""
+            },
+            {
+                "id": 6,
+                "question": "Buck变换器是",
+                "options": ["升压电路", "降压电路", "升降压电路", "隔离电路"],
+                "correctAnswer": 1,
+                "explanation": ""
+            },
+            {
+                "id": 7,
+                "question": "Boost变换器是",
+                "options": ["升压电路", "降压电路", "升降压电路", "隔离电路"],
+                "correctAnswer": 0,
+                "explanation": ""
+            },
+            {
+                "id": 8,
+                "question": "SPWM调制技术中，载波通常采用",
+                "options": ["正弦波", "三角波", "方波", "锯齿波"],
+                "correctAnswer": 1,
+                "explanation": ""
+            },
+            {
+                "id": 9,
+                "question": "电力电子器件的发展趋势是",
+                "options": ["高频化", "大功率化", "智能化", "以上都是"],
+                "correctAnswer": 3,
+                "explanation": ""
+            },
+            {
+                "id": 10,
+                "question": "逆变器的作用是",
+                "options": ["AC→DC", "DC→AC", "AC→AC", "DC→DC"],
+                "correctAnswer": 1,
+                "explanation": ""
+            }
+        ];
+
+        const judgmentQuestions = [
+            {
+                "id": 1,
+                "question": "电压型逆变电路输出电压波形是幅值一定的矩形波，而电流波形则不一定（由负阻决定）。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 0,
+                "explanation": ""
+            },
+            {
+                "id": 2,
+                "question": "电力晶体管属电压驱动型开关管",
+                "options": ["正确", "错误"],
+                "correctAnswer": 1,
+                "explanation": ""
+            },
+            {
+                "id": 3,
+                "question": "电力二极管和普通二极管的工作原理一样的，具有单向导电性。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 0,
+                "explanation": ""
+            },
+            {
+                "id": 4,
+                "question": "给晶闸管加上正向阳极电压它就会导通。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 1,
+                "explanation": ""
+            },
+            {
+                "id": 5,
+                "question": "普通晶闸管外部有三个电极，分别是基极、发射极和集电极。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 1,
+                "explanation": ""
+            },
+            {
+                "id": 6,
+                "question": "在电压型逆变器中，同一桥臂上的上、下开关管允许同时导通。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 1,
+                "explanation": ""
+            },
+            {
+                "id": 7,
+                "question": "电压型无源逆变电路的输出电压波形与负载性质无关。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 0,
+                "explanation": ""
+            },
+            {
+                "id": 8,
+                "question": "电压型无源逆变电路输出电流波形与负载性质无关。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 1,
+                "explanation": ""
+            },
+            {
+                "id": 9,
+                "question": "电压型无源逆变电路上、下桥臂的控制需遵循'先断后开'的原则。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 0,
+                "explanation": ""
+            },
+            {
+                "id": 10,
+                "question": "三相桥式电压型逆变电路采用180°导电方式",
+                "options": ["正确", "错误"],
+                "correctAnswer": 0,
+                "explanation": ""
+            },
+            {
+                "id": 11,
+                "question": "三相桥式电流型逆变电路采用120°导电方式。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 0,
+                "explanation": ""
+            },
+            {
+                "id": 12,
+                "question": "有源逆变指的是把直流电能转换成交流电能送给交流电网。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 0,
+                "explanation": ""
+            },
+            {
+                "id": 13,
+                "question": "在PWM控制技术中，通常保持载波频率fc固定不变,因而当信号波频率ft变化时,载波比N是变化的，该调制方式称为同步调制方式。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 1,
+                "explanation": ""
+            },
+            {
+                "id": 14,
+                "question": "SPWM 即正弦脉宽调制波形，是指与正弦波等效的一系列等幅不等宽的矩形脉冲列。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 0,
+                "explanation": ""
+            },
+            {
+                "id": 15,
+                "question": "变频器只改变交流电频率不改变交流电电压。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 1,
+                "explanation": ""
+            },
+            {
+                "id": 16,
+                "question": "变频调速中的交-直-交PWM型变频器一般由整流器、滤波器及PWM逆变器三部分组成",
+                "options": ["正确", "错误"],
+                "correctAnswer": 0,
+                "explanation": ""
+            },
+            {
+                "id": 17,
+                "question": "boost电路中，其输出电压低于输入电压。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 1,
+                "explanation": ""
+            },
+            {
+                "id": 18,
+                "question": "降压斩波电路中，其输出电压的瞬时值低于输入电压瞬时值。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 1,
+                "explanation": "注意：此题答错了，正确答案应该是错误"
+            },
+            {
+                "id": 19,
+                "question": "对于三相全控桥整流电路，控制角α的计量起点为自然换相点。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 0,
+                "explanation": ""
+            },
+            {
+                "id": 20,
+                "question": "IGBT属于电压驱动型器件。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 0,
+                "explanation": ""
+            },
+            {
+                "id": 21,
+                "question": "三相可控整流电路中晶闸管采用'共阴'接法或'共阳'接法，输出结果都一样。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 1,
+                "explanation": ""
+            },
+            {
+                "id": 22,
+                "question": "可控整流电路通过调整晶闸管控制角即可改变输出电压。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 0,
+                "explanation": ""
+            },
+            {
+                "id": 23,
+                "question": "电力场效应晶体管和绝缘栅双极型晶体管都属电压驱动型开关管。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 0,
+                "explanation": ""
+            },
+            {
+                "id": 24,
+                "question": "非隔离型DC/DC变换电路与隔离型DC/DC变换电路的主要区别在于变换电路中有无高频脉冲变压器。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 0,
+                "explanation": ""
+            },
+            {
+                "id": 25,
+                "question": "占空比用D来表示，D=ton/T。其中，ton表示开关管一个周期导通时间，T表示开关周期。",
+                "options": ["正确", "错误"],
+                "correctAnswer": 0,
+                "explanation": ""
+            }
+        ];
+
+        // 题目训练系统类
+        class QuizApp {
+            constructor() {
+                this.questions = [];
+                this.currentQuestionIndex = 0;
+                this.selectedAnswer = null;
+                this.correctCount = 0;
+                this.answeredQuestions = [];
+                this.wrongQuestions = [];
+                this.favoriteQuestions = this.loadFavorites();
+                this.mode = 'sequential';
+                this.questionOrder = [];
+                this.autoNextTimer = null;
+                this.autoNextEnabled = true;
+                this.quizType = null;
+                this.isQuizStarted = false;
+
+                this.init();
+            }
+
+            init() {
+                this.setupThemeDetection();
+                this.setupResizeListener();
+                this.showHomePage();
+            }
+
+            showHomePage() {
+                document.getElementById('quizTypeSelector').style.display = 'block';
+                document.getElementById('quizInterface').style.display = 'none';
+                this.isQuizStarted = false;
+            }
+
+            async startQuiz(type) {
+                this.quizType = type;
+                this.isQuizStarted = true;
+
+                // 隐藏主页，显示答题界面
+                document.getElementById('quizTypeSelector').style.display = 'none';
+                document.getElementById('quizInterface').style.display = 'block';
+
+                // 更新标题
+                const title = type === 'choice' ? '📝 选择题练习' : '⚡ 判断题练习';
+                document.getElementById('quizTitle').textContent = title;
+
+                try {
+                    // 加载对应的题目数据
+                    if (type === 'choice') {
+                        // 选择题从外部JSON文件加载
+                        const response = await fetch('questions_data.json');
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        this.questions = await response.json();
+                    } else {
+                        // 判断题使用内嵌数据
+                        this.questions = judgmentQuestions;
+                    }
+
+                    console.log(`成功加载 ${this.questions.length} 道${type === 'choice' ? '选择题' : '判断题'}`);
+
+                    this.setupQuestionOrder();
+                    this.displayQuestion();
+                    this.updateStats();
+
+                    // 显示自动跳转控制面板
+                    document.getElementById('autoNextControls').classList.add('show');
+                } catch (error) {
+                    console.error('加载题目失败:', error);
+                    // 如果加载失败，使用备用数据
+                    this.questions = type === 'choice' ? choiceQuestions : judgmentQuestions;
+                    console.log(`使用备用数据: ${this.questions.length} 道${type === 'choice' ? '选择题' : '判断题'}`);
+
+                    this.setupQuestionOrder();
+                    this.displayQuestion();
+                    this.updateStats();
+
+                    document.getElementById('autoNextControls').classList.add('show');
+                }
+            }
+
+            setupQuestionOrder() {
+                switch (this.mode) {
+                    case 'sequential':
+                        this.questionOrder = Array.from({length: this.questions.length}, (_, i) => i);
+                        break;
+                    case 'random':
+                        this.questionOrder = this.shuffleArray(Array.from({length: this.questions.length}, (_, i) => i));
+                        break;
+                    case 'wrong':
+                        this.questionOrder = [...this.wrongQuestions];
+                        if (this.questionOrder.length === 0) {
+                            alert('暂无错题，切换到顺序练习模式');
+                            this.mode = 'sequential';
+                            this.setupQuestionOrder();
+                            return;
+                        }
+                        break;
+                    case 'favorites':
+                        this.questionOrder = [...this.favoriteQuestions];
+                        if (this.questionOrder.length === 0) {
+                            alert('暂无收藏题目，切换到顺序练习模式');
+                            this.mode = 'sequential';
+                            this.setupQuestionOrder();
+                            return;
+                        }
+                        break;
+                }
+                this.currentQuestionIndex = 0;
+            }
+
+            shuffleArray(array) {
+                const shuffled = [...array];
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+
+            displayQuestion() {
+                if (this.questionOrder.length === 0) {
+                    document.getElementById('questionText').textContent = '没有可用的题目';
+                    return;
+                }
+
+                const questionIndex = this.questionOrder[this.currentQuestionIndex];
+                const question = this.questions[questionIndex];
+
+                if (!question) {
+                    console.error('题目不存在:', questionIndex);
+                    return;
+                }
+
+                // 更新题目编号和文本
+                document.getElementById('questionNumber').textContent = `第 ${this.currentQuestionIndex + 1} 题`;
+                document.getElementById('questionText').textContent = question.question;
+
+                // 生成选项
+                this.displayOptions(question.options);
+
+                // 更新收藏状态
+                this.updateFavoriteButton(questionIndex);
+
+                // 重置状态
+                this.selectedAnswer = null;
+                this.cancelAutoNext();
+                this.hideResult();
+                this.updateButtons();
+                this.updateProgress();
+            }
+
+            displayOptions(options) {
+                const optionsList = document.getElementById('optionsList');
+                optionsList.innerHTML = '';
+
+                // 检测是否为判断题
+                const isJudgmentQuestion = options.length === 2 &&
+                    (options.includes('正确') && options.includes('错误'));
+
+                options.forEach((option, index) => {
+                    const li = document.createElement('li');
+                    li.className = 'option';
+                    li.onclick = () => this.selectOption(index);
+
+                    if (isJudgmentQuestion) {
+                        // 判断题使用 ✓ 和 ✗ 符号
+                        const symbol = option === '正确' ? '✓' : '✗';
+                        const color = option === '正确' ? '#28a745' : '#dc3545';
+                        li.innerHTML = `
+                            <div class="option-label" style="background: ${color};">${symbol}</div>
+                            <div class="option-text">${option}</div>
+                        `;
+                    } else {
+                        // 选择题使用 A、B、C、D
+                        li.innerHTML = `
+                            <div class="option-label">${String.fromCharCode(65 + index)}</div>
+                            <div class="option-text">${option}</div>
+                        `;
+                    }
+
+                    optionsList.appendChild(li);
+                });
+            }
+
+            selectOption(index) {
+                // 移除之前的选择
+                document.querySelectorAll('.option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+
+                // 添加新选择
+                document.querySelectorAll('.option')[index].classList.add('selected');
+                this.selectedAnswer = index;
+
+                // 启用提交按钮
+                document.getElementById('submitBtn').disabled = false;
+            }
+
+            updateStats() {
+                document.getElementById('totalQuestions').textContent = this.questions.length;
+                document.getElementById('currentQuestion').textContent = this.currentQuestionIndex + 1;
+                document.getElementById('correctCount').textContent = this.correctCount;
+
+                const accuracy = this.answeredQuestions.length > 0 ?
+                    Math.round((this.correctCount / this.answeredQuestions.length) * 100) : 0;
+                document.getElementById('accuracy').textContent = accuracy + '%';
+            }
+
+            setupThemeDetection() {
+                const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+                const handleThemeChange = (e) => {
+                    console.log('主题模式:', e.matches ? '暗色' : '浅色');
+                };
+                handleThemeChange(mediaQuery);
+                if (mediaQuery.addEventListener) {
+                    mediaQuery.addEventListener('change', handleThemeChange);
+                }
+            }
+
+            setupResizeListener() {
+                window.addEventListener('resize', () => {
+                    this.updateButtons();
+                });
+            }
+
+            loadFavorites() {
+                try {
+                    const saved = localStorage.getItem('quiz_favorites');
+                    return saved ? JSON.parse(saved) : [];
+                } catch (error) {
+                    return [];
+                }
+            }
+
+            saveFavorites() {
+                try {
+                    localStorage.setItem('quiz_favorites', JSON.stringify(this.favoriteQuestions));
+                } catch (error) {
+                    console.error('保存收藏失败:', error);
+                }
+            }
+
+            updateFavoriteButton(questionIndex) {
+                const favoriteBtn = document.getElementById('favoriteBtn');
+                const favoriteIcon = document.getElementById('favoriteIcon');
+                const isFavorited = this.favoriteQuestions.includes(questionIndex);
+
+                if (isFavorited) {
+                    favoriteBtn.classList.add('favorited');
+                    favoriteIcon.textContent = '★';
+                    favoriteBtn.title = '取消收藏';
+                } else {
+                    favoriteBtn.classList.remove('favorited');
+                    favoriteIcon.textContent = '☆';
+                    favoriteBtn.title = '收藏题目';
+                }
+            }
+
+            hideResult() {
+                const resultPanel = document.getElementById('resultPanel');
+                resultPanel.className = 'result-panel';
+            }
+
+            updateProgress() {
+                const progress = ((this.currentQuestionIndex + 1) / this.questionOrder.length) * 100;
+                document.getElementById('progressFill').style.width = progress + '%';
+            }
+
+            cancelAutoNext() {
+                if (this.autoNextTimer) {
+                    clearTimeout(this.autoNextTimer);
+                    this.autoNextTimer = null;
+                }
+            }
+
+            updateButtons() {
+                const submitBtn = document.getElementById('submitBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                const nextOnlyBtn = document.getElementById('nextOnlyBtn');
+                const prevBtn = document.getElementById('prevBtn');
+
+                const hasAnswered = document.getElementById('resultPanel').classList.contains('show');
+                const isLastQuestion = this.currentQuestionIndex >= this.questionOrder.length - 1;
+                const isMobile = window.innerWidth <= 768;
+
+                if (isMobile) {
+                    nextOnlyBtn.style.display = 'inline-block';
+                    nextOnlyBtn.disabled = isLastQuestion;
+
+                    if (hasAnswered) {
+                        submitBtn.innerHTML = '➡️ 下一题';
+                        submitBtn.disabled = isLastQuestion;
+                        submitBtn.setAttribute('onclick', 'nextQuestion()');
+                        nextBtn.style.display = 'none';
+                    } else {
+                        submitBtn.innerHTML = '✅ 提交答案';
+                        submitBtn.disabled = this.selectedAnswer === null;
+                        submitBtn.setAttribute('onclick', 'submitAnswer()');
+                        nextBtn.style.display = 'none';
+                    }
+                } else {
+                    submitBtn.innerHTML = '✅ 提交答案';
+                    submitBtn.setAttribute('onclick', 'submitAnswer()');
+
+                    if (hasAnswered) {
+                        submitBtn.style.display = 'none';
+                        nextBtn.style.display = 'inline-block';
+                        nextBtn.disabled = isLastQuestion;
+                        nextOnlyBtn.style.display = 'none';
+                    } else {
+                        submitBtn.style.display = 'inline-block';
+                        submitBtn.disabled = this.selectedAnswer === null;
+                        nextBtn.style.display = 'none';
+                        nextOnlyBtn.style.display = 'inline-block';
+                        nextOnlyBtn.disabled = isLastQuestion;
+                    }
+                }
+
+                prevBtn.disabled = this.currentQuestionIndex === 0;
+            }
+        }
+
+        // 全局函数
+        async function startQuiz(type) {
+            await window.quizApp.startQuiz(type);
+        }
+
+        function backToHome() {
+            window.quizApp.showHomePage();
+        }
+
+        function submitAnswer() {
+            if (window.quizApp.selectedAnswer === null) return;
+
+            const questionIndex = window.quizApp.questionOrder[window.quizApp.currentQuestionIndex];
+            const question = window.quizApp.questions[questionIndex];
+            const isCorrect = window.quizApp.selectedAnswer === question.correctAnswer;
+
+            // 标记选项
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, index) => {
+                if (index === question.correctAnswer) {
+                    option.classList.add('correct');
+                } else if (index === window.quizApp.selectedAnswer && !isCorrect) {
+                    option.classList.add('incorrect');
+                }
+            });
+
+            // 更新统计
+            if (!window.quizApp.answeredQuestions.includes(questionIndex)) {
+                window.quizApp.answeredQuestions.push(questionIndex);
+                if (isCorrect) {
+                    window.quizApp.correctCount++;
+                    const wrongIndex = window.quizApp.wrongQuestions.indexOf(questionIndex);
+                    if (wrongIndex > -1) {
+                        window.quizApp.wrongQuestions.splice(wrongIndex, 1);
+                    }
+                } else {
+                    if (!window.quizApp.wrongQuestions.includes(questionIndex)) {
+                        window.quizApp.wrongQuestions.push(questionIndex);
+                    }
+                }
+            }
+
+            // 显示结果
+            const resultPanel = document.getElementById('resultPanel');
+            const resultText = document.getElementById('resultText');
+
+            resultPanel.className = 'result-panel show';
+            if (isCorrect) {
+                resultPanel.classList.add('result-correct');
+                resultText.innerHTML = `<strong>✅ 回答正确！</strong><br>${question.explanation || '继续加油！'}`;
+            } else {
+                resultPanel.classList.add('result-incorrect');
+                resultText.innerHTML = `<strong>❌ 回答错误</strong><br>正确答案是：<strong>${String.fromCharCode(65 + question.correctAnswer)}. ${question.options[question.correctAnswer]}</strong><br>${question.explanation || ''}`;
+            }
+
+            window.quizApp.updateStats();
+            window.quizApp.updateButtons();
+
+            // 如果答对了且开启自动跳转，则自动跳转到下一题
+            if (isCorrect && window.quizApp.autoNextEnabled) {
+                window.quizApp.autoNextTimer = setTimeout(() => {
+                    nextQuestion();
+                }, 300);
+            }
+        }
+
+        function nextQuestion() {
+            if (window.quizApp.currentQuestionIndex < window.quizApp.questionOrder.length - 1) {
+                window.quizApp.currentQuestionIndex++;
+                window.quizApp.displayQuestion();
+            } else {
+                const accuracy = window.quizApp.answeredQuestions.length > 0 ?
+                    Math.round((window.quizApp.correctCount / window.quizApp.answeredQuestions.length) * 100) : 0;
+                alert(`练习完成！\n总题数：${window.quizApp.questionOrder.length}\n答对：${window.quizApp.correctCount}题\n正确率：${accuracy}%`);
+            }
+        }
+
+        function previousQuestion() {
+            if (window.quizApp.currentQuestionIndex > 0) {
+                window.quizApp.currentQuestionIndex--;
+                window.quizApp.displayQuestion();
+            }
+        }
+
+        function setMode(mode, buttonElement) {
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            if (buttonElement) {
+                buttonElement.classList.add('active');
+            }
+
+            if (window.quizApp) {
+                window.quizApp.mode = mode;
+                window.quizApp.setupQuestionOrder();
+                window.quizApp.displayQuestion();
+                window.quizApp.updateStats();
+            }
+        }
+
+        function resetQuiz() {
+            window.quizApp.currentQuestionIndex = 0;
+            window.quizApp.selectedAnswer = null;
+            window.quizApp.correctCount = 0;
+            window.quizApp.answeredQuestions = [];
+            window.quizApp.setupQuestionOrder();
+            window.quizApp.displayQuestion();
+            window.quizApp.updateStats();
+        }
+
+        function toggleAutoNext() {
+            window.quizApp.autoNextEnabled = !window.quizApp.autoNextEnabled;
+            const toggle = document.getElementById('autoNextToggle');
+            if (window.quizApp.autoNextEnabled) {
+                toggle.classList.add('active');
+            } else {
+                toggle.classList.remove('active');
+                window.quizApp.cancelAutoNext();
+            }
+        }
+
+        function toggleFavorite() {
+            const questionIndex = window.quizApp.questionOrder[window.quizApp.currentQuestionIndex];
+            const isFavorited = window.quizApp.favoriteQuestions.includes(questionIndex);
+
+            if (isFavorited) {
+                const index = window.quizApp.favoriteQuestions.indexOf(questionIndex);
+                window.quizApp.favoriteQuestions.splice(index, 1);
+            } else {
+                window.quizApp.favoriteQuestions.push(questionIndex);
+            }
+
+            window.quizApp.saveFavorites();
+            window.quizApp.updateFavoriteButton(questionIndex);
+
+            if (window.quizApp.mode === 'favorites' && !isFavorited) {
+                window.quizApp.setupQuestionOrder();
+                if (window.quizApp.currentQuestionIndex >= window.quizApp.questionOrder.length) {
+                    window.quizApp.currentQuestionIndex = Math.max(0, window.quizApp.questionOrder.length - 1);
+                }
+                if (window.quizApp.questionOrder.length > 0) {
+                    window.quizApp.displayQuestion();
+                }
+            }
+        }
+
+        // 初始化应用
+        document.addEventListener('DOMContentLoaded', () => {
+            window.quizApp = new QuizApp();
+        });
+    </script>
 </body>
 </html>
