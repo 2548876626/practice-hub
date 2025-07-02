@@ -596,25 +596,33 @@
             }
 
             .controls {
-                padding: 10px;
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
-                gap: 8px;
+                padding: 10px !important;
+                display: grid !important;
+                grid-template-columns: 1fr 1fr 1fr !important;
+                gap: 8px !important;
+                justify-content: unset !important;
+                align-items: stretch !important;
             }
 
             .center-controls {
-                grid-column: 3;
-                justify-self: stretch;
+                grid-column: 3 !important;
+                justify-self: stretch !important;
+                display: flex !important;
             }
 
             #prevBtn {
-                grid-column: 1;
-                justify-self: stretch;
+                grid-column: 1 !important;
+                justify-self: stretch !important;
+                display: block !important;
             }
 
             #nextOnlyBtn {
-                grid-column: 2;
-                justify-self: stretch;
+                grid-column: 2 !important;
+                justify-self: stretch !important;
+                display: block !important;
+            }
+
+            #submitBtn, #nextBtn {
                 display: block !important;
             }
 
@@ -1337,7 +1345,8 @@
                 const isMobile = window.innerWidth <= 768;
 
                 if (isMobile) {
-                    nextOnlyBtn.style.display = 'inline-block';
+                    // 移动端：确保三个按钮都显示，使用CSS Grid布局
+                    nextOnlyBtn.style.display = 'block';
                     nextOnlyBtn.disabled = isLastQuestion;
 
                     if (hasAnswered) {
