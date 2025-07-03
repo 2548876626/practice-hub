@@ -303,11 +303,18 @@
 
         .progress-bar {
             width: 100%;
-            height: 6px;
+            height: 8px;
             background: var(--border-color);
-            border-radius: 3px;
+            border-radius: 4px;
             margin-bottom: 20px;
             overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            transition: height 0.2s ease;
+        }
+
+        .progress-bar:hover {
+            height: 10px;
         }
 
         .progress-fill {
@@ -382,6 +389,14 @@
             border-radius: 10px;
             overflow: hidden;
             border: 1px solid var(--border-color);
+        }
+
+        .question-image[style*="display: none"] {
+            margin: 0 !important;
+            padding: 0 !important;
+            min-height: 0 !important;
+            height: 0 !important;
+            border: none !important;
         }
 
         .question-image img {
@@ -586,6 +601,16 @@
                 padding: 15px;
             }
 
+            .progress-bar {
+                height: 12px !important;
+                margin-bottom: 15px !important;
+                border-radius: 6px !important;
+            }
+
+            .progress-bar:hover {
+                height: 14px !important;
+            }
+
             .stat-item {
                 padding: 10px;
             }
@@ -603,7 +628,7 @@
                 font-size: 16px;
             }
 
-            .question-image {
+            .question-image:not([style*="display: none"]) {
                 margin: 15px 0 !important;
                 display: block !important;
                 text-align: center !important;
@@ -611,15 +636,29 @@
                 border-radius: 8px !important;
                 overflow: hidden !important;
                 background: white !important;
+                min-height: 200px !important;
+                padding: 10px !important;
+            }
+
+            .question-image[style*="display: none"] {
+                margin: 0 !important;
+                padding: 0 !important;
+                min-height: 0 !important;
+                height: 0 !important;
+                border: none !important;
+                display: none !important;
             }
 
             .question-image img {
                 max-width: 100% !important;
+                width: 100% !important;
                 height: auto !important;
+                min-height: 180px !important;
                 display: block !important;
                 margin: 0 auto !important;
                 border-radius: 8px !important;
                 background: white !important;
+                object-fit: contain !important;
             }
 
             .option {
@@ -807,7 +846,7 @@
                     </div>
                 </div>
 
-                <div class="progress-bar">
+                <div class="progress-bar" id="progressBar" onclick="jumpToProgress(event)">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
 
@@ -1241,11 +1280,10 @@
                 // 处理图片显示
                 const questionImage = document.getElementById('questionImage');
                 const questionImg = document.getElementById('questionImg');
-                if (question.hasImage && question.imageUrl) {
-                    console.log('显示图片:', question.imageUrl);
 
-                    // 先显示容器
-                    questionImage.style.display = 'block';
+                // 只有当题目明确标记有图片且提供了图片URL时才显示图片
+                if (question.hasImage === true && question.imageUrl && question.imageUrl.trim() !== '') {
+                    console.log('显示图片:', question.imageUrl);
 
                     // 重置容器内容，确保有img元素
                     questionImage.innerHTML = '<img id="questionImg" src="" alt="题目图片">';
@@ -1254,6 +1292,7 @@
                     // 添加图片加载事件监听
                     newQuestionImg.onload = function() {
                         console.log('图片加载成功');
+                        questionImage.style.display = 'block';
                     };
 
                     newQuestionImg.onerror = function() {
@@ -1266,6 +1305,7 @@
                                 <small style="font-size: 10px; opacity: 0.7;">URL: ${question.imageUrl}</small>
                             </div>
                         `;
+                        questionImage.style.display = 'block';
                     };
 
                     // 设置图片源
@@ -1279,7 +1319,14 @@
                         newQuestionImg.style.display = 'block';
                     }
                 } else {
+                    // 没有图片的题目，完全隐藏图片容器
+                    console.log('题目无图片，隐藏图片容器');
                     questionImage.style.display = 'none';
+                    questionImage.style.minHeight = '0';
+                    questionImage.style.padding = '0';
+                    questionImage.style.margin = '0';
+                    questionImage.style.border = 'none';
+                    questionImage.innerHTML = '';
                 }
 
                 // 生成选项
@@ -1618,6 +1665,29 @@
                     window.quizApp.displayQuestion();
                 }
             }
+        }
+
+        function jumpToProgress(event) {
+            if (!window.quizApp || window.quizApp.questionOrder.length === 0) {
+                return;
+            }
+
+            const progressBar = event.currentTarget;
+            const rect = progressBar.getBoundingClientRect();
+            const clickX = event.clientX - rect.left;
+            const progressWidth = rect.width;
+            const clickPercent = clickX / progressWidth;
+
+            // 计算目标题目索引
+            const targetIndex = Math.floor(clickPercent * window.quizApp.questionOrder.length);
+            const clampedIndex = Math.max(0, Math.min(targetIndex, window.quizApp.questionOrder.length - 1));
+
+            console.log(`进度条点击: ${(clickPercent * 100).toFixed(1)}%, 跳转到第 ${clampedIndex + 1} 题`);
+
+            // 跳转到目标题目
+            window.quizApp.currentQuestionIndex = clampedIndex;
+            window.quizApp.displayQuestion();
+            window.quizApp.updateProgress();
         }
 
         // 初始化应用
