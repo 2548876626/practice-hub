@@ -604,11 +604,22 @@
             }
 
             .question-image {
-                margin: 15px 0;
+                margin: 15px 0 !important;
+                display: block !important;
+                text-align: center !important;
+                border: 1px solid var(--border-color) !important;
+                border-radius: 8px !important;
+                overflow: hidden !important;
+                background: white !important;
             }
 
             .question-image img {
-                border-radius: 8px;
+                max-width: 100% !important;
+                height: auto !important;
+                display: block !important;
+                margin: 0 auto !important;
+                border-radius: 8px !important;
+                background: white !important;
             }
 
             .option {
@@ -1231,8 +1242,42 @@
                 const questionImage = document.getElementById('questionImage');
                 const questionImg = document.getElementById('questionImg');
                 if (question.hasImage && question.imageUrl) {
-                    questionImg.src = question.imageUrl;
+                    console.log('显示图片:', question.imageUrl);
+
+                    // 先显示容器
                     questionImage.style.display = 'block';
+
+                    // 重置容器内容，确保有img元素
+                    questionImage.innerHTML = '<img id="questionImg" src="" alt="题目图片">';
+                    const newQuestionImg = document.getElementById('questionImg');
+
+                    // 添加图片加载事件监听
+                    newQuestionImg.onload = function() {
+                        console.log('图片加载成功');
+                    };
+
+                    newQuestionImg.onerror = function() {
+                        console.error('图片加载失败:', question.imageUrl);
+                        // 显示图片加载失败的提示
+                        questionImage.innerHTML = `
+                            <div style="padding: 20px; text-align: center; color: var(--secondary-color); border: 1px dashed var(--border-color); border-radius: 8px;">
+                                📷 图片加载失败<br>
+                                <small>请检查网络连接或刷新页面</small><br>
+                                <small style="font-size: 10px; opacity: 0.7;">URL: ${question.imageUrl}</small>
+                            </div>
+                        `;
+                    };
+
+                    // 设置图片源
+                    newQuestionImg.src = question.imageUrl;
+
+                    // 添加移动端特殊处理
+                    if (window.innerWidth <= 768) {
+                        console.log('移动端图片显示');
+                        newQuestionImg.style.maxWidth = '100%';
+                        newQuestionImg.style.height = 'auto';
+                        newQuestionImg.style.display = 'block';
+                    }
                 } else {
                     questionImage.style.display = 'none';
                 }
