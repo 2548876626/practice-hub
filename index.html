@@ -399,6 +399,204 @@
             border: none !important;
         }
 
+        /* 看答案练习模式样式 */
+        .review-mode {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .review-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .review-header h2 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .review-header p {
+            color: var(--secondary-color);
+            font-size: 14px;
+        }
+
+        .review-question-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .review-question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .review-question-header .btn-favorite {
+            font-size: 24px;
+            color: #ccc;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .review-question-header .btn-favorite:hover {
+            color: #ffc107;
+        }
+
+        .review-question-header .btn-favorite.favorited {
+            color: #ffc107;
+        }
+
+        .review-question-number {
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .review-question-text {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .review-options {
+            margin-bottom: 20px;
+        }
+
+        .review-option {
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .review-option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+
+        .review-option-label {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .review-option.correct .review-option-label {
+            background: #28a745;
+        }
+
+        .review-answer {
+            background: #f8f9fa;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 15px;
+        }
+
+        .review-answer-label {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .review-mode-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .review-mode-selector .mode-btn {
+            font-size: 12px;
+            padding: 6px 12px;
+        }
+
+        /* 回到顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: none;
+        }
+
+        .back-to-top:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-to-top.show {
+            display: block;
+        }
+
+        /* 题目类型切换按钮 */
+        .quiz-type-switch {
+            position: fixed;
+            bottom: 90px; /* 在回到顶部按钮上方 */
+            right: 30px;
+            z-index: 999;
+        }
+
+        .quiz-type-switch .btn {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 25px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            white-space: nowrap;
+            display: none; /* 默认隐藏 */
+        }
+
+        .quiz-type-switch .btn.show {
+            display: block;
+        }
+
+        .quiz-type-switch .btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
         .question-image img {
             max-width: 100%;
             height: auto;
@@ -761,6 +959,58 @@
                 font-size: 12px;
                 padding: 6px 12px;
             }
+
+            .review-question-item {
+                padding: 20px 15px;
+                margin-bottom: 20px;
+            }
+
+            .review-question-text {
+                font-size: 16px;
+            }
+
+            .review-option {
+                padding: 10px 12px;
+            }
+
+            .review-option-label {
+                width: 25px;
+                height: 25px;
+                font-size: 12px;
+            }
+
+            .review-answer {
+                padding: 12px;
+                margin-top: 12px;
+            }
+
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+
+            .review-mode-selector {
+                gap: 6px;
+            }
+
+            .review-mode-selector .mode-btn {
+                font-size: 11px;
+                padding: 5px 10px;
+            }
+
+            .quiz-type-switch {
+                bottom: 75px; /* 在回到顶部按钮上方 */
+                right: 20px;
+            }
+
+            .quiz-type-switch .btn {
+                padding: 8px 12px;
+                font-size: 12px;
+                border-radius: 20px;
+            }
         }
     </style>
 </head>
@@ -825,7 +1075,33 @@
             </div>
 
             <div class="quiz-container">
-                <div class="top-controls">
+                <!-- 看答案练习模式 -->
+                <div class="review-mode" id="reviewMode" style="display: none;">
+                    <div class="review-header">
+                        <div class="control-row">
+                            <h2>📚 浏览学习模式</h2>
+                            <button class="btn btn-secondary" onclick="backToHome()">🏠 返回主页</button>
+                        </div>
+                        <p>滚动浏览所有题目和答案，可以收藏重要题目</p>
+
+                        <!-- 模式切换按钮 -->
+                        <div class="review-mode-selector">
+                            <button class="mode-btn" onclick="setMode('sequential', this)">顺序练习</button>
+                            <button class="mode-btn" onclick="setMode('random', this)">随机练习</button>
+                            <button class="mode-btn" onclick="setMode('wrong', this)">错题练习</button>
+                            <button class="mode-btn" onclick="setMode('favorites', this)">收藏练习</button>
+                            <button class="mode-btn active" onclick="setMode('review', this)">📚 浏览学习</button>
+                        </div>
+
+                    </div>
+                    <div class="review-questions" id="reviewQuestions">
+                        <!-- 题目列表将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+
+                <!-- 普通练习模式 -->
+                <div class="normal-mode" id="normalMode">
+                    <div class="top-controls">
                     <div class="control-row">
                         <div class="auto-next-controls" id="autoNextControls">
                             <div class="auto-next-toggle">
@@ -843,6 +1119,7 @@
                         <button class="mode-btn" onclick="setMode('random', this)">随机练习</button>
                         <button class="mode-btn" onclick="setMode('wrong', this)">错题练习</button>
                         <button class="mode-btn" onclick="setMode('favorites', this)">收藏练习</button>
+                        <button class="mode-btn" onclick="setMode('review', this)">📚 浏览学习</button>
                     </div>
                 </div>
 
@@ -883,8 +1160,19 @@
                         <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" style="display: none;">➡️ 下一题</button>
                     </div>
                 </div>
+                </div> <!-- 结束 normal-mode -->
             </div>
         </div>
+    </div>
+
+    <!-- 回到顶部按钮 -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="回到顶部">
+        ↑
+    </button>
+
+    <!-- 题目类型切换按钮 -->
+    <div class="quiz-type-switch" id="quizTypeSwitch">
+        <!-- 动态生成切换按钮 -->
     </div>
 
     <script>
@@ -1157,6 +1445,29 @@
                 this.quizType = null;
                 this.isQuizStarted = false;
 
+                // 状态保存：每种题目类型的状态独立保存
+                this.states = {
+                    choice: {
+                        currentQuestionIndex: 0,
+                        mode: 'sequential',
+                        selectedAnswers: {}, // 保存每题的选择状态
+                        questionOrder: [],
+                        correctCount: 0,
+                        answeredQuestions: [],
+                        reviewScrollPosition: 0 // 浏览学习模式的滚动位置
+                    },
+                    judgment: {
+                        currentQuestionIndex: 0,
+                        mode: 'sequential',
+                        selectedAnswers: {},
+                        questionOrder: [],
+                        correctCount: 0,
+                        answeredQuestions: [],
+                        reviewScrollPosition: 0
+                    }
+                };
+
+                this.loadStates();
                 this.init();
             }
 
@@ -1183,6 +1494,9 @@
                 // 更新标题
                 const title = type === 'choice' ? '📝 选择题练习' : '⚡ 判断题练习';
                 document.getElementById('quizTitle').textContent = title;
+
+                // 恢复对应题目类型的状态
+                this.restoreState(type);
 
                 try {
                     // 加载对应的题目数据
@@ -1339,6 +1653,24 @@
                 this.selectedAnswer = null;
                 this.cancelAutoNext();
                 this.hideResult();
+
+                // 清除所有选项的视觉状态
+                document.querySelectorAll('.option').forEach(option => {
+                    option.classList.remove('correct', 'incorrect', 'selected');
+                });
+
+                // 恢复之前的选择状态（只有在有保存的选择时才恢复）
+                if (this.selectedAnswers &&
+                    Object.keys(this.selectedAnswers).length > 0 &&
+                    this.selectedAnswers[questionIndex] !== undefined) {
+                    this.selectedAnswer = this.selectedAnswers[questionIndex];
+                    this.selectOption(this.selectedAnswer);
+                    // 如果已经答过题，显示结果
+                    if (this.answeredQuestions.includes(questionIndex)) {
+                        this.showAnswerResult(questionIndex);
+                    }
+                }
+
                 this.updateButtons();
                 this.updateProgress();
             }
@@ -1434,6 +1766,119 @@
                 }
             }
 
+            loadStates() {
+                try {
+                    const saved = localStorage.getItem('quiz_states');
+                    if (saved) {
+                        const loadedStates = JSON.parse(saved);
+                        // 合并保存的状态，保留默认值
+                        this.states.choice = { ...this.states.choice, ...loadedStates.choice };
+                        this.states.judgment = { ...this.states.judgment, ...loadedStates.judgment };
+                    }
+                } catch (error) {
+                    console.error('加载状态失败:', error);
+                }
+            }
+
+            saveStates() {
+                try {
+                    localStorage.setItem('quiz_states', JSON.stringify(this.states));
+                } catch (error) {
+                    console.error('保存状态失败:', error);
+                }
+            }
+
+            restoreState(type) {
+                const state = this.states[type];
+                this.currentQuestionIndex = state.currentQuestionIndex;
+                this.mode = state.mode;
+                this.questionOrder = [...state.questionOrder];
+                this.correctCount = state.correctCount;
+                this.answeredQuestions = [...state.answeredQuestions];
+
+                // 恢复选择状态
+                this.selectedAnswers = { ...state.selectedAnswers };
+
+                // 恢复浏览学习模式的滚动位置
+                this.reviewScrollPosition = state.reviewScrollPosition || 0;
+            }
+
+            saveCurrentState() {
+                if (!this.quizType) return;
+
+                const state = this.states[this.quizType];
+                state.currentQuestionIndex = this.currentQuestionIndex;
+                state.mode = this.mode;
+                state.questionOrder = [...this.questionOrder];
+                state.correctCount = this.correctCount;
+                state.answeredQuestions = [...this.answeredQuestions];
+                state.selectedAnswers = { ...this.selectedAnswers };
+
+                // 保存浏览学习模式的滚动位置
+                const reviewMode = document.getElementById('reviewMode');
+                if (reviewMode && reviewMode.style.display !== 'none') {
+                    state.reviewScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+                }
+
+                this.saveStates();
+            }
+
+            showAnswerResult(questionIndex) {
+                const question = this.questions[questionIndex];
+                const selectedAnswer = this.selectedAnswers[questionIndex];
+                const isCorrect = selectedAnswer === question.correctAnswer;
+
+                // 标记选项
+                const options = document.querySelectorAll('.option');
+                options.forEach((option, index) => {
+                    if (index === question.correctAnswer) {
+                        option.classList.add('correct');
+                    } else if (index === selectedAnswer && !isCorrect) {
+                        option.classList.add('incorrect');
+                    }
+                });
+
+                // 显示结果面板
+                const resultPanel = document.getElementById('resultPanel');
+                const resultText = document.getElementById('resultText');
+
+                resultPanel.className = 'result-panel show';
+                if (isCorrect) {
+                    resultPanel.classList.add('result-correct');
+                    resultText.innerHTML = `<strong>✅ 回答正确！</strong><br>${question.explanation || '继续加油！'}`;
+                } else {
+                    resultPanel.classList.add('result-incorrect');
+                    resultText.innerHTML = `<strong>❌ 回答错误</strong><br>正确答案是：<strong>${String.fromCharCode(65 + question.correctAnswer)}. ${question.options[question.correctAnswer]}</strong><br>${question.explanation || ''}`;
+                }
+            }
+
+            hideResult() {
+                const resultPanel = document.getElementById('resultPanel');
+                if (resultPanel) {
+                    resultPanel.className = 'result-panel';
+                }
+
+                // 清除选项的正确/错误标记和选中状态
+                document.querySelectorAll('.option').forEach(option => {
+                    option.classList.remove('correct', 'incorrect', 'selected');
+                });
+            }
+
+            clearAllVisualStates() {
+                // 清除结果面板
+                this.hideResult();
+
+                // 清除所有选项的状态
+                document.querySelectorAll('.option').forEach(option => {
+                    option.classList.remove('correct', 'incorrect', 'selected');
+                    option.style.backgroundColor = '';
+                    option.style.borderColor = '';
+                });
+
+                // 重置选择状态
+                this.selectedAnswer = null;
+            }
+
             updateFavoriteButton(questionIndex) {
                 const favoriteBtn = document.getElementById('favoriteBtn');
                 const favoriteIcon = document.getElementById('favoriteIcon');
@@ -1448,6 +1893,66 @@
                     favoriteIcon.textContent = '☆';
                     favoriteBtn.title = '收藏题目';
                 }
+            }
+
+            showReviewMode() {
+                const reviewQuestions = document.getElementById('reviewQuestions');
+                reviewQuestions.innerHTML = '';
+
+                // 生成题目类型切换按钮
+                const quizTypeSwitch = document.getElementById('quizTypeSwitch');
+                const otherType = this.quizType === 'choice' ? 'judgment' : 'choice';
+                const otherTypeName = otherType === 'choice' ? '📝 选择题' : '⚡ 判断题';
+                quizTypeSwitch.innerHTML = `
+                    <button class="btn show" onclick="switchQuizType('${otherType}')" title="切换到${otherTypeName}">
+                        ${otherTypeName}
+                    </button>
+                `;
+
+                this.questions.forEach((question, index) => {
+                    const questionItem = document.createElement('div');
+                    questionItem.className = 'review-question-item';
+                    questionItem.innerHTML = `
+                        <div class="review-question-header">
+                            <span class="review-question-number">第 ${index + 1} 题</span>
+                            <button class="btn-favorite ${this.favoriteQuestions.includes(index) ? 'favorited' : ''}" onclick="toggleReviewFavorite(${index})" title="收藏题目">
+                                <span id="reviewFavoriteIcon${index}">${this.favoriteQuestions.includes(index) ? '★' : '☆'}</span>
+                            </button>
+                        </div>
+
+                        <div class="review-question-text">${question.question}</div>
+
+                        ${question.hasImage && question.imageUrl ? `
+                            <div class="question-image">
+                                <img src="${question.imageUrl}" alt="题目图片" style="max-width: 100%; height: auto;">
+                            </div>
+                        ` : ''}
+
+                        <div class="review-options">
+                            ${question.options.map((option, optionIndex) => `
+                                <div class="review-option ${optionIndex === question.correctAnswer ? 'correct' : ''}">
+                                    <div class="review-option-label">${String.fromCharCode(65 + optionIndex)}</div>
+                                    <div class="review-option-text">${option}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        ${question.explanation ? `
+                            <div class="review-answer">
+                                <div class="review-answer-label">解析</div>
+                                <div>${question.explanation}</div>
+                            </div>
+                        ` : ''}
+                    `;
+                    reviewQuestions.appendChild(questionItem);
+                });
+
+                // 恢复滚动位置
+                setTimeout(() => {
+                    if (this.reviewScrollPosition > 0) {
+                        window.scrollTo(0, this.reviewScrollPosition);
+                    }
+                }, 100);
             }
 
             hideResult() {
@@ -1525,7 +2030,38 @@
             await window.quizApp.startQuiz(type);
         }
 
+        async function switchQuizType(type) {
+            // 保存当前题目类型的浏览学习状态
+            window.quizApp.saveCurrentState();
+
+            // 记录当前是否在浏览学习模式
+            const reviewMode = document.getElementById('reviewMode');
+            const isInReviewMode = reviewMode.style.display !== 'none';
+
+            // 隐藏当前的题目类型切换按钮
+            const quizTypeSwitch = document.getElementById('quizTypeSwitch');
+            if (quizTypeSwitch) {
+                quizTypeSwitch.innerHTML = '';
+            }
+
+            // 切换到新的题目类型
+            await window.quizApp.startQuiz(type);
+
+            // 如果之前在浏览学习模式，切换到新题目类型的浏览学习模式
+            if (isInReviewMode) {
+                // 切换到浏览学习模式
+                document.getElementById('normalMode').style.display = 'none';
+                document.getElementById('reviewMode').style.display = 'block';
+                window.quizApp.showReviewMode();
+            }
+        }
+
         function backToHome() {
+            // 隐藏题目类型切换按钮
+            const quizTypeSwitch = document.getElementById('quizTypeSwitch');
+            if (quizTypeSwitch) {
+                quizTypeSwitch.innerHTML = '';
+            }
             window.quizApp.showHomePage();
         }
 
@@ -1535,6 +2071,12 @@
             const questionIndex = window.quizApp.questionOrder[window.quizApp.currentQuestionIndex];
             const question = window.quizApp.questions[questionIndex];
             const isCorrect = window.quizApp.selectedAnswer === question.correctAnswer;
+
+            // 保存选择状态
+            if (!window.quizApp.selectedAnswers) {
+                window.quizApp.selectedAnswers = {};
+            }
+            window.quizApp.selectedAnswers[questionIndex] = window.quizApp.selectedAnswer;
 
             // 标记选项
             const options = document.querySelectorAll('.option');
@@ -1578,6 +2120,9 @@
             window.quizApp.updateStats();
             window.quizApp.updateButtons();
 
+            // 保存当前状态
+            window.quizApp.saveCurrentState();
+
             // 如果答对了且开启自动跳转，则自动跳转到下一题
             if (isCorrect && window.quizApp.autoNextEnabled) {
                 window.quizApp.autoNextTimer = setTimeout(() => {
@@ -1590,6 +2135,7 @@
             if (window.quizApp.currentQuestionIndex < window.quizApp.questionOrder.length - 1) {
                 window.quizApp.currentQuestionIndex++;
                 window.quizApp.displayQuestion();
+                window.quizApp.saveCurrentState();
             } else {
                 const accuracy = window.quizApp.answeredQuestions.length > 0 ?
                     Math.round((window.quizApp.correctCount / window.quizApp.answeredQuestions.length) * 100) : 0;
@@ -1601,6 +2147,7 @@
             if (window.quizApp.currentQuestionIndex > 0) {
                 window.quizApp.currentQuestionIndex--;
                 window.quizApp.displayQuestion();
+                window.quizApp.saveCurrentState();
             }
         }
 
@@ -1614,21 +2161,65 @@
             }
 
             if (window.quizApp) {
-                window.quizApp.mode = mode;
-                window.quizApp.setupQuestionOrder();
-                window.quizApp.displayQuestion();
-                window.quizApp.updateStats();
+                if (mode === 'review') {
+                    // 保存当前普通练习模式的状态
+                    window.quizApp.saveCurrentState();
+
+                    // 切换到浏览学习模式
+                    document.getElementById('normalMode').style.display = 'none';
+                    document.getElementById('reviewMode').style.display = 'block';
+                    window.quizApp.showReviewMode();
+                } else {
+                    // 保存当前浏览学习模式的状态
+                    window.quizApp.saveCurrentState();
+
+                    // 清除视觉状态（特别是对于随机练习等模式）
+                    window.quizApp.clearAllVisualStates();
+
+                    // 切换到普通练习模式
+                    document.getElementById('reviewMode').style.display = 'none';
+                    document.getElementById('normalMode').style.display = 'block';
+                    // 隐藏题目类型切换按钮
+                    const quizTypeSwitch = document.getElementById('quizTypeSwitch');
+                    if (quizTypeSwitch) {
+                        quizTypeSwitch.innerHTML = '';
+                    }
+                    window.quizApp.mode = mode;
+                    window.quizApp.setupQuestionOrder();
+                    window.quizApp.displayQuestion();
+                    window.quizApp.updateStats();
+                }
             }
         }
 
         function resetQuiz() {
-            window.quizApp.currentQuestionIndex = 0;
-            window.quizApp.selectedAnswer = null;
-            window.quizApp.correctCount = 0;
-            window.quizApp.answeredQuestions = [];
-            window.quizApp.setupQuestionOrder();
-            window.quizApp.displayQuestion();
-            window.quizApp.updateStats();
+            // 完全重置当前题目类型的状态
+            if (window.quizApp && window.quizApp.quizType) {
+                // 清除所有视觉状态
+                window.quizApp.clearAllVisualStates();
+
+                const state = window.quizApp.states[window.quizApp.quizType];
+                state.currentQuestionIndex = 0;
+                state.selectedAnswers = {};
+                state.correctCount = 0;
+                state.answeredQuestions = [];
+                state.reviewScrollPosition = 0;
+
+                // 重置当前实例的状态
+                window.quizApp.currentQuestionIndex = 0;
+                window.quizApp.selectedAnswer = null;
+                window.quizApp.correctCount = 0;
+                window.quizApp.answeredQuestions = [];
+                window.quizApp.selectedAnswers = {};
+
+                // 保存重置后的状态
+                window.quizApp.saveStates();
+
+                // 重新设置题目顺序和显示
+                window.quizApp.setupQuestionOrder();
+                window.quizApp.displayQuestion();
+                window.quizApp.updateStats();
+            }
         }
 
         function toggleAutoNext() {
@@ -1667,6 +2258,29 @@
             }
         }
 
+        function toggleReviewFavorite(questionIndex) {
+            const isFavorited = window.quizApp.favoriteQuestions.includes(questionIndex);
+
+            if (isFavorited) {
+                const index = window.quizApp.favoriteQuestions.indexOf(questionIndex);
+                window.quizApp.favoriteQuestions.splice(index, 1);
+            } else {
+                window.quizApp.favoriteQuestions.push(questionIndex);
+            }
+
+            window.quizApp.saveFavorites();
+
+            // 更新收藏图标和按钮样式
+            const favoriteIcon = document.getElementById(`reviewFavoriteIcon${questionIndex}`);
+            const favoriteBtn = favoriteIcon?.parentElement;
+
+            if (favoriteIcon && favoriteBtn) {
+                const isNowFavorited = window.quizApp.favoriteQuestions.includes(questionIndex);
+                favoriteIcon.textContent = isNowFavorited ? '★' : '☆';
+                favoriteBtn.classList.toggle('favorited', isNowFavorited);
+            }
+        }
+
         function jumpToProgress(event) {
             if (!window.quizApp || window.quizApp.questionOrder.length === 0) {
                 return;
@@ -1690,9 +2304,45 @@
             window.quizApp.updateProgress();
         }
 
+        // 回到顶部功能
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // 监听滚动事件，显示/隐藏回到顶部按钮，并保存浏览学习模式的滚动位置
+        window.addEventListener('scroll', function() {
+            const backToTopBtn = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+
+            // 如果在浏览学习模式，实时保存滚动位置
+            if (window.quizApp && window.quizApp.quizType) {
+                const reviewMode = document.getElementById('reviewMode');
+                if (reviewMode && reviewMode.style.display !== 'none') {
+                    const state = window.quizApp.states[window.quizApp.quizType];
+                    if (state) {
+                        state.reviewScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+                    }
+                }
+            }
+        });
+
         // 初始化应用
         document.addEventListener('DOMContentLoaded', () => {
             window.quizApp = new QuizApp();
+        });
+
+        // 页面卸载时保存状态
+        window.addEventListener('beforeunload', () => {
+            if (window.quizApp) {
+                window.quizApp.saveCurrentState();
+            }
         });
     </script>
 </body>
