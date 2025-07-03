@@ -376,6 +376,22 @@
             font-weight: 500;
         }
 
+        .question-image {
+            margin: 20px 0;
+            text-align: center;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .question-image img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            background: white;
+        }
+
         .options {
             list-style: none;
             margin-bottom: 20px;
@@ -585,6 +601,14 @@
 
             .question-text {
                 font-size: 16px;
+            }
+
+            .question-image {
+                margin: 15px 0;
+            }
+
+            .question-image img {
+                border-radius: 8px;
             }
 
             .option {
@@ -1202,6 +1226,16 @@
                 // 更新题目编号和文本
                 document.getElementById('questionNumber').textContent = `第 ${this.currentQuestionIndex + 1} 题`;
                 document.getElementById('questionText').textContent = question.question;
+
+                // 处理图片显示
+                const questionImage = document.getElementById('questionImage');
+                const questionImg = document.getElementById('questionImg');
+                if (question.hasImage && question.imageUrl) {
+                    questionImg.src = question.imageUrl;
+                    questionImage.style.display = 'block';
+                } else {
+                    questionImage.style.display = 'none';
+                }
 
                 // 生成选项
                 this.displayOptions(question.options);
