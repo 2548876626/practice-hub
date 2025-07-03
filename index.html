@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>电力电子技术题目训练系统</title>
+    <title>⚡ 电力电子技术 - 智能练习系统</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%234285f4'/><text x='50' y='65' text-anchor='middle' font-size='45' font-weight='bold' fill='white'>⚡</text></svg>">
+
     <style>
         /* CSS变量 */
         :root {
@@ -597,6 +601,238 @@
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
         }
 
+        /* Logo样式 */
+        .logo-container {
+            text-align: center;
+            padding: 30px 20px 40px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #667eea 50%, #764ba2 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+            margin: -20px -20px 30px -20px;
+            border-radius: 0 0 25px 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-icon {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .circuit-icon {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .circuit-board {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+        }
+
+        .circuit-line {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 1px;
+        }
+
+        .line-1 {
+            width: 35px;
+            height: 2px;
+            top: 29px;
+            left: 3px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+        }
+
+        .line-2 {
+            width: 2px;
+            height: 30px;
+            top: 15px;
+            right: 8px;
+            animation: pulse 2s infinite 0.5s;
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+        }
+
+        .circuit-dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #ffc107;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.6);
+        }
+
+        .dot-1 {
+            top: 17px;
+            left: 2px;
+            animation: glow 1.5s infinite;
+        }
+
+        .dot-2 {
+            top: 17px;
+            right: 7px;
+            animation: glow 1.5s infinite 0.3s;
+        }
+
+        .dot-3 {
+            bottom: 15px;
+            right: 7px;
+            animation: glow 1.5s infinite 0.6s;
+        }
+
+        .power-symbol {
+            font-size: 24px;
+            color: #ffc107;
+            text-shadow: 0 0 15px rgba(255, 193, 7, 0.8);
+            animation: powerPulse 2s infinite;
+            z-index: 2;
+            position: relative;
+        }
+
+        .sparkle {
+            position: absolute;
+            font-size: 16px;
+            animation: sparkleFloat 3s infinite ease-in-out;
+        }
+
+        .sparkle-1 {
+            top: -10px;
+            left: -15px;
+            animation-delay: 0s;
+        }
+
+        .sparkle-2 {
+            bottom: -10px;
+            right: -15px;
+            animation-delay: 1.5s;
+        }
+
+        .logo-text {
+            color: white;
+            text-align: left;
+        }
+
+        .logo-text h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0 0 5px 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .logo-text h2 {
+            font-size: 20px;
+            font-weight: 500;
+            margin: 0 0 8px 0;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-text p {
+            font-size: 14px;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        /* 动画效果 */
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(255, 193, 7, 0.6);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(255, 193, 7, 1);
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes powerPulse {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow: 0 0 15px rgba(255, 193, 7, 0.8);
+            }
+            50% {
+                transform: scale(1.1);
+                text-shadow: 0 0 25px rgba(255, 193, 7, 1);
+            }
+        }
+
+        @keyframes sparkleFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(-10px) rotate(180deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 暗色主题下的Logo优化 */
+        [data-theme="dark"] .logo-container {
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 50%, #2d3748 100%);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="dark"] .circuit-icon {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+
+        [data-theme="dark"] .circuit-line {
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        [data-theme="dark"] .logo-container::before {
+            opacity: 0.2;
+        }
+
         .question-image img {
             max-width: 100%;
             height: auto;
@@ -1011,18 +1247,83 @@
                 font-size: 12px;
                 border-radius: 20px;
             }
+
+            /* 移动端Logo样式 */
+            .logo-container {
+                padding: 20px 15px 25px;
+                margin: -15px -15px 20px -15px;
+            }
+
+            .logo {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .circuit-icon {
+                width: 60px;
+                height: 60px;
+            }
+
+            .circuit-board {
+                width: 45px;
+                height: 45px;
+            }
+
+            .power-symbol {
+                font-size: 20px;
+            }
+
+            .logo-text h1 {
+                font-size: 22px;
+                margin-bottom: 3px;
+            }
+
+            .logo-text h2 {
+                font-size: 16px;
+                margin-bottom: 5px;
+            }
+
+            .logo-text p {
+                font-size: 12px;
+            }
+
+            .sparkle {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>🔌 电力电子技术题目训练系统</h1>
-            <p>掌握电力电子技术核心知识点，提升专业技能</p>
+        <!-- Logo区域 -->
+        <div class="logo-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <div class="circuit-icon">
+                        <div class="circuit-board">
+                            <div class="circuit-line line-1"></div>
+                            <div class="circuit-line line-2"></div>
+                            <div class="circuit-dot dot-1"></div>
+                            <div class="circuit-dot dot-2"></div>
+                            <div class="circuit-dot dot-3"></div>
+                        </div>
+                        <div class="power-symbol">⚡</div>
+                    </div>
+                    <div class="sparkle sparkle-1">✨</div>
+                    <div class="sparkle sparkle-2">💡</div>
+                </div>
+                <div class="logo-text">
+                    <h1>电力电子技术</h1>
+                    <h2>智能练习系统</h2>
+                    <p>掌握核心知识点 · 提升专业技能</p>
+                </div>
+            </div>
         </div>
 
         <!-- 题目类型选择 -->
         <div class="quiz-type-selector" id="quizTypeSelector">
+            <h2 style="text-align: center; margin-bottom: 30px; color: var(--text-color); font-weight: 600;">选择练习类型</h2>
             <div class="type-card" onclick="startQuiz('choice')">
                 <div class="type-icon">📝</div>
                 <h3>选择题练习</h3>
