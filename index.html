@@ -565,6 +565,73 @@
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
         }
 
+        /* 填空题样式 */
+        .fill-question-container {
+            margin-bottom: 30px;
+        }
+
+        .fill-question-text {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .fill-input {
+            display: inline-block;
+            min-width: 100px;
+            padding: 8px 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 16px;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+            vertical-align: middle;
+        }
+
+        .fill-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .fill-input.correct {
+            border-color: var(--success-color);
+            background: rgba(40, 167, 69, 0.1);
+        }
+
+        .fill-input.incorrect {
+            border-color: var(--danger-color);
+            background: rgba(220, 53, 69, 0.1);
+        }
+
+        .fill-input::placeholder {
+            color: var(--secondary-color);
+            font-size: 14px;
+        }
+
+        .fill-answers-display {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .fill-answers-display h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+            font-size: 16px;
+        }
+
+        .fill-answers-list {
+            color: var(--text-color);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
         .back-to-top.show {
             display: block;
         }
@@ -1291,6 +1358,31 @@
             .sparkle {
                 font-size: 14px;
             }
+
+            /* 移动端填空题样式 */
+            .fill-question-text {
+                font-size: 16px;
+            }
+
+            .fill-input {
+                min-width: 80px;
+                padding: 6px 10px;
+                font-size: 14px;
+                margin: 2px;
+            }
+
+            .fill-answers-display {
+                padding: 12px;
+                margin-top: 15px;
+            }
+
+            .fill-answers-display h4 {
+                font-size: 14px;
+            }
+
+            .fill-answers-list {
+                font-size: 13px;
+            }
         }
     </style>
 </head>
@@ -1345,6 +1437,18 @@
                     <span>• 正确/错误</span>
                     <span>• 快速判断</span>
                     <span>• 概念理解</span>
+                </div>
+            </div>
+
+            <div class="type-card" onclick="startQuiz('fill')">
+                <div class="type-icon">✏️</div>
+                <h3>填空题练习</h3>
+                <p>24道填空题</p>
+                <p>深度掌握核心概念要点</p>
+                <div class="type-features">
+                    <span>• 填空作答</span>
+                    <span>• 概念记忆</span>
+                    <span>• 知识要点</span>
                 </div>
             </div>
         </div>
@@ -1457,6 +1561,7 @@
                     <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()">⬅️ 上一题</button>
                     <button class="btn btn-secondary" id="nextOnlyBtn" onclick="nextQuestion()">➡️ 下一题</button>
                     <button class="btn btn-primary" id="submitBtn" onclick="submitAnswer()" disabled>✅ 提交答案</button>
+                    <button class="btn btn-secondary" id="showAnswerBtn" onclick="showFillAnswer()" style="display: none;">💡 显示答案</button>
                     <div class="center-controls" style="display: none;">
                         <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" style="display: none;">➡️ 下一题</button>
                     </div>
@@ -1793,8 +1898,12 @@
                 document.getElementById('quizInterface').style.display = 'block';
 
                 // 更新标题
-                const title = type === 'choice' ? '📝 选择题练习' : '⚡ 判断题练习';
-                document.getElementById('quizTitle').textContent = title;
+                const titles = {
+                    'choice': '📝 选择题练习',
+                    'judgment': '⚡ 判断题练习',
+                    'fill': '✏️ 填空题练习'
+                };
+                document.getElementById('quizTitle').textContent = titles[type] || '题目练习';
 
                 // 恢复对应题目类型的状态
                 this.restoreState(type);
@@ -1808,12 +1917,24 @@
                             throw new Error(`HTTP error! status: ${response.status}`);
                         }
                         this.questions = await response.json();
+                    } else if (type === 'fill') {
+                        // 填空题从外部JSON文件加载
+                        const response = await fetch('fill_questions.json');
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        this.questions = await response.json();
                     } else {
                         // 判断题使用内嵌数据
                         this.questions = judgmentQuestions;
                     }
 
-                    console.log(`成功加载 ${this.questions.length} 道${type === 'choice' ? '选择题' : '判断题'}`);
+                    const typeNames = {
+                        'choice': '选择题',
+                        'judgment': '判断题',
+                        'fill': '填空题'
+                    };
+                    console.log(`成功加载 ${this.questions.length} 道${typeNames[type]}`);
 
                     this.setupQuestionOrder();
                     this.displayQuestion();
@@ -1890,7 +2011,13 @@
 
                 // 更新题目编号和文本
                 document.getElementById('questionNumber').textContent = `第 ${this.currentQuestionIndex + 1} 题`;
-                document.getElementById('questionText').textContent = question.question;
+
+                // 根据题目类型处理题目文本
+                if (this.quizType === 'fill') {
+                    this.displayFillQuestion(question);
+                } else {
+                    document.getElementById('questionText').textContent = question.question;
+                }
 
                 // 处理图片显示
                 const questionImage = document.getElementById('questionImage');
@@ -1944,8 +2071,13 @@
                     questionImage.innerHTML = '';
                 }
 
-                // 生成选项
-                this.displayOptions(question.options);
+                // 生成选项（填空题不需要选项）
+                if (this.quizType !== 'fill') {
+                    this.displayOptions(question.options);
+                } else {
+                    // 清空选项区域
+                    document.getElementById('optionsList').innerHTML = '';
+                }
 
                 // 更新收藏状态
                 this.updateFavoriteButton(questionIndex);
@@ -1974,6 +2106,57 @@
 
                 this.updateButtons();
                 this.updateProgress();
+            }
+
+            displayFillQuestion(question) {
+                let questionHtml = question.question;
+                let inputIndex = 0;
+
+                // 替换各种空白标记为输入框
+                questionHtml = questionHtml.replace(/_{2,}/g, () => {
+                    return `<input type="text" class="fill-input" data-answer-index="${inputIndex++}" placeholder="填空${inputIndex}">`;
+                });
+
+                // 处理括号形式的空白
+                questionHtml = questionHtml.replace(/（\s*）/g, () => {
+                    return `<input type="text" class="fill-input" data-answer-index="${inputIndex++}" placeholder="填空${inputIndex}">`;
+                });
+
+                questionHtml = questionHtml.replace(/\(\s*\)/g, () => {
+                    return `<input type="text" class="fill-input" data-answer-index="${inputIndex++}" placeholder="填空${inputIndex}">`;
+                });
+
+                // 处理"和"连接的空白
+                if (questionHtml.includes(' 和 ') && !questionHtml.includes('fill-input')) {
+                    questionHtml = questionHtml.replace(/\s+和\s+/, () => {
+                        return ` <input type="text" class="fill-input" data-answer-index="${inputIndex++}" placeholder="填空${inputIndex}"> 和 <input type="text" class="fill-input" data-answer-index="${inputIndex++}" placeholder="填空${inputIndex}"> `;
+                    });
+                }
+
+                // 如果没有找到空白处，根据答案数量添加输入框
+                if (!questionHtml.includes('fill-input')) {
+                    questionHtml += '<br><br>';
+                    for (let i = 0; i < Math.min(question.answers.length, 4); i++) {
+                        questionHtml += `答案${i + 1}：<input type="text" class="fill-input" data-answer-index="${i}" placeholder="填空${i + 1}"><br>`;
+                    }
+                }
+
+                document.getElementById('questionText').innerHTML = questionHtml;
+
+                // 为输入框添加事件监听
+                const inputs = document.querySelectorAll('.fill-input');
+                inputs.forEach((input, index) => {
+                    input.addEventListener('keypress', (e) => {
+                        if (e.key === 'Enter') {
+                            this.checkFillAnswer();
+                        }
+                    });
+
+                    // 自动调整输入框宽度
+                    input.addEventListener('input', function() {
+                        this.style.width = Math.max(100, this.value.length * 12 + 20) + 'px';
+                    });
+                });
             }
 
             displayOptions(options) {
@@ -2278,6 +2461,7 @@
                 const nextBtn = document.getElementById('nextBtn');
                 const nextOnlyBtn = document.getElementById('nextOnlyBtn');
                 const prevBtn = document.getElementById('prevBtn');
+                const showAnswerBtn = document.getElementById('showAnswerBtn');
 
                 const hasAnswered = document.getElementById('resultPanel').classList.contains('show');
                 const isLastQuestion = this.currentQuestionIndex >= this.questionOrder.length - 1;
@@ -2298,7 +2482,8 @@
                     } else {
                         // 未答题时，显示"提交答案"
                         submitBtn.innerHTML = '✅ 提交答案';
-                        submitBtn.disabled = this.selectedAnswer === null;
+                        // 填空题不需要检查selectedAnswer
+                        submitBtn.disabled = this.quizType !== 'fill' && this.selectedAnswer === null;
                         submitBtn.setAttribute('onclick', 'submitAnswer()');
                     }
 
@@ -2315,14 +2500,113 @@
                         nextOnlyBtn.style.display = 'none';
                     } else {
                         submitBtn.style.display = 'inline-block';
-                        submitBtn.disabled = this.selectedAnswer === null;
+                        // 填空题不需要检查selectedAnswer
+                        submitBtn.disabled = this.quizType !== 'fill' && this.selectedAnswer === null;
                         nextBtn.style.display = 'none';
                         nextOnlyBtn.style.display = 'inline-block';
                         nextOnlyBtn.disabled = isLastQuestion;
                     }
                 }
 
+                // 控制显示答案按钮（仅填空题显示）
+                if (showAnswerBtn) {
+                    showAnswerBtn.style.display = this.quizType === 'fill' ? 'inline-block' : 'none';
+                }
+
                 prevBtn.disabled = this.currentQuestionIndex === 0;
+            }
+
+            checkFillAnswer() {
+                const questionIndex = this.questionOrder[this.currentQuestionIndex];
+                const question = this.questions[questionIndex];
+                const inputs = document.querySelectorAll('.fill-input');
+                let allCorrect = true;
+                let hasAnswer = false;
+
+                inputs.forEach((input, index) => {
+                    const userAnswer = input.value.trim();
+                    if (userAnswer) {
+                        hasAnswer = true;
+
+                        // 检查答案是否正确（支持多个可能的答案）
+                        const isCorrect = question.answers.some(answer =>
+                            answer.toLowerCase().includes(userAnswer.toLowerCase()) ||
+                            userAnswer.toLowerCase().includes(answer.toLowerCase()) ||
+                            answer.toLowerCase() === userAnswer.toLowerCase()
+                        );
+
+                        if (isCorrect) {
+                            input.classList.remove('incorrect');
+                            input.classList.add('correct');
+                        } else {
+                            input.classList.remove('correct');
+                            input.classList.add('incorrect');
+                            allCorrect = false;
+                        }
+                    } else {
+                        allCorrect = false;
+                    }
+                });
+
+                if (!hasAnswer) {
+                    alert('请先填写答案！');
+                    return;
+                }
+
+                // 更新统计
+                if (!this.answeredQuestions.includes(questionIndex)) {
+                    this.answeredQuestions.push(questionIndex);
+                    if (allCorrect) {
+                        this.correctCount++;
+                    }
+                    this.updateStats();
+                }
+
+                // 显示结果
+                if (allCorrect) {
+                    setTimeout(() => {
+                        alert('✅ 回答正确！');
+                    }, 100);
+                } else {
+                    setTimeout(() => {
+                        alert('❌ 回答有误，请查看正确答案');
+                        this.showFillAnswer();
+                    }, 100);
+                }
+            }
+
+            showFillAnswer() {
+                const questionIndex = this.questionOrder[this.currentQuestionIndex];
+                const question = this.questions[questionIndex];
+                const inputs = document.querySelectorAll('.fill-input');
+
+                inputs.forEach((input, index) => {
+                    if (index < question.answers.length) {
+                        input.value = question.answers[index];
+                        input.classList.remove('incorrect');
+                        input.classList.add('correct');
+                    }
+                });
+
+                // 如果有多个答案，显示所有可能的答案
+                if (question.answers.length > inputs.length) {
+                    const allAnswers = question.answers.join(' / ');
+
+                    // 在题目下方显示所有答案
+                    const existingAnswersDisplay = document.querySelector('.fill-answers-display');
+                    if (existingAnswersDisplay) {
+                        existingAnswersDisplay.remove();
+                    }
+
+                    const answersDisplay = document.createElement('div');
+                    answersDisplay.className = 'fill-answers-display';
+                    answersDisplay.innerHTML = `
+                        <h4>所有可能的答案：</h4>
+                        <div class="fill-answers-list">${allAnswers}</div>
+                    `;
+
+                    document.getElementById('questionText').appendChild(answersDisplay);
+                }
             }
         }
 
@@ -2367,6 +2651,12 @@
         }
 
         function submitAnswer() {
+            // 填空题使用不同的提交逻辑
+            if (window.quizApp.quizType === 'fill') {
+                window.quizApp.checkFillAnswer();
+                return;
+            }
+
             if (window.quizApp.selectedAnswer === null) return;
 
             const questionIndex = window.quizApp.questionOrder[window.quizApp.currentQuestionIndex];
@@ -2638,6 +2928,10 @@
         document.addEventListener('DOMContentLoaded', () => {
             window.quizApp = new QuizApp();
         });
+
+        function showFillAnswer() {
+            window.quizApp.showFillAnswer();
+        }
 
         // 页面卸载时保存状态
         window.addEventListener('beforeunload', () => {
