@@ -3151,8 +3151,8 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                     let incorrectHtml = `<strong>❌ 回答错误</strong><br>正确答案是：<strong>${String.fromCharCode(65 + question.correctAnswer)}. ${question.options[question.correctAnswer]}</strong><br>${question.explanation || ''}`;
 
                     // 只在练习模式中添加AI解析
-                    const practiceMode = document.getElementById('practiceMode');
-                    const isPracticeMode = practiceMode && practiceMode.style.display !== 'none';
+                    const normalMode = document.getElementById('normalMode');
+                    const isPracticeMode = normalMode && normalMode.style.display !== 'none';
 
                     if (isPracticeMode) {
                         // 添加AI解析加载提示
@@ -3434,13 +3434,6 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                     </div>
 
                     <div class="review-question-text">${questionWithAnswers}</div>
-
-                    ${question.explanation ? `
-                        <div class="review-answer">
-                            <div class="review-answer-label">解析</div>
-                            <div>${question.explanation}</div>
-                        </div>
-                    ` : ''}
                 `;
             }
 
@@ -3612,13 +3605,13 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                         this.showFillAnswer();
 
                         // 只在练习模式中显示AI解析
-                        const practiceMode = document.getElementById('practiceMode');
-                        const isPracticeMode = practiceMode && practiceMode.style.display !== 'none';
+                        const normalMode = document.getElementById('normalMode');
+                        const isPracticeMode = normalMode && normalMode.style.display !== 'none';
 
                         if (isPracticeMode) {
                             this.showFillResultWithAI(question, inputs);
                         } else {
-                            // 浏览学习模式只显示简单的错误提示
+                            // 浏览学习模式只显示简单的错误提示，不需要AI解析
                             alert('❌ 回答有误，请查看正确答案');
                         }
                     }, 100);
@@ -4051,11 +4044,11 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
         window.addEventListener('scroll', function() {
             const backToTopBtn = document.getElementById('backToTop');
             const reviewMode = document.getElementById('reviewMode');
-            const practiceMode = document.getElementById('practiceMode');
+            const normalMode = document.getElementById('normalMode');
 
             // 只在浏览学习模式中显示回到顶部按钮
             const isReviewMode = reviewMode && reviewMode.style.display !== 'none';
-            const isPracticeMode = practiceMode && practiceMode.style.display !== 'none';
+            const isPracticeMode = normalMode && normalMode.style.display !== 'none';
 
             if (isReviewMode && window.pageYOffset > 300) {
                 backToTopBtn.classList.add('show');
