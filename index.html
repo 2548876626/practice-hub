@@ -1503,8 +1503,17 @@
                 display: block !important;
                 margin: 0 auto !important;
                 border-radius: 8px !important;
-                background: white !important;
+                background: #f8f9fa !important;
                 object-fit: contain !important;
+                /* 防止图片拉伸变形 */
+                image-rendering: auto !important;
+                /* 移动端优化 */
+                -webkit-user-select: none !important;
+                user-select: none !important;
+                /* 防止长按保存图片 */
+                -webkit-touch-callout: none !important;
+                /* 确保图片在移动端正确显示 */
+                box-sizing: border-box !important;
             }
 
             .option {
@@ -2636,6 +2645,15 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                     newQuestionImg.onload = function() {
                         console.log('图片加载成功');
                         questionImage.style.display = 'block';
+
+                        // 移动端图片优化
+                        if (window.innerWidth <= 768) {
+                            this.style.maxWidth = '100%';
+                            this.style.width = '100%';
+                            this.style.height = 'auto';
+                            this.style.objectFit = 'contain';
+                            this.style.borderRadius = '8px';
+                        }
                     };
 
                     newQuestionImg.onerror = function() {
@@ -2645,22 +2663,32 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                             <div style="padding: 20px; text-align: center; color: var(--secondary-color); border: 1px dashed var(--border-color); border-radius: 8px;">
                                 📷 图片加载失败<br>
                                 <small>请检查网络连接或刷新页面</small><br>
-                                <small style="font-size: 10px; opacity: 0.7;">URL: ${question.imageUrl}</small>
+                                <button onclick="this.parentElement.parentElement.querySelector('img').src='${question.imageUrl}'"
+                                        style="margin-top: 10px; padding: 5px 10px; background: var(--primary-color); color: white; border: none; border-radius: 4px; cursor: pointer;">
+                                    重新加载
+                                </button>
                             </div>
                         `;
                         questionImage.style.display = 'block';
                     };
 
-                    // 设置图片源
-                    newQuestionImg.src = question.imageUrl;
+                    // 设置图片基本样式（在设置src之前）
+                    newQuestionImg.style.maxWidth = '100%';
+                    newQuestionImg.style.height = 'auto';
+                    newQuestionImg.style.display = 'block';
+                    newQuestionImg.style.margin = '0 auto';
 
-                    // 添加移动端特殊处理
+                    // 移动端特殊处理
                     if (window.innerWidth <= 768) {
                         console.log('移动端图片显示');
-                        newQuestionImg.style.maxWidth = '100%';
-                        newQuestionImg.style.height = 'auto';
-                        newQuestionImg.style.display = 'block';
+                        newQuestionImg.style.width = '100%';
+                        newQuestionImg.style.objectFit = 'contain';
+                        newQuestionImg.style.borderRadius = '8px';
+                        newQuestionImg.style.backgroundColor = '#f8f9fa';
                     }
+
+                    // 最后设置图片源（确保事件监听器已设置）
+                    newQuestionImg.src = question.imageUrl;
                 } else {
                     // 没有图片的题目，完全隐藏图片容器
                     console.log('题目无图片，隐藏图片容器');
@@ -2977,13 +3005,22 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                     resultPanel.classList.add('result-incorrect');
                     let incorrectHtml = `<strong>❌ 回答错误</strong><br>正确答案是：<strong>${String.fromCharCode(65 + question.correctAnswer)}. ${question.options[question.correctAnswer]}</strong><br>${question.explanation || ''}`;
 
-                    // 添加AI解析加载提示
-                    incorrectHtml += '<br><div id="aiAnalysis" style="margin-top: 10px; padding: 10px; background: rgba(255, 193, 7, 0.1); border-radius: 6px; border-left: 3px solid #ffc107;"><strong>🤖 AI解析：</strong><span id="aiAnalysisText">正在生成解析...</span></div>';
+                    // 只在练习模式中添加AI解析
+                    const practiceMode = document.getElementById('practiceMode');
+                    const isPracticeMode = practiceMode && practiceMode.style.display !== 'none';
 
-                    resultText.innerHTML = incorrectHtml;
+                    if (isPracticeMode) {
+                        // 添加AI解析加载提示
+                        incorrectHtml += '<br><div id="aiAnalysis" style="margin-top: 10px; padding: 10px; background: rgba(255, 193, 7, 0.1); border-radius: 6px; border-left: 3px solid #ffc107;"><strong>🤖 AI解析：</strong><span id="aiAnalysisText">正在生成解析...</span></div>';
 
-                    // 异步获取AI解析
-                    this.getAIAnalysisForWrongAnswer(question, selectedAnswer, question.correctAnswer);
+                        resultText.innerHTML = incorrectHtml;
+
+                        // 异步获取AI解析
+                        this.getAIAnalysisForWrongAnswer(question, selectedAnswer, question.correctAnswer);
+                    } else {
+                        // 浏览学习模式不显示AI解析
+                        resultText.innerHTML = incorrectHtml;
+                    }
                 }
             }
 
@@ -3149,7 +3186,9 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
 
                     ${question.hasImage && question.imageUrl ? `
                         <div class="question-image">
-                            <img src="${question.imageUrl}" alt="题目图片" style="max-width: 100%; height: auto;">
+                            <img src="${question.imageUrl}" alt="题目图片"
+                                 style="max-width: 100%; width: 100%; height: auto; object-fit: contain; border-radius: 8px; background: #f8f9fa;"
+                                 onerror="this.parentElement.innerHTML='<div style=\\'padding: 20px; text-align: center; color: #666; border: 1px dashed #ddd; border-radius: 8px;\\'>📷 图片加载失败</div>'">
                         </div>
                     ` : ''}
 
@@ -3388,7 +3427,17 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                 } else {
                     setTimeout(() => {
                         this.showFillAnswer();
-                        this.showFillResultWithAI(question, inputs);
+
+                        // 只在练习模式中显示AI解析
+                        const practiceMode = document.getElementById('practiceMode');
+                        const isPracticeMode = practiceMode && practiceMode.style.display !== 'none';
+
+                        if (isPracticeMode) {
+                            this.showFillResultWithAI(question, inputs);
+                        } else {
+                            // 浏览学习模式只显示简单的错误提示
+                            alert('❌ 回答有误，请查看正确答案');
+                        }
                     }, 100);
                 }
             }
