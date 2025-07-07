@@ -2264,6 +2264,82 @@
             }
         ];
 
+        // AI解析配置
+        const AI_CONFIG = {
+            apiUrl: 'https://api.openrouter.ai/api/v1/chat/completions',
+            apiKey: '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',
+            model: 'deepseek/deepseek-r1:free'
+        };
+
+        // AI解析函数
+        async function getAIAnalysis(question, userAnswer, correctAnswer, quizType) {
+            try {
+                let prompt = '';
+
+                if (quizType === 'choice' || quizType === 'judgment') {
+                    const answerText = quizType === 'judgment' ?
+                        (userAnswer === 0 ? '正确' : '错误') :
+                        question.options[userAnswer];
+                    const correctText = quizType === 'judgment' ?
+                        (correctAnswer === 0 ? '正确' : '错误') :
+                        question.options[correctAnswer];
+
+                    prompt = `请简短解析这道电力电子技术题目（50字以内）：
+
+题目：${question.question}
+${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 + i)}. ${opt}`).join('\n') : ''}
+用户选择：${answerText}
+正确答案：${correctText}
+
+请简短说明为什么正确答案是对的。`;
+                } else if (quizType === 'fill') {
+                    prompt = `请简短解析这道电力电子技术填空题（50字以内）：
+
+题目：${question.question}
+用户答案：${userAnswer}
+正确答案：${question.answer}
+
+请简短说明正确答案的要点。`;
+                } else if (quizType === 'calculation') {
+                    prompt = `请简短解析这道电力电子技术计算题的关键点（50字以内）：
+
+题目：${question.problem}
+请简短说明解题的关键思路。`;
+                }
+
+                const response = await fetch(AI_CONFIG.apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${AI_CONFIG.apiKey}`,
+                        'HTTP-Referer': window.location.origin,
+                        'X-Title': '电力电子技术练习系统'
+                    },
+                    body: JSON.stringify({
+                        model: AI_CONFIG.model,
+                        messages: [
+                            {
+                                role: 'user',
+                                content: prompt
+                            }
+                        ],
+                        max_tokens: 150,
+                        temperature: 0.7
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API请求失败: ${response.status}`);
+                }
+
+                const data = await response.json();
+                return data.choices[0].message.content.trim();
+            } catch (error) {
+                console.error('AI解析获取失败:', error);
+                return '解析暂时不可用，请查看题目解答或咨询老师。';
+            }
+        }
+
         // 题目训练系统类
         class QuizApp {
             constructor() {
@@ -2899,7 +2975,31 @@
                     resultText.innerHTML = `<strong>✅ 回答正确！</strong><br>${question.explanation || '继续加油！'}`;
                 } else {
                     resultPanel.classList.add('result-incorrect');
-                    resultText.innerHTML = `<strong>❌ 回答错误</strong><br>正确答案是：<strong>${String.fromCharCode(65 + question.correctAnswer)}. ${question.options[question.correctAnswer]}</strong><br>${question.explanation || ''}`;
+                    let incorrectHtml = `<strong>❌ 回答错误</strong><br>正确答案是：<strong>${String.fromCharCode(65 + question.correctAnswer)}. ${question.options[question.correctAnswer]}</strong><br>${question.explanation || ''}`;
+
+                    // 添加AI解析加载提示
+                    incorrectHtml += '<br><div id="aiAnalysis" style="margin-top: 10px; padding: 10px; background: rgba(255, 193, 7, 0.1); border-radius: 6px; border-left: 3px solid #ffc107;"><strong>🤖 AI解析：</strong><span id="aiAnalysisText">正在生成解析...</span></div>';
+
+                    resultText.innerHTML = incorrectHtml;
+
+                    // 异步获取AI解析
+                    this.getAIAnalysisForWrongAnswer(question, selectedAnswer, question.correctAnswer);
+                }
+            }
+
+            async getAIAnalysisForWrongAnswer(question, userAnswer, correctAnswer) {
+                try {
+                    const analysisText = await getAIAnalysis(question, userAnswer, correctAnswer, this.quizType);
+                    const aiAnalysisElement = document.getElementById('aiAnalysisText');
+                    if (aiAnalysisElement) {
+                        aiAnalysisElement.textContent = analysisText;
+                    }
+                } catch (error) {
+                    console.error('获取AI解析失败:', error);
+                    const aiAnalysisElement = document.getElementById('aiAnalysisText');
+                    if (aiAnalysisElement) {
+                        aiAnalysisElement.textContent = '解析暂时不可用，请查看题目解答。';
+                    }
                 }
             }
 
@@ -3287,9 +3387,64 @@
                     }, 100);
                 } else {
                     setTimeout(() => {
-                        alert('❌ 回答有误，请查看正确答案');
                         this.showFillAnswer();
+                        this.showFillResultWithAI(question, inputs);
                     }, 100);
+                }
+            }
+
+            async showFillResultWithAI(question, inputs) {
+                // 收集用户答案
+                const userAnswers = Array.from(inputs).map(input => input.value.trim()).filter(val => val);
+                const userAnswerText = userAnswers.join(', ');
+
+                // 创建结果显示面板
+                const existingPanel = document.querySelector('.fill-result-panel');
+                if (existingPanel) {
+                    existingPanel.remove();
+                }
+
+                const resultPanel = document.createElement('div');
+                resultPanel.className = 'fill-result-panel';
+                resultPanel.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: white;
+                    padding: 20px;
+                    border-radius: 12px;
+                    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+                    max-width: 400px;
+                    width: 90%;
+                    z-index: 1000;
+                    border: 2px solid #dc3545;
+                `;
+
+                resultPanel.innerHTML = `
+                    <h4 style="color: #dc3545; margin-bottom: 15px;">❌ 回答有误</h4>
+                    <p><strong>正确答案：</strong>${question.answers.join(' / ')}</p>
+                    <div id="fillAIAnalysis" style="margin-top: 15px; padding: 10px; background: rgba(255, 193, 7, 0.1); border-radius: 6px; border-left: 3px solid #ffc107;">
+                        <strong>🤖 AI解析：</strong><span id="fillAIAnalysisText">正在生成解析...</span>
+                    </div>
+                    <button onclick="this.parentElement.remove()" style="margin-top: 15px; padding: 8px 16px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">确定</button>
+                `;
+
+                document.body.appendChild(resultPanel);
+
+                // 获取AI解析
+                try {
+                    const analysisText = await getAIAnalysis(question, userAnswerText, question.answers.join(', '), 'fill');
+                    const aiAnalysisElement = document.getElementById('fillAIAnalysisText');
+                    if (aiAnalysisElement) {
+                        aiAnalysisElement.textContent = analysisText;
+                    }
+                } catch (error) {
+                    console.error('获取填空题AI解析失败:', error);
+                    const aiAnalysisElement = document.getElementById('fillAIAnalysisText');
+                    if (aiAnalysisElement) {
+                        aiAnalysisElement.textContent = '解析暂时不可用，请查看正确答案。';
+                    }
                 }
             }
 
@@ -3504,6 +3659,14 @@
                     document.getElementById('normalMode').style.display = 'none';
                     document.getElementById('reviewMode').style.display = 'block';
                     window.quizApp.showReviewMode();
+
+                    // 浏览学习模式可能需要回到顶部按钮，根据滚动位置决定
+                    setTimeout(() => {
+                        const backToTopBtn = document.getElementById('backToTop');
+                        if (window.pageYOffset > 300) {
+                            backToTopBtn.classList.add('show');
+                        }
+                    }, 100);
                 } else {
                     // 保存当前浏览学习模式的状态
                     window.quizApp.saveCurrentState();
@@ -3514,6 +3677,11 @@
                     // 切换到普通练习模式
                     document.getElementById('reviewMode').style.display = 'none';
                     document.getElementById('normalMode').style.display = 'block';
+
+                    // 隐藏回到顶部按钮（练习模式不需要）
+                    const backToTopBtn = document.getElementById('backToTop');
+                    backToTopBtn.classList.remove('show');
+
                     // 隐藏题目类型切换按钮
                     const quizTypeSwitch = document.getElementById('quizTypeSwitch');
                     if (quizTypeSwitch) {
@@ -3650,7 +3818,14 @@
         // 监听滚动事件，显示/隐藏回到顶部按钮，并保存浏览学习模式的滚动位置
         window.addEventListener('scroll', function() {
             const backToTopBtn = document.getElementById('backToTop');
-            if (window.pageYOffset > 300) {
+            const reviewMode = document.getElementById('reviewMode');
+            const practiceMode = document.getElementById('practiceMode');
+
+            // 只在浏览学习模式中显示回到顶部按钮
+            const isReviewMode = reviewMode && reviewMode.style.display !== 'none';
+            const isPracticeMode = practiceMode && practiceMode.style.display !== 'none';
+
+            if (isReviewMode && window.pageYOffset > 300) {
                 backToTopBtn.classList.add('show');
             } else {
                 backToTopBtn.classList.remove('show');
