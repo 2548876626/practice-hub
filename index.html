@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <title>⚡ 电力电子技术 - 智能练习系统</title>
 
     <!-- Favicon -->
@@ -59,6 +59,33 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        /* 移动端防缩放设置 */
+        html, body {
+            touch-action: pan-y; /* 只允许垂直滑动 */
+            -webkit-text-size-adjust: 100%; /* 防止iOS自动调整文字大小 */
+            -ms-text-size-adjust: 100%; /* 防止Windows Phone自动调整文字大小 */
+        }
+
+        /* 防止双击缩放 */
+        * {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* 允许文本选择（用于复制题目内容） */
+        .question-text, .calculation-problem, .calculation-thinking, .calculation-solution,
+        .review-question-item, input[type="text"], textarea {
+            -webkit-user-select: text;
+            -khtml-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
         }
 
         body {
