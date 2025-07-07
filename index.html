@@ -165,9 +165,54 @@
         .quiz-header {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 15px;
             padding: 20px;
             border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+
+        .quiz-header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .quiz-header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .quick-switch-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            min-width: 80px;
+        }
+
+        .quick-switch-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+        }
+
+        .quick-switch-btn.current {
+            background: var(--success-color);
+            cursor: default;
+        }
+
+        .quick-switch-btn.current:hover {
+            transform: none;
+            box-shadow: none;
         }
 
         .btn-back {
@@ -652,54 +697,66 @@
         /* 计算题样式 */
         .calculation-container {
             margin-bottom: 30px;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
         }
 
         .calculation-title {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            padding-bottom: 10px;
+            color: #f2c744;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
             border-bottom: 2px solid var(--border-color);
         }
 
-        .calculation-description {
+        .calculation-problem {
             font-size: 16px;
             line-height: 1.8;
             margin-bottom: 20px;
-            padding: 15px;
-            background: rgba(102, 126, 234, 0.05);
-            border-radius: 8px;
+            padding: 18px;
+            background: rgba(102, 126, 234, 0.08);
+            border-radius: 12px;
             border-left: 4px solid var(--primary-color);
         }
 
-        .calculation-tasks {
-            margin-bottom: 25px;
+        .calculation-problem strong {
+            color: var(--primary-color);
+            font-weight: 600;
         }
 
-        .calculation-tasks h4 {
+        .calculation-thinking {
+            margin-bottom: 20px;
+            padding: 18px;
+            background: rgba(255, 193, 7, 0.08);
+            border-radius: 12px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .calculation-thinking h4 {
             font-size: 16px;
             font-weight: 600;
-            color: var(--text-color);
+            color: #f2c744;
             margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .calculation-task {
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 8px;
-            padding: 8px 12px;
-            background: var(--card-bg);
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
+        .calculation-thinking h4::before {
+            content: "💭";
+            font-size: 18px;
         }
 
         .calculation-solution {
             margin-top: 20px;
             padding: 20px;
-            background: rgba(40, 167, 69, 0.05);
+            background: rgba(40, 167, 69, 0.08);
             border-radius: 12px;
-            border: 1px solid rgba(40, 167, 69, 0.2);
+            border: 1px solid rgba(40, 167, 69, 0.3);
             display: none;
         }
 
@@ -722,32 +779,174 @@
             font-size: 20px;
         }
 
-        .calculation-solution p {
+        .calculation-steps {
             font-size: 15px;
             line-height: 1.8;
             margin-bottom: 15px;
-            padding: 15px;
+            padding: 18px;
             background: var(--card-bg);
-            border-radius: 8px;
+            border-radius: 10px;
             border: 1px solid var(--border-color);
         }
 
-        .calculation-solution p:last-child {
+        .calculation-steps:last-child {
             margin-bottom: 0;
         }
 
-        /* MathJax 公式样式优化 */
+        .calculation-answer {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(40, 167, 69, 0.1);
+            border-radius: 10px;
+            border: 2px solid var(--success-color);
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .calculation-controls {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .calculation-controls .btn {
+            margin: 5px 10px;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .calculation-controls .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+            /* MathJax 公式样式优化 */
         .MathJax {
             font-size: 1.1em !important;
         }
 
-        .calculation-description .MathJax,
-        .calculation-task .MathJax {
+        .calculation-problem .MathJax,
+        .calculation-thinking .MathJax,
+        .calculation-solution .MathJax {
             color: var(--text-color) !important;
         }
 
+        /* 计算题公式行间距优化 */
         .calculation-solution .MathJax {
-            color: var(--text-color) !important;
+            margin: 0px 0 !important;
+        }
+
+        .calculation-solution .MathJax-Display {
+            margin: 0em 0 !important;
+        }
+
+        .calculation-solution p {
+            margin: 3px 0;
+            line-height: 1.3;
+        }
+
+        .calculation-thinking .MathJax {
+            margin: 0px 0 !important;
+        }
+
+        .calculation-thinking .MathJax-Display {
+            margin: 0em 0 !important;
+        }
+
+        .calculation-thinking p {
+            margin: 0px 0;
+            line-height: 1.1;
+        }
+
+        .calculation-thinking,
+        .calculation-solution {
+            margin-top: 8px;
+        }
+
+        .calculation-thinking h4,
+        .calculation-solution h4 {
+            margin-bottom: 5px;
+        }
+
+        /* 计算题步骤间距优化 */
+        .calculation-steps {
+            line-height: 1.3;
+        }
+
+        .calculation-steps p {
+            margin: 3px 0;
+        }
+
+        .calculation-steps br + br {
+            display: none;
+        }
+
+        /* 浏览学习模式中的计算题行间距优化 */
+        .review-question-item .calculation-container .MathJax {
+            margin: 0px 0 !important;
+        }
+
+        .review-question-item .calculation-container .MathJax-Display {
+            margin: 0em 0 !important;
+        }
+
+        .review-question-item .calculation-container p {
+            margin: 3px 0;
+            line-height: 1.3;
+        }
+
+        .review-question-item .calculation-thinking,
+        .review-question-item .calculation-solution {
+            margin-top: 8px;
+        }
+
+        .review-question-item .calculation-thinking h4,
+        .review-question-item .calculation-solution h4 {
+            margin-bottom: 5px;
+        }
+
+        .review-question-item .calculation-thinking p {
+            margin: 0px 0;
+            line-height: 1.1;
+        }
+
+        /* 暗色主题下的计算题优化 */
+        [data-theme="dark"] .calculation-title {
+            color: #ffd700;
+        }
+
+        [data-theme="dark"] .calculation-thinking h4 {
+            color: #ffd700;
+        }
+
+        /* 填空题浏览学习模式样式 */
+        .fill-answer {
+            background: var(--success-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            margin: 0 2px;
+            display: inline-block;
+        }
+
+        .fill-answer-item {
+            margin: 8px 0;
+            padding: 8px 12px;
+            background: rgba(40, 167, 69, 0.1);
+            border-radius: 6px;
+            border-left: 3px solid var(--success-color);
+        }
+
+        /* 暗色主题下的填空题答案样式 */
+        [data-theme="dark"] .fill-answer {
+            background: #28a745;
+            color: white;
+        }
+
+        [data-theme="dark"] .fill-answer-item {
+            background: rgba(40, 167, 69, 0.2);
         }
 
         .back-to-top.show {
@@ -1366,10 +1565,28 @@
 
             .quiz-header {
                 padding: 15px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+
+            .quiz-header-left {
+                justify-content: center;
+            }
+
+            .quiz-header-right {
+                justify-content: center;
+                gap: 6px;
             }
 
             #quizTitle {
                 font-size: 18px;
+            }
+
+            .quick-switch-btn {
+                font-size: 11px;
+                padding: 6px 10px;
+                min-width: 70px;
             }
 
             .mode-selector {
@@ -1503,18 +1720,25 @@
             }
 
             /* 移动端计算题样式 */
+            .calculation-container {
+                padding: 15px;
+            }
+
             .calculation-title {
                 font-size: 18px;
             }
 
-            .calculation-description {
+            .calculation-problem {
                 font-size: 14px;
-                padding: 12px;
+                padding: 15px;
             }
 
-            .calculation-task {
+            .calculation-thinking {
+                padding: 15px;
+            }
+
+            .calculation-thinking h4 {
                 font-size: 14px;
-                padding: 6px 10px;
             }
 
             .calculation-solution {
@@ -1525,9 +1749,20 @@
                 font-size: 16px;
             }
 
-            .calculation-solution p {
+            .calculation-steps {
                 font-size: 14px;
-                padding: 12px;
+                padding: 15px;
+            }
+
+            .calculation-controls .btn {
+                margin: 5px;
+                padding: 8px 16px;
+                font-size: 13px;
+                display: block;
+                width: 100%;
+                max-width: 200px;
+                margin-left: auto;
+                margin-right: auto;
             }
 
             .MathJax {
@@ -1618,8 +1853,13 @@
         <!-- 题目练习界面（初始隐藏） -->
         <div class="quiz-interface" id="quizInterface" style="display: none;">
             <div class="quiz-header">
-                <button class="btn btn-back" onclick="backToHome()">⬅️ 返回主页</button>
-                <h2 id="quizTitle">题目练习</h2>
+                <div class="quiz-header-left">
+                    <button class="btn btn-back" onclick="backToHome()">⬅️ 返回主页</button>
+                    <h2 id="quizTitle">题目练习</h2>
+                </div>
+                <div class="quiz-header-right" id="quickSwitchButtons">
+                    <!-- 快速切换按钮将由JavaScript动态生成 -->
+                </div>
             </div>
 
             <div class="stats">
@@ -2032,6 +2272,24 @@
                         correctCount: 0,
                         answeredQuestions: [],
                         reviewScrollPosition: 0
+                    },
+                    fill: {
+                        currentQuestionIndex: 0,
+                        mode: 'sequential',
+                        selectedAnswers: {},
+                        questionOrder: [],
+                        correctCount: 0,
+                        answeredQuestions: [],
+                        reviewScrollPosition: 0
+                    },
+                    calculation: {
+                        currentQuestionIndex: 0,
+                        mode: 'sequential',
+                        selectedAnswers: {},
+                        questionOrder: [],
+                        correctCount: 0,
+                        answeredQuestions: [],
+                        reviewScrollPosition: 0
                     }
                 };
 
@@ -2055,9 +2313,10 @@
                 this.quizType = type;
                 this.isQuizStarted = true;
 
-                // 隐藏主页，显示答题界面
+                // 显示加载状态
                 document.getElementById('quizTypeSelector').style.display = 'none';
                 document.getElementById('quizInterface').style.display = 'block';
+                document.getElementById('questionText').innerHTML = '<div style="text-align: center; padding: 40px; color: #999;">📚 正在加载题目数据...</div>';
 
                 // 更新标题
                 const titles = {
@@ -2067,6 +2326,9 @@
                     'calculation': '🧮 计算题练习'
                 };
                 document.getElementById('quizTitle').textContent = titles[type] || '题目练习';
+
+                // 生成快速切换按钮
+                this.generateQuickSwitchButtons(type);
 
                 // 恢复对应题目类型的状态
                 this.restoreState(type);
@@ -2081,19 +2343,66 @@
                         }
                         this.questions = await response.json();
                     } else if (type === 'fill') {
-                        // 填空题从外部JSON文件加载
-                        const response = await fetch('fill_questions.json');
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
+                        // 填空题从专门的JSON文件加载
+                        console.log('开始加载填空题数据...');
+                        try {
+                            const response = await fetch(`fill_questions.json?t=${Date.now()}`);
+                            console.log('填空题文件响应状态:', response.status);
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            const data = await response.json();
+                            console.log('填空题原始数据:', data);
+                            this.questions = data;
+                            console.log('填空题加载成功:', this.questions.length, '道题目');
+                        } catch (error) {
+                            console.error('填空题加载失败:', error);
+                            alert('填空题数据加载失败，使用备用数据');
+                            // 提供备用数据
+                            this.questions = [
+                                {
+                                    id: 1,
+                                    question: "电力电子器件按照控制能力可分为____、____和____三类。",
+                                    answers: ["不可控器件", "半控器件", "全控器件"],
+                                    explanation: "电力电子器件根据其控制特性分为三大类"
+                                },
+                                {
+                                    id: 2,
+                                    question: "PWM控制技术中，通过调节____来控制输出电压的大小。",
+                                    answers: ["占空比", "脉宽"],
+                                    explanation: "PWM通过改变脉冲宽度来控制平均输出电压"
+                                },
+                                {
+                                    id: 3,
+                                    question: "晶闸管的导通条件是阳极电压____阴极电压，且门极有____信号。",
+                                    answers: ["大于", "触发"],
+                                    explanation: "晶闸管需要正向电压和触发信号才能导通"
+                                }
+                            ];
+                            console.log('使用备用填空题数据:', this.questions.length, '道题目');
                         }
-                        this.questions = await response.json();
                     } else if (type === 'calculation') {
                         // 计算题从外部JSON文件加载
-                        const response = await fetch('questions_jisuan.json');
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
+                        try {
+                            const response = await fetch(`calculation_questions.json?t=${Date.now()}`);
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            this.questions = await response.json();
+                            console.log('计算题加载成功:', this.questions.length, '道题目');
+                        } catch (error) {
+                            console.error('计算题加载失败:', error);
+                            // 提供备用数据
+                            this.questions = [
+                                {
+                                    id: 1,
+                                    title: "第1题",
+                                    problem: "单相半波可控整流电路带电阻负载工作，设交流电压有效值 \\( U_2 = 220\\,V \\)，控制角 \\( \\alpha = 30° \\)，负载电阻 \\( R_d = 20\\,\\Omega \\)。<br><br>试求：<br>（1）输出电压的平均值 \\( U_d \\)；<br>（2）输出电流的平均值 \\( I_d \\)。",
+                                    thinking: "<strong>解题思路：</strong><br>单相半波可控整流的平均输出电压公式：<br>\\[ U_d = \\frac{U_m}{2\\pi}(1 + \\cos\\alpha) \\]<br>其中<br>\\[ U_m = \\sqrt{2} \\times U_2 \\]<br>先求出峰值，再代入公式计算平均电压，最后除以电阻求出平均电流。",
+                                    solution: "<strong>详细计算：</strong><br>\\[ U_m = \\sqrt{2} \\times 220 = 311\\,V \\]<br>\\[ \\cos 30° = 0.866 \\]<br>\\[ U_d = \\frac{311}{2\\pi}(1 + 0.866) \\]<br>\\[ = \\frac{311}{6.283}(1.866) \\]<br>\\[ = 49.5 \\times 1.866 = 92.3\\,V \\]<br><br><strong>输出电流：</strong><br>\\[ I_d = \\frac{U_d}{R_d} = \\frac{92.3}{20} = 4.615\\,A \\]<br><br><strong>答案：</strong><br>\\[ \\boxed{U_d = 92.3\\,V} \\quad \\boxed{I_d = 4.615\\,A} \\]"
+                                }
+                            ];
                         }
-                        this.questions = await response.json();
                     } else {
                         // 判断题使用内嵌数据
                         this.questions = judgmentQuestions;
@@ -2107,9 +2416,24 @@
                     };
                     console.log(`成功加载 ${this.questions.length} 道${typeNames[type]}`);
 
+                    // 如果没有题目，显示错误信息
+                    if (this.questions.length === 0) {
+                        document.getElementById('questionText').innerHTML = `
+                            <div style="text-align: center; padding: 40px; color: #999;">
+                                <h3>😅 暂无${typeNames[type]}题目</h3>
+                                <p>请检查数据文件是否正确加载</p>
+                            </div>
+                        `;
+                        return;
+                    }
+
                     this.setupQuestionOrder();
                     this.displayQuestion();
                     this.updateStats();
+
+                    // 强制更新界面
+                    this.updateButtons();
+                    this.updateProgress();
 
                     // 显示自动跳转控制面板
                     document.getElementById('autoNextControls').classList.add('show');
@@ -2333,17 +2657,31 @@
             }
 
             displayCalculationQuestion(question) {
+                console.log('显示计算题:', question);
+
                 let questionHtml = `
                     <div class="calculation-container">
                         <div class="calculation-title">${question.title}</div>
-                        <div class="calculation-description">${question.description}</div>
-                        <div class="calculation-tasks">
-                            <h4>求解：</h4>
-                            ${question.tasks.map(task => `<div class="calculation-task">${task}</div>`).join('')}
+                        <div class="calculation-problem">
+                            ${question.problem}
                         </div>
-                        <div class="calculation-solution" id="calculationSolution">
-                            <h4>详细解答</h4>
-                            ${question.solution}
+                        <div class="calculation-thinking" id="calculationThinking" style="display: none;">
+                            <h4>解题思路</h4>
+                            ${question.thinking}
+                        </div>
+                        <div class="calculation-solution" id="calculationSolution" style="display: none;">
+                            <h4>解题过程</h4>
+                            <div class="calculation-steps">
+                                ${question.solution}
+                            </div>
+                        </div>
+                        <div class="calculation-controls" style="margin-top: 20px; text-align: center;">
+                            <button class="btn btn-secondary" onclick="toggleCalculationThinking()" id="thinkingBtn">
+                                💭 显示解题思路
+                            </button>
+                            <button class="btn btn-secondary" onclick="toggleCalculationSolution()" id="solutionBtn">
+                                💡 显示解题过程
+                            </button>
                         </div>
                     </div>
                 `;
@@ -2353,9 +2691,9 @@
                 // 渲染 MathJax 公式
                 if (window.MathJax) {
                     MathJax.typesetPromise([document.getElementById('questionText')]).then(() => {
-                        console.log('MathJax 渲染完成');
+                        console.log('计算题 MathJax 渲染完成');
                     }).catch((err) => {
-                        console.error('MathJax 渲染失败:', err);
+                        console.error('计算题 MathJax 渲染失败:', err);
                     });
                 }
             }
@@ -2586,51 +2924,37 @@
 
                 // 生成题目类型切换按钮
                 const quizTypeSwitch = document.getElementById('quizTypeSwitch');
-                const otherType = this.quizType === 'choice' ? 'judgment' : 'choice';
-                const otherTypeName = otherType === 'choice' ? '📝 选择题' : '⚡ 判断题';
-                quizTypeSwitch.innerHTML = `
-                    <button class="btn show" onclick="switchQuizType('${otherType}')" title="切换到${otherTypeName}">
-                        ${otherTypeName}
-                    </button>
-                `;
+                this.generateQuizTypeSwitchButtons(quizTypeSwitch);
 
                 this.questions.forEach((question, index) => {
                     const questionItem = document.createElement('div');
                     questionItem.className = 'review-question-item';
-                    questionItem.innerHTML = `
-                        <div class="review-question-header">
-                            <span class="review-question-number">第 ${index + 1} 题</span>
-                            <button class="btn-favorite ${this.favoriteQuestions.includes(index) ? 'favorited' : ''}" onclick="toggleReviewFavorite(${index})" title="收藏题目">
-                                <span id="reviewFavoriteIcon${index}">${this.favoriteQuestions.includes(index) ? '★' : '☆'}</span>
-                            </button>
-                        </div>
 
-                        <div class="review-question-text">${question.question}</div>
+                    let questionContent = '';
 
-                        ${question.hasImage && question.imageUrl ? `
-                            <div class="question-image">
-                                <img src="${question.imageUrl}" alt="题目图片" style="max-width: 100%; height: auto;">
-                            </div>
-                        ` : ''}
+                    if (this.quizType === 'fill') {
+                        // 填空题浏览学习模式
+                        questionContent = this.generateFillReviewContent(question, index);
+                    } else if (this.quizType === 'calculation') {
+                        // 计算题浏览学习模式
+                        questionContent = this.generateCalculationReviewContent(question, index);
+                    } else {
+                        // 选择题和判断题浏览学习模式
+                        questionContent = this.generateChoiceReviewContent(question, index);
+                    }
 
-                        <div class="review-options">
-                            ${question.options.map((option, optionIndex) => `
-                                <div class="review-option ${optionIndex === question.correctAnswer ? 'correct' : ''}">
-                                    <div class="review-option-label">${String.fromCharCode(65 + optionIndex)}</div>
-                                    <div class="review-option-text">${option}</div>
-                                </div>
-                            `).join('')}
-                        </div>
-
-                        ${question.explanation ? `
-                            <div class="review-answer">
-                                <div class="review-answer-label">解析</div>
-                                <div>${question.explanation}</div>
-                            </div>
-                        ` : ''}
-                    `;
+                    questionItem.innerHTML = questionContent;
                     reviewQuestions.appendChild(questionItem);
                 });
+
+                // 渲染 MathJax 公式（如果有计算题）
+                if (this.quizType === 'calculation' && window.MathJax) {
+                    MathJax.typesetPromise([reviewQuestions]).then(() => {
+                        console.log('浏览学习模式 MathJax 渲染完成');
+                    }).catch((err) => {
+                        console.error('浏览学习模式 MathJax 渲染失败:', err);
+                    });
+                }
 
                 // 恢复滚动位置
                 setTimeout(() => {
@@ -2638,6 +2962,164 @@
                         window.scrollTo(0, this.reviewScrollPosition);
                     }
                 }, 100);
+            }
+
+            generateQuickSwitchButtons(currentType) {
+                const quickSwitchContainer = document.getElementById('quickSwitchButtons');
+                if (!quickSwitchContainer) return;
+
+                const typeInfo = {
+                    'choice': { name: '📝 选择题', count: '57题' },
+                    'judgment': { name: '⚡ 判断题', count: '25题' },
+                    'fill': { name: '✏️ 填空题', count: '24题' },
+                    'calculation': { name: '🧮 计算题', count: '3题' }
+                };
+
+                const allTypes = ['choice', 'judgment', 'fill', 'calculation'];
+
+                quickSwitchContainer.innerHTML = allTypes.map(type => {
+                    const isCurrentType = type === currentType;
+                    const info = typeInfo[type];
+                    return `
+                        <button class="quick-switch-btn ${isCurrentType ? 'current' : ''}"
+                                onclick="${isCurrentType ? '' : `quickSwitchQuizType('${type}')`}"
+                                title="${info.name} (${info.count})">
+                            ${info.name}
+                        </button>
+                    `;
+                }).join('');
+            }
+
+            generateQuizTypeSwitchButtons(quizTypeSwitch) {
+                const typeNames = {
+                    'choice': '📝 选择题',
+                    'judgment': '⚡ 判断题',
+                    'fill': '✏️ 填空题',
+                    'calculation': '🧮 计算题'
+                };
+
+                const allTypes = ['choice', 'judgment', 'fill', 'calculation'];
+                const otherTypes = allTypes.filter(type => type !== this.quizType);
+
+                quizTypeSwitch.innerHTML = otherTypes.map(type => `
+                    <button class="btn show" onclick="switchQuizType('${type}')" title="切换到${typeNames[type]}">
+                        ${typeNames[type]}
+                    </button>
+                `).join('');
+            }
+
+            generateChoiceReviewContent(question, index) {
+                return `
+                    <div class="review-question-header">
+                        <span class="review-question-number">第 ${index + 1} 题</span>
+                        <button class="btn-favorite ${this.favoriteQuestions.includes(index) ? 'favorited' : ''}" onclick="toggleReviewFavorite(${index})" title="收藏题目">
+                            <span id="reviewFavoriteIcon${index}">${this.favoriteQuestions.includes(index) ? '★' : '☆'}</span>
+                        </button>
+                    </div>
+
+                    <div class="review-question-text">${question.question}</div>
+
+                    ${question.hasImage && question.imageUrl ? `
+                        <div class="question-image">
+                            <img src="${question.imageUrl}" alt="题目图片" style="max-width: 100%; height: auto;">
+                        </div>
+                    ` : ''}
+
+                    <div class="review-options">
+                        ${question.options.map((option, optionIndex) => `
+                            <div class="review-option ${optionIndex === question.correctAnswer ? 'correct' : ''}">
+                                <div class="review-option-label">${String.fromCharCode(65 + optionIndex)}</div>
+                                <div class="review-option-text">${option}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    ${question.explanation ? `
+                        <div class="review-answer">
+                            <div class="review-answer-label">解析</div>
+                            <div>${question.explanation}</div>
+                        </div>
+                    ` : ''}
+                `;
+            }
+
+            generateFillReviewContent(question, index) {
+                // 为填空题生成显示答案的版本
+                let questionWithAnswers = question.question;
+                let answerIndex = 0;
+
+                // 替换空白标记为答案
+                questionWithAnswers = questionWithAnswers.replace(/_{2,}/g, () => {
+                    const answer = question.answers[answerIndex] || '答案';
+                    answerIndex++;
+                    return `<span class="fill-answer">${answer}</span>`;
+                });
+
+                questionWithAnswers = questionWithAnswers.replace(/（\s*）/g, () => {
+                    const answer = question.answers[answerIndex] || '答案';
+                    answerIndex++;
+                    return `<span class="fill-answer">${answer}</span>`;
+                });
+
+                questionWithAnswers = questionWithAnswers.replace(/\(\s*\)/g, () => {
+                    const answer = question.answers[answerIndex] || '答案';
+                    answerIndex++;
+                    return `<span class="fill-answer">${answer}</span>`;
+                });
+
+                // 如果没有找到空白处，显示所有答案
+                if (!questionWithAnswers.includes('fill-answer')) {
+                    const answersHtml = question.answers.map((answer, idx) =>
+                        `<div class="fill-answer-item">答案${idx + 1}：<span class="fill-answer">${answer}</span></div>`
+                    ).join('');
+                    questionWithAnswers += '<br><br>' + answersHtml;
+                }
+
+                return `
+                    <div class="review-question-header">
+                        <span class="review-question-number">第 ${index + 1} 题</span>
+                        <button class="btn-favorite ${this.favoriteQuestions.includes(index) ? 'favorited' : ''}" onclick="toggleReviewFavorite(${index})" title="收藏题目">
+                            <span id="reviewFavoriteIcon${index}">${this.favoriteQuestions.includes(index) ? '★' : '☆'}</span>
+                        </button>
+                    </div>
+
+                    <div class="review-question-text">${questionWithAnswers}</div>
+
+                    ${question.explanation ? `
+                        <div class="review-answer">
+                            <div class="review-answer-label">解析</div>
+                            <div>${question.explanation}</div>
+                        </div>
+                    ` : ''}
+                `;
+            }
+
+            generateCalculationReviewContent(question, index) {
+                return `
+                    <div class="review-question-header">
+                        <span class="review-question-number">第 ${index + 1} 题</span>
+                        <button class="btn-favorite ${this.favoriteQuestions.includes(index) ? 'favorited' : ''}" onclick="toggleReviewFavorite(${index})" title="收藏题目">
+                            <span id="reviewFavoriteIcon${index}">${this.favoriteQuestions.includes(index) ? '★' : '☆'}</span>
+                        </button>
+                    </div>
+
+                    <div class="calculation-container">
+                        <div class="calculation-title">${question.title}</div>
+                        <div class="calculation-problem">
+                            ${question.problem}
+                        </div>
+                        <div class="calculation-thinking">
+                            <h4>解题思路</h4>
+                            ${question.thinking}
+                        </div>
+                        <div class="calculation-solution">
+                            <h4>解题过程</h4>
+                            <div class="calculation-steps">
+                                ${question.solution}
+                            </div>
+                        </div>
+                    </div>
+                `;
             }
 
             hideResult() {
@@ -2683,12 +3165,13 @@
                     } else {
                         // 未答题时，显示"提交答案"
                         if (this.quizType === 'calculation') {
-                            submitBtn.innerHTML = '💡 查看解答';
+                            submitBtn.innerHTML = '📚 学习模式';
+                            submitBtn.disabled = true; // 计算题不需要提交
                         } else {
                             submitBtn.innerHTML = '✅ 提交答案';
+                            // 填空题不需要检查selectedAnswer
+                            submitBtn.disabled = this.quizType !== 'fill' && this.selectedAnswer === null;
                         }
-                        // 填空题和计算题不需要检查selectedAnswer
-                        submitBtn.disabled = (this.quizType !== 'fill' && this.quizType !== 'calculation') && this.selectedAnswer === null;
                         submitBtn.setAttribute('onclick', 'submitAnswer()');
                     }
 
@@ -2713,17 +3196,11 @@
                     }
                 }
 
-                // 控制显示答案按钮（填空题和计算题显示）
+                // 控制显示答案按钮（仅填空题显示，计算题有自己的控制按钮）
                 if (showAnswerBtn) {
-                    showAnswerBtn.style.display = (this.quizType === 'fill' || this.quizType === 'calculation') ? 'inline-block' : 'none';
-                    // 计算题的按钮文本
-                    if (this.quizType === 'calculation') {
-                        showAnswerBtn.innerHTML = '💡 查看解答';
-                        showAnswerBtn.setAttribute('onclick', 'showCalculationAnswer()');
-                    } else {
-                        showAnswerBtn.innerHTML = '💡 显示答案';
-                        showAnswerBtn.setAttribute('onclick', 'showFillAnswer()');
-                    }
+                    showAnswerBtn.style.display = this.quizType === 'fill' ? 'inline-block' : 'none';
+                    showAnswerBtn.innerHTML = '💡 显示答案';
+                    showAnswerBtn.setAttribute('onclick', 'showFillAnswer()');
                 }
 
                 prevBtn.disabled = this.currentQuestionIndex === 0;
@@ -2870,6 +3347,11 @@
             }
         }
 
+        async function quickSwitchQuizType(type) {
+            // 快速切换题目类型（保持当前模式）
+            await switchQuizType(type);
+        }
+
         function backToHome() {
             // 隐藏题目类型切换按钮
             const quizTypeSwitch = document.getElementById('quizTypeSwitch');
@@ -2886,9 +3368,8 @@
                 return;
             }
 
-            // 计算题直接显示解答
+            // 计算题不需要提交，用户通过按钮控制显示
             if (window.quizApp.quizType === 'calculation') {
-                window.quizApp.showCalculationAnswer();
                 return;
             }
 
@@ -3170,6 +3651,54 @@
 
         function showCalculationAnswer() {
             window.quizApp.showCalculationAnswer();
+        }
+
+        function toggleCalculationThinking() {
+            const thinkingElement = document.getElementById('calculationThinking');
+            const thinkingBtn = document.getElementById('thinkingBtn');
+
+            if (thinkingElement && thinkingBtn) {
+                if (thinkingElement.style.display === 'none') {
+                    thinkingElement.style.display = 'block';
+                    thinkingBtn.innerHTML = '💭 隐藏解题思路';
+
+                    // 重新渲染 MathJax
+                    if (window.MathJax) {
+                        MathJax.typesetPromise([thinkingElement]).then(() => {
+                            console.log('解题思路 MathJax 渲染完成');
+                        }).catch((err) => {
+                            console.error('解题思路 MathJax 渲染失败:', err);
+                        });
+                    }
+                } else {
+                    thinkingElement.style.display = 'none';
+                    thinkingBtn.innerHTML = '💭 显示解题思路';
+                }
+            }
+        }
+
+        function toggleCalculationSolution() {
+            const solutionElement = document.getElementById('calculationSolution');
+            const solutionBtn = document.getElementById('solutionBtn');
+
+            if (solutionElement && solutionBtn) {
+                if (solutionElement.style.display === 'none') {
+                    solutionElement.style.display = 'block';
+                    solutionBtn.innerHTML = '💡 隐藏详细解答';
+
+                    // 重新渲染 MathJax
+                    if (window.MathJax) {
+                        MathJax.typesetPromise([solutionElement]).then(() => {
+                            console.log('详细解答 MathJax 渲染完成');
+                        }).catch((err) => {
+                            console.error('详细解答 MathJax 渲染失败:', err);
+                        });
+                    }
+                } else {
+                    solutionElement.style.display = 'none';
+                    solutionBtn.innerHTML = '💡 显示详细解答';
+                }
+            }
         }
 
         // 页面卸载时保存状态

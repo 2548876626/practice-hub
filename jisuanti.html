@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>电力电子计算题详解</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    body { background: #222; color: #eee; font-family: Arial, sans-serif; padding: 20px; }
+    .question { background: #333; padding: 15px; border-radius: 10px; margin-bottom: 30px; }
+    h1, h2 { color: #f2c744; }
+    p { line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <h1>一、计算题详解（共3题，100分）</h1>
+
+  <!-- 题目 1 -->
+  <div class="question">
+    <h2>第1题</h2>
+    <p>
+      单相半波可控整流电路带电阻负载工作，设交流电压有效值
+      \( U_2 = 220\,V \)，控制角 \( \alpha = 30° \)，负载电阻 \( R_d = 20\,\Omega \)。
+      试求：
+      <br>（1）输出电压的平均值 \( U_d \)
+      <br>（2）输出电流的平均值 \( I_d \)
+    </p>
+    <p><strong>解题过程：</strong></p>
+    <p>
+      输出电压：
+      \[
+      U_d = 0.45 \times U_2 \times \frac{1 + \cos\alpha}{2}
+      \]
+      \[
+      = 0.45 \times 220 \times \frac{1 + 0.866}{2}
+      \]
+      \[
+      = 92.4\,V
+      \]
+      平均电流：
+      \[
+      I_d = \frac{U_d}{R_d}
+      \]
+      \[
+      = \frac{92.4}{20}
+      \]
+      \[
+      = 4.62\,A
+      \]
+      答案：
+      \[
+      \boxed{U_d = 92.4\,V} \quad \boxed{I_d = 4.62\,A}
+      \]
+    </p>
+  </div>
+
+  <!-- 题目 2 -->
+  <div class="question">
+    <h2>第2题</h2>
+    <p>
+      在 BUCK 斩波电路中，已知
+      \( E=300\,V \)，
+      负载电阻 \( R=30\,\Omega \)，
+      电感、电容极大，采用PWM控制方式，
+      当 \( T_s=30\,\mu s \)，\( t_{on}=15\,\mu s \) 时，
+      计算：
+      <br>（1）输出电压平均值 \( U_0 \)
+      <br>（2）输出电流平均值 \( I_0 \)
+    </p>
+    <p><strong>解题过程：</strong></p>
+    <p>
+      输出电压：
+      \[
+      U_0 = E \times \frac{t_{on}}{T_s}
+      \]
+      \[
+      = 300 \times \frac{15}{30}
+      \]
+      \[
+      = 150\,V
+      \]
+      输出电流：
+      \[
+      I_0 = \frac{U_0}{R}
+      \]
+      \[
+      = \frac{150}{30}
+      \]
+      \[
+      = 5\,A
+      \]
+      答案：
+      \[
+      \boxed{U_0 = 150\,V} \quad \boxed{I_0 = 5\,A}
+      \]
+    </p>
+  </div>
+
+  <!-- 题目 3 -->
+  <div class="question">
+    <h2>第3题</h2>
+    <p>
+      在升压斩波电路中，已知
+      \( E=24\,V \)，
+      负载电阻 \( R=20\,\Omega \)，
+      电感、电容极大，采用PWM控制方式，
+      当 \( T=40\,\mu s \)，\( t_{on}=25\,\mu s \) 时，
+      计算：
+      <br>（1）输出电压平均值 \( U_0 \)
+      <br>（2）输出电流平均值 \( I_0 \)
+    </p>
+    <p><strong>解题过程：</strong></p>
+    <p>
+      输出电压：
+      \[
+      U_0 = \frac{E}{1 - \frac{t_{on}}{T}}
+      \]
+      \[
+      = \frac{24}{1 - \frac{25}{40}}
+      \]
+      \[
+      = 64\,V
+      \]
+      输出电流：
+      \[
+      I_0 = \frac{U_0}{R}
+      \]
+      \[
+      = \frac{64}{20}
+      \]
+      \[
+      = 3.2\,A
+      \]
+      答案：
+      \[
+      \boxed{U_0 = 64\,V} \quad \boxed{I_0 = 3.2\,A}
+      \]
+    </p>
+  </div>
+
+</body>
+</html>
