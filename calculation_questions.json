@@ -4,20 +4,20 @@
     "title": "第1题",
     "problem": "单相半波可控整流电路带电阻负载工作，设交流电压有效值 \\( U_2 = 220\\,V \\)，控制角 \\( \\alpha = 30° \\)，负载电阻 \\( R_d = 20\\,\\Omega \\)。<br>试求：<br>（1）输出电压的平均值 \\( U_d \\)<br>（2）输出电流的平均值 \\( I_d \\)",
     "thinking": "<strong>解题思路：</strong><br>单相半波可控整流的平均输出电压公式为：<br>\\[ U_d = 0.45 \\times U_2 \\times \\frac{1 + \\cos\\alpha}{2} \\]<br>然后根据欧姆定律计算平均电流。",
-    "solution": "<strong>解题过程：</strong><br>输出电压：<br>\\[ U_d = 0.45 \\times U_2 \\times \\frac{1 + \\cos\\alpha}{2} \\]<br>\\[ = 0.45 \\times 220 \\times \\frac{1 + 0.866}{2} \\]<br>\\[ = 92.4\\,V \\]<br>平均电流：<br>\\[ I_d = \\frac{U_d}{R_d} \\]<br>\\[ = \\frac{92.4}{20} \\]<br>\\[ = 4.62\\,A \\]<br>答案：<br>\\[ \\boxed{U_d = 92.4\\,V} \\quad \\boxed{I_d = 4.62\\,A} \\]"
+    "solution": "<strong>解题过程：</strong><br>\\[ \\begin{align*} U_d & = 0.45 \\times U_2 \\times \\frac{1 + \\cos\\alpha}{2} \\\\ & = 0.45 \\times 220 \\times \\frac{1 + 0.866}{2} \\\\ & = 92.4\\,V \\\\ I_d & = \\frac{U_d}{R_d} \\\\ & = \\frac{92.4}{20} \\\\ & = 4.62\\,A \\\\ \\end{align*} \\] 答案：\\[ \\boxed{U_d = 92.4\\,V} \\quad \\boxed{I_d = 4.62\\,A} \\]"
   },
   {
     "id": 2,
     "title": "第2题",
     "problem": "在 BUCK 斩波电路中，已知 \\( E=300\\,V \\)，负载电阻 \\( R=30\\,\\Omega \\)，电感、电容极大，采用PWM控制方式，当 \\( T_s=30\\,\\mu s \\)，\\( t_{on}=15\\,\\mu s \\) 时，计算：<br>（1）输出电压平均值 \\( U_0 \\)<br>（2）输出电流平均值 \\( I_0 \\)",
     "thinking": "<strong>解题思路：</strong><br>BUCK 电路输出电压为：<br>\\[ U_0 = E \\times \\frac{t_{on}}{T_s} \\]<br>然后根据欧姆定律计算输出电流。",
-    "solution": "<strong>解题过程：</strong><br>输出电压：<br>\\[ U_0 = E \\times \\frac{t_{on}}{T_s} \\]<br>\\[ = 300 \\times \\frac{15}{30} \\]<br>\\[ = 150\\,V \\]<br>输出电流：<br>\\[ I_0 = \\frac{U_0}{R} \\]<br>\\[ = \\frac{150}{30} \\]<br>\\[ = 5\\,A \\]<br>答案：<br>\\[ \\boxed{U_0 = 150\\,V} \\quad \\boxed{I_0 = 5\\,A} \\]"
+    "solution": "<strong>解题过程：</strong><br>\\[ \\begin{align*} U_0 & = E \\times \\frac{t_{on}}{T_s} \\\\ & = 300 \\times \\frac{15}{30} \\\\ & = 150\\,V \\\\ I_0 & = \\frac{U_0}{R} \\\\ & = \\frac{150}{30} \\\\ & = 5\\,A \\\\ \\end{align*} \\] 答案：\\[ \\boxed{U_0 = 150\\,V} \\quad \\boxed{I_0 = 5\\,A} \\]"
   },
   {
     "id": 3,
     "title": "第3题",
     "problem": "在升压斩波电路中，已知 \\( E=24\\,V \\)，负载电阻 \\( R=20\\,\\Omega \\)，电感、电容极大，采用PWM控制方式，当 \\( T=40\\,\\mu s \\)，\\( t_{on}=25\\,\\mu s \\) 时，计算：<br>（1）输出电压平均值 \\( U_0 \\)<br>（2）输出电流平均值 \\( I_0 \\)",
     "thinking": "<strong>解题思路：</strong><br>升压斩波（BOOST）平均输出电压为：<br>\\[ U_0 = \\frac{E}{1 - \\frac{t_{on}}{T}} \\]<br>然后根据欧姆定律计算输出电流。",
-    "solution": "<strong>解题过程：</strong><br>输出电压：<br>\\[ U_0 = \\frac{E}{1 - \\frac{t_{on}}{T}} \\]<br>\\[ = \\frac{24}{1 - \\frac{25}{40}} \\]<br>\\[ = 64\\,V \\]<br>输出电流：<br>\\[ I_0 = \\frac{U_0}{R} \\]<br>\\[ = \\frac{64}{20} \\]<br>\\[ = 3.2\\,A \\]<br>答案：<br>\\[ \\boxed{U_0 = 64\\,V} \\quad \\boxed{I_0 = 3.2\\,A} \\]"
+    "solution": "<strong>解题过程：</strong><br>\\[ \\begin{align*} U_0 & = \\frac{E}{1 - \\frac{t_{on}}{T}} \\\\ & = \\frac{24}{1 - \\frac{25}{40}} \\\\ & = 64\\,V \\\\ I_0 & = \\frac{U_0}{R} \\\\ & = \\frac{64}{20} \\\\ & = 3.2\\,A \\\\ \\end{align*} \\] 答案：\\[ \\boxed{U_0 = 64\\,V} \\quad \\boxed{I_0 = 3.2\\,A} \\]"
   }
 ]
