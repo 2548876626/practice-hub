@@ -1,0 +1,4 @@
+# 文件路径: netlify.toml
+
+[build]
+  functions = "netlify/functions"

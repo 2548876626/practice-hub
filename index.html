@@ -66,6 +66,7 @@
             touch-action: pan-y; /* 只允许垂直滑动 */
             -webkit-text-size-adjust: 100%; /* 防止iOS自动调整文字大小 */
             -ms-text-size-adjust: 100%; /* 防止Windows Phone自动调整文字大小 */
+            overscroll-behavior: contain; /* 防止过度滚动 */
         }
 
         /* 防止双击缩放 */
@@ -76,6 +77,7 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+            -webkit-tap-highlight-color: transparent; /* 移除点击高亮 */
         }
 
         /* 允许文本选择（用于复制题目内容） */
@@ -86,6 +88,17 @@
             -moz-user-select: text;
             -ms-user-select: text;
             user-select: text;
+            -webkit-touch-callout: default;
+        }
+
+        /* 按钮点击反馈 */
+        .btn, .option, .type-card {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+            transition: transform 0.1s ease;
+        }
+
+        .btn:active, .option:active, .type-card:active {
+            transform: scale(0.98);
         }
 
         body {
@@ -981,6 +994,87 @@
             display: block;
         }
 
+        /* 模态框样式 */
+        .modal {
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            color: var(--text-color);
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .modal-header .close {
+            color: var(--text-color);
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .modal-header .close:hover {
+            color: var(--primary-color);
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+
+            .modal-header {
+                padding: 15px 20px;
+            }
+
+            .modal-body {
+                padding: 20px;
+            }
+        }
+
         /* 题目类型切换按钮 */
         .quiz-type-switch {
             position: fixed;
@@ -1437,6 +1531,16 @@
 
         /* 移动端样式 */
         @media (max-width: 768px) {
+            /* 移动端滚动优化 */
+            body {
+                -webkit-overflow-scrolling: touch; /* iOS平滑滚动 */
+                scroll-behavior: smooth; /* 平滑滚动 */
+            }
+
+            .container {
+                padding: 10px !important;
+            }
+
             .header h1 {
                 font-size: 24px;
             }
@@ -1517,20 +1621,48 @@
             }
 
             .option {
-                padding: 12px;
+                padding: 15px 12px !important;
+                margin: 8px 0 !important;
+                min-height: 44px !important; /* iOS推荐的最小触摸目标 */
+                border-radius: 8px !important;
+                transition: all 0.2s ease !important;
+            }
+
+            .option:active {
+                transform: scale(0.98) !important;
+                opacity: 0.8 !important;
             }
 
             .option-text {
-                font-size: 15px;
+                font-size: 15px !important;
+                line-height: 1.4 !important;
             }
 
             .controls {
-                padding: 10px !important;
+                padding: 15px !important;
                 display: grid !important;
                 grid-template-columns: 1fr 1fr 1fr !important;
-                gap: 8px !important;
+                gap: 12px !important;
                 justify-content: unset !important;
                 align-items: stretch !important;
+            }
+
+            /* 移动端按钮优化 */
+            .controls .btn {
+                padding: 12px 8px !important;
+                font-size: 14px !important;
+                min-height: 44px !important; /* iOS推荐的最小触摸目标 */
+                border-radius: 8px !important;
+                font-weight: 500 !important;
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+                transition: all 0.2s ease !important;
+            }
+
+            .controls .btn:active {
+                transform: scale(0.95) !important;
+                opacity: 0.8 !important;
             }
 
             .center-controls {
@@ -1587,7 +1719,16 @@
             }
 
             .type-card {
-                padding: 25px 15px;
+                padding: 25px 15px !important;
+                min-height: 120px !important; /* 确保足够的触摸区域 */
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+            }
+
+            .type-card:active {
+                transform: scale(0.97) !important;
+                opacity: 0.9 !important;
             }
 
             .type-icon {
@@ -2015,6 +2156,8 @@
         ↑
     </button>
 
+
+
     <!-- 题目类型切换按钮 -->
     <div class="quiz-type-switch" id="quizTypeSwitch">
         <!-- 动态生成切换按钮 -->
@@ -2273,15 +2416,19 @@
             }
         ];
 
-        // AI解析配置
+        // AI解析配置 - 使用Netlify函数
         const AI_CONFIG = {
-            apiUrl: 'https://api.openrouter.ai/api/v1/chat/completions',
-            apiKey: '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',
-            model: 'deepseek/deepseek-r1:free'
+            apiUrl: '/.netlify/functions/ask-gemini',
+            model: 'google/gemini-2.0-flash-exp:free',
+            enabled: true // 使用Netlify函数，默认启用
         };
 
-        // AI解析函数
+        // AI解析函数 - 使用Netlify函数
         async function getAIAnalysis(question, userAnswer, correctAnswer, quizType) {
+            if (!AI_CONFIG.enabled) {
+                return '💡 AI解析功能暂时不可用，请查看题目解答或咨询老师。';
+            }
+
             try {
                 let prompt = '';
 
@@ -2319,21 +2466,10 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                 const response = await fetch(AI_CONFIG.apiUrl, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${AI_CONFIG.apiKey}`,
-                        'HTTP-Referer': window.location.origin,
-                        'X-Title': '电力电子技术练习系统'
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        model: AI_CONFIG.model,
-                        messages: [
-                            {
-                                role: 'user',
-                                content: prompt
-                            }
-                        ],
-                        max_tokens: 150,
-                        temperature: 0.7
+                        prompt: prompt
                     })
                 });
 
@@ -2342,12 +2478,20 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                 }
 
                 const data = await response.json();
-                return data.choices[0].message.content.trim();
+
+                // 处理Gemini API的响应格式
+                if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) {
+                    return data.candidates[0].content.parts[0].text.trim();
+                } else {
+                    throw new Error('响应格式不正确');
+                }
             } catch (error) {
                 console.error('AI解析获取失败:', error);
-                return '解析暂时不可用，请查看题目解答或咨询老师。';
+                return '💡 解析暂时不可用，请查看题目解答或咨询老师。';
             }
         }
+
+
 
         // 题目训练系统类
         class QuizApp {
@@ -2658,14 +2802,15 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
 
                     newQuestionImg.onerror = function() {
                         console.error('图片加载失败:', question.imageUrl);
-                        // 显示图片加载失败的提示
+                        // 移动端优化的图片加载失败提示
+                        const isMobile = window.innerWidth <= 768;
                         questionImage.innerHTML = `
-                            <div style="padding: 20px; text-align: center; color: var(--secondary-color); border: 1px dashed var(--border-color); border-radius: 8px;">
-                                📷 图片加载失败<br>
-                                <small>请检查网络连接或刷新页面</small><br>
-                                <button onclick="this.parentElement.parentElement.querySelector('img').src='${question.imageUrl}'"
-                                        style="margin-top: 10px; padding: 5px 10px; background: var(--primary-color); color: white; border: none; border-radius: 4px; cursor: pointer;">
-                                    重新加载
+                            <div style="padding: ${isMobile ? '15px' : '20px'}; text-align: center; color: var(--secondary-color); border: 1px dashed var(--border-color); border-radius: 8px; background: rgba(255, 193, 7, 0.1);">
+                                📷 图片暂时无法显示<br>
+                                <small style="color: #666; font-size: ${isMobile ? '12px' : '14px'};">网络问题或图片链接失效</small><br>
+                                <button onclick="window.quizApp.reloadQuestionImage('${question.imageUrl}')"
+                                        style="margin-top: 10px; padding: ${isMobile ? '8px 12px' : '5px 10px'}; background: var(--primary-color); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: ${isMobile ? '14px' : '12px'};">
+                                    🔄 重新加载
                                 </button>
                             </div>
                         `;
@@ -3065,6 +3210,44 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
 
                 // 重置选择状态
                 this.selectedAnswer = null;
+            }
+
+            // 重新加载题目图片
+            reloadQuestionImage(imageUrl) {
+                const questionImage = document.getElementById('questionImage');
+                if (questionImage && imageUrl) {
+                    questionImage.innerHTML = `
+                        <div style="padding: 20px; text-align: center; color: var(--secondary-color);">
+                            <div style="margin-bottom: 10px;">🔄 正在重新加载图片...</div>
+                        </div>
+                    `;
+
+                    // 延迟一下再重新加载，给用户反馈
+                    setTimeout(() => {
+                        const newImg = document.createElement('img');
+                        newImg.style.cssText = 'max-width: 100%; width: 100%; height: auto; object-fit: contain; border-radius: 8px; background: #f8f9fa;';
+                        newImg.alt = '题目图片';
+
+                        newImg.onload = function() {
+                            questionImage.innerHTML = '';
+                            questionImage.appendChild(newImg);
+                            questionImage.style.display = 'block';
+                        };
+
+                        newImg.onerror = function() {
+                            const isMobile = window.innerWidth <= 768;
+                            questionImage.innerHTML = `
+                                <div style="padding: ${isMobile ? '15px' : '20px'}; text-align: center; color: #dc3545; border: 1px dashed #dc3545; border-radius: 8px; background: rgba(220, 53, 69, 0.1);">
+                                    ❌ 图片无法加载<br>
+                                    <small style="color: #666; font-size: ${isMobile ? '12px' : '14px'};">请联系老师或稍后再试</small>
+                                </div>
+                            `;
+                        };
+
+                        // 添加时间戳防止缓存
+                        newImg.src = imageUrl + '?t=' + Date.now();
+                    }, 500);
+                }
             }
 
             updateFavoriteButton(questionIndex) {
