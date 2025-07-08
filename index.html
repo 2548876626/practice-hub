@@ -3191,9 +3191,31 @@
                 if (this.quizType === 'gongpeidian_calculation' && window.MathJax) {
                     MathJax.typesetPromise([reviewQuestions]).then(() => {
                         console.log('浏览学习模式 MathJax 渲染完成');
+                        // MathJax 渲染完成后恢复滚动位置
+                        this.restoreReviewScrollPosition();
                     }).catch((err) => {
                         console.error('浏览学习模式 MathJax 渲染失败:', err);
+                        // 即使 MathJax 失败也要恢复滚动位置
+                        this.restoreReviewScrollPosition();
                     });
+                } else {
+                    // 没有 MathJax 的情况下直接恢复滚动位置
+                    setTimeout(() => {
+                        this.restoreReviewScrollPosition();
+                    }, 100);
+                }
+            }
+
+            restoreReviewScrollPosition() {
+                // 恢复当前题目类型的浏览学习模式滚动位置
+                if (this.quizType && this.states[this.quizType]) {
+                    const savedPosition = this.states[this.quizType].reviewScrollPosition || 0;
+                    if (savedPosition > 0) {
+                        setTimeout(() => {
+                            window.scrollTo(0, savedPosition);
+                            console.log(`恢复 ${this.quizType} 浏览学习模式滚动位置: ${savedPosition}px`);
+                        }, 200);
+                    }
                 }
             }
 

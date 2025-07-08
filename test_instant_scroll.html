@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>直接跳转滚动测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            min-height: 200px;
+        }
+        .test-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 16px;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .button.instant {
+            background: #28a745;
+        }
+        .button.instant:hover {
+            background: #1e7e34;
+        }
+        .button.smooth {
+            background: #ffc107;
+            color: #212529;
+        }
+        .button.smooth:hover {
+            background: #e0a800;
+        }
+        .position-info {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            z-index: 1000;
+        }
+        .content-block {
+            height: 300px;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+        .block-1 { background: #e74c3c; }
+        .block-2 { background: #3498db; }
+        .block-3 { background: #2ecc71; }
+        .block-4 { background: #f39c12; }
+        .block-5 { background: #9b59b6; }
+        .block-6 { background: #1abc9c; }
+        .block-7 { background: #34495e; }
+        .block-8 { background: #e67e22; }
+        .comparison {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="position-info" id="positionInfo">
+        滚动位置: 0px
+    </div>
+
+    <div class="container">
+        <h1>⚡ 直接跳转滚动测试</h1>
+        <p>测试两种滚动方式的区别：平滑滚动 vs 直接跳转</p>
+
+        <div class="test-section">
+            <h3>🎯 滚动测试控制</h3>
+            <button class="button instant" onclick="scrollToPosition(1500, false)">⚡ 直接跳转到 1500px</button>
+            <button class="button smooth" onclick="scrollToPosition(1500, true)">🌊 平滑滚动到 1500px</button>
+            <br>
+            <button class="button instant" onclick="scrollToPosition(3000, false)">⚡ 直接跳转到 3000px</button>
+            <button class="button smooth" onclick="scrollToPosition(3000, true)">🌊 平滑滚动到 3000px</button>
+            <br>
+            <button class="button" onclick="scrollToPosition(0, false)">🔝 回到顶部（直接）</button>
+            <button class="button" onclick="scrollToPosition(0, true)">🔝 回到顶部（平滑）</button>
+        </div>
+
+        <div class="comparison">
+            <h4>📊 两种方式对比：</h4>
+            <ul>
+                <li><strong>直接跳转</strong>：<code>window.scrollTo(0, position)</code> - 立即到达目标位置，无动画</li>
+                <li><strong>平滑滚动</strong>：<code>window.scrollTo({top: position, behavior: 'smooth'})</code> - 有滚动动画</li>
+            </ul>
+            <p><strong>浏览学习进度恢复</strong>：使用直接跳转方式，用户能立即看到之前浏览的位置</p>
+        </div>
+    </div>
+
+    <!-- 创建足够的内容来测试滚动 -->
+    <div class="content-block block-1">内容区块 1 - 0px 附近</div>
+    <div class="content-block block-2">内容区块 2 - 500px 附近</div>
+    <div class="content-block block-3">内容区块 3 - 1000px 附近</div>
+    <div class="content-block block-4">内容区块 4 - 1500px 附近</div>
+    <div class="content-block block-5">内容区块 5 - 2000px 附近</div>
+    <div class="content-block block-6">内容区块 6 - 2500px 附近</div>
+    <div class="content-block block-7">内容区块 7 - 3000px 附近</div>
+    <div class="content-block block-8">内容区块 8 - 3500px 附近</div>
+
+    <div class="container">
+        <div class="test-section">
+            <h3>✅ 修复验证</h3>
+            <p>现在浏览学习模式的进度恢复使用直接跳转方式：</p>
+            <ul>
+                <li>✅ 切换题目类型时立即跳转到保存的位置</li>
+                <li>✅ 没有滚动动画，用户体验更直接</li>
+                <li>✅ 适合快速恢复浏览进度的场景</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // 滚动到指定位置
+        function scrollToPosition(position, smooth = false) {
+            if (smooth) {
+                window.scrollTo({
+                    top: position,
+                    behavior: 'smooth'
+                });
+                console.log(`平滑滚动到 ${position}px`);
+            } else {
+                window.scrollTo(0, position);
+                console.log(`直接跳转到 ${position}px`);
+            }
+        }
+
+        // 实时显示滚动位置
+        function updatePositionInfo() {
+            const position = window.pageYOffset || document.documentElement.scrollTop;
+            document.getElementById('positionInfo').textContent = `滚动位置: ${Math.round(position)}px`;
+        }
+
+        // 监听滚动事件
+        window.addEventListener('scroll', updatePositionInfo);
+
+        // 页面加载时更新位置信息
+        window.addEventListener('load', function() {
+            updatePositionInfo();
+            console.log('直接跳转滚动测试页面加载完成');
+        });
+
+        // 模拟浏览学习进度恢复
+        function simulateReviewRestore() {
+            // 模拟保存的位置
+            const savedPositions = [500, 1200, 1800, 2500];
+            const randomPosition = savedPositions[Math.floor(Math.random() * savedPositions.length)];
+            
+            console.log(`模拟恢复浏览学习进度到 ${randomPosition}px`);
+            
+            // 使用直接跳转（新的方式）
+            setTimeout(() => {
+                window.scrollTo(0, randomPosition);
+                console.log(`恢复浏览学习模式滚动位置: ${randomPosition}px`);
+            }, 200);
+        }
+
+        // 添加模拟按钮
+        setTimeout(() => {
+            const container = document.querySelector('.container .test-section');
+            const simulateBtn = document.createElement('button');
+            simulateBtn.className = 'button instant';
+            simulateBtn.textContent = '🎲 模拟浏览学习进度恢复';
+            simulateBtn.onclick = simulateReviewRestore;
+            container.appendChild(document.createElement('br'));
+            container.appendChild(simulateBtn);
+        }, 1000);
+    </script>
+</body>
+</html>

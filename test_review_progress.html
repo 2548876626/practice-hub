@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浏览学习进度分离测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .test-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .progress-display {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .quiz-type {
+            background: #e3f2fd;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            border-left: 4px solid #2196f3;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .scroll-position {
+            font-weight: bold;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 浏览学习进度分离测试</h1>
+        <p>测试不同题目类型的浏览学习进度是否独立保存和恢复</p>
+
+        <!-- 当前状态显示 -->
+        <div class="test-section">
+            <h3>📋 当前状态检查</h3>
+            <button class="button" onclick="checkCurrentStates()">检查当前状态</button>
+            <div id="currentStates"></div>
+        </div>
+
+        <!-- 模拟进度设置 -->
+        <div class="test-section">
+            <h3>🎯 模拟进度设置</h3>
+            <p>为不同题目类型设置不同的浏览进度，测试是否能正确分离</p>
+            <button class="button" onclick="simulateProgress()">设置模拟进度</button>
+            <div id="simulationResult"></div>
+        </div>
+
+        <!-- 进度验证 -->
+        <div class="test-section">
+            <h3>✅ 进度验证</h3>
+            <button class="button" onclick="verifyProgress()">验证进度分离</button>
+            <div id="verificationResult"></div>
+        </div>
+
+        <!-- 实际测试指南 -->
+        <div class="test-section">
+            <h3>🧪 实际测试指南</h3>
+            <div class="info">
+                <h4>测试步骤：</h4>
+                <ol>
+                    <li>打开主应用，选择"供配电选择题"</li>
+                    <li>切换到"浏览学习"模式，滚动到某个位置</li>
+                    <li>切换到"供配电判断题"，滚动到不同位置</li>
+                    <li>切换到"供配电填空题"，滚动到另一个位置</li>
+                    <li>切换到"供配电计算题"，滚动到其他位置</li>
+                    <li>重新切换回之前的题目类型，检查是否恢复到对应位置</li>
+                </ol>
+            </div>
+            <div class="success">
+                <strong>预期结果：</strong>每种题目类型都应该记住自己的滚动位置，互不干扰
+            </div>
+        </div>
+
+        <!-- 技术实现说明 -->
+        <div class="test-section">
+            <h3>💻 技术实现说明</h3>
+            <div class="quiz-type">
+                <h4>状态结构：</h4>
+                <pre>states: {
+    gongpeidian_choice: {
+        reviewScrollPosition: 0,
+        // 其他状态...
+    },
+    gongpeidian_judgment: {
+        reviewScrollPosition: 0,
+        // 其他状态...
+    },
+    gongpeidian_fill: {
+        reviewScrollPosition: 0,
+        // 其他状态...
+    },
+    gongpeidian_calculation: {
+        reviewScrollPosition: 0,
+        // 其他状态...
+    }
+}</pre>
+            </div>
+            <div class="quiz-type">
+                <h4>关键功能：</h4>
+                <ul>
+                    <li><strong>保存进度</strong>：滚动时实时保存到对应题目类型的状态中</li>
+                    <li><strong>恢复进度</strong>：切换到浏览学习模式时恢复对应的滚动位置</li>
+                    <li><strong>独立存储</strong>：每种题目类型的进度完全独立</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 检查当前状态
+        function checkCurrentStates() {
+            const container = document.getElementById('currentStates');
+            
+            try {
+                // 检查 localStorage 中的状态
+                const quizStates = localStorage.getItem('quiz_states');
+                
+                if (quizStates) {
+                    const states = JSON.parse(quizStates);
+                    let html = '<div class="progress-display">';
+                    html += '<h4>📊 当前保存的状态：</h4>';
+                    
+                    Object.keys(states).forEach(type => {
+                        const state = states[type];
+                        const scrollPos = state.reviewScrollPosition || 0;
+                        html += `<div class="quiz-type">`;
+                        html += `<strong>${getTypeName(type)}</strong><br>`;
+                        html += `滚动位置: <span class="scroll-position">${scrollPos}px</span><br>`;
+                        html += `当前题目: ${state.currentQuestionIndex || 0}<br>`;
+                        html += `模式: ${state.mode || 'sequential'}`;
+                        html += `</div>`;
+                    });
+                    
+                    html += '</div>';
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = '<div class="info">暂无保存的状态数据</div>';
+                }
+            } catch (error) {
+                container.innerHTML = `<div class="error">检查状态失败: ${error.message}</div>`;
+            }
+        }
+
+        // 获取题目类型中文名称
+        function getTypeName(type) {
+            const names = {
+                'gongpeidian_choice': '供配电选择题',
+                'gongpeidian_judgment': '供配电判断题',
+                'gongpeidian_fill': '供配电填空题',
+                'gongpeidian_calculation': '供配电计算题'
+            };
+            return names[type] || type;
+        }
+
+        // 模拟设置不同的进度
+        function simulateProgress() {
+            const container = document.getElementById('simulationResult');
+            
+            try {
+                // 创建模拟状态
+                const mockStates = {
+                    gongpeidian_choice: {
+                        currentQuestionIndex: 0,
+                        mode: 'sequential',
+                        selectedAnswers: {},
+                        questionOrder: [],
+                        correctCount: 0,
+                        answeredQuestions: [],
+                        reviewScrollPosition: 500  // 模拟滚动到500px
+                    },
+                    gongpeidian_judgment: {
+                        currentQuestionIndex: 0,
+                        mode: 'sequential',
+                        selectedAnswers: {},
+                        questionOrder: [],
+                        correctCount: 0,
+                        answeredQuestions: [],
+                        reviewScrollPosition: 1200  // 模拟滚动到1200px
+                    },
+                    gongpeidian_fill: {
+                        currentQuestionIndex: 0,
+                        mode: 'sequential',
+                        selectedAnswers: {},
+                        questionOrder: [],
+                        correctCount: 0,
+                        answeredQuestions: [],
+                        reviewScrollPosition: 800   // 模拟滚动到800px
+                    },
+                    gongpeidian_calculation: {
+                        currentQuestionIndex: 0,
+                        mode: 'sequential',
+                        selectedAnswers: {},
+                        questionOrder: [],
+                        correctCount: 0,
+                        answeredQuestions: [],
+                        reviewScrollPosition: 1500  // 模拟滚动到1500px
+                    }
+                };
+
+                // 保存到 localStorage
+                localStorage.setItem('quiz_states', JSON.stringify(mockStates));
+
+                let html = '<div class="success">';
+                html += '<h4>✅ 模拟进度设置完成：</h4>';
+                html += '<ul>';
+                html += '<li>供配电选择题：滚动位置 500px</li>';
+                html += '<li>供配电判断题：滚动位置 1200px</li>';
+                html += '<li>供配电填空题：滚动位置 800px</li>';
+                html += '<li>供配电计算题：滚动位置 1500px</li>';
+                html += '</ul>';
+                html += '</div>';
+
+                container.innerHTML = html;
+            } catch (error) {
+                container.innerHTML = `<div class="error">设置模拟进度失败: ${error.message}</div>`;
+            }
+        }
+
+        // 验证进度分离
+        function verifyProgress() {
+            const container = document.getElementById('verificationResult');
+            
+            try {
+                const quizStates = localStorage.getItem('quiz_states');
+                
+                if (!quizStates) {
+                    container.innerHTML = '<div class="info">请先设置模拟进度</div>';
+                    return;
+                }
+
+                const states = JSON.parse(quizStates);
+                const expectedPositions = {
+                    'gongpeidian_choice': 500,
+                    'gongpeidian_judgment': 1200,
+                    'gongpeidian_fill': 800,
+                    'gongpeidian_calculation': 1500
+                };
+
+                let html = '<div class="progress-display">';
+                html += '<h4>🔍 进度分离验证结果：</h4>';
+
+                let allCorrect = true;
+                Object.keys(expectedPositions).forEach(type => {
+                    const expected = expectedPositions[type];
+                    const actual = states[type]?.reviewScrollPosition || 0;
+                    const isCorrect = actual === expected;
+                    
+                    if (!isCorrect) allCorrect = false;
+
+                    html += `<div class="quiz-type">`;
+                    html += `<strong>${getTypeName(type)}</strong><br>`;
+                    html += `预期位置: ${expected}px<br>`;
+                    html += `实际位置: <span class="scroll-position">${actual}px</span><br>`;
+                    html += `状态: ${isCorrect ? '✅ 正确' : '❌ 错误'}`;
+                    html += `</div>`;
+                });
+
+                html += '</div>';
+
+                if (allCorrect) {
+                    html += '<div class="success"><strong>🎉 验证通过！</strong>所有题目类型的进度都正确分离保存</div>';
+                } else {
+                    html += '<div class="error"><strong>❌ 验证失败！</strong>进度分离存在问题</div>';
+                }
+
+                container.innerHTML = html;
+            } catch (error) {
+                container.innerHTML = `<div class="error">验证失败: ${error.message}</div>`;
+            }
+        }
+
+        // 页面加载时自动检查状态
+        window.addEventListener('load', function() {
+            checkCurrentStates();
+            console.log('浏览学习进度分离测试页面加载完成');
+        });
+    </script>
+</body>
+</html>
