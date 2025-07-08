@@ -868,6 +868,8 @@
             max-width: 100% !important;
             object-fit: contain !important;
             display: block !important;
+            border-radius: 8px !important;
+            background: #f8f9fa !important;
         }
 
         .calculation-image-item {
@@ -2020,8 +2022,6 @@
                 display: block !important;
                 border-radius: 8px !important;
                 background: #f8f9fa !important;
-                border: 1px solid #e0e0e0 !important;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
             }
 
             .MathJax {
@@ -2778,7 +2778,7 @@
                     questionImageHtml = `
                         <div class="question-image calculation-question-image" style="margin: 15px 0; text-align: center; min-height: auto !important; height: auto !important; padding: 0 !important;">
                             <img src="${question.imageUrl}" alt="题目图片" loading="lazy"
-                                 style="max-width: 100%; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); border: 1px solid #e0e0e0; display: block;"
+                                 style="max-width: 100%; width: 100%; height: auto; border-radius: 8px; background: #f8f9fa; display: block;"
                                  onerror="console.error('图片加载失败:', '${question.imageUrl}'); this.parentElement.innerHTML='<div style=\\'padding: 20px; text-align: center; color: #666; border: 1px dashed #ddd; border-radius: 8px;\\'>📷 题目图片加载失败<br><small>URL: ${question.imageUrl}</small></div>'"
                                  onload="console.log('图片加载成功:', '${question.imageUrl}')">
                         </div>

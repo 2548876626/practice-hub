@@ -39,13 +39,19 @@
     "problem": "根据题目图片内容进行计算。",
     "solution": "根据计算结果：\n6.3/121KV；110KV；35KV",
     "hasImage": true,
-    "imageUrl": "images/a4041b3b88df9113c5fdf52220bf7c22.png"
+    "imageUrl": "images/a4041b3b88df9113c5fdf52220bf7c22.png",
+    "imageUrls": [
+      "images/diliuti.png"
+    ]
   },
   {
     "id": 35,
     "title": "计算题",
     "problem": "有一条采用BLX-500型绝缘导线明敷的220/380V的TN-S线路，计算电流100A，当地最热月平均气温为+25ºC。按发热条件选择线路的相线、N线、PE线截面。",
     "thinking": "根据导线载流量和温度修正系数来选择导线截面。",
-    "solution": "按发热条件选择导线截面：\n相线：25平方毫米\n中性线：16平方毫米\nPE线：16平方毫米"
+    "solution": "按发热条件选择导线截面：\n相线：25平方毫米\n中性线：16平方毫米\nPE线：16平方毫米",
+    "imageUrls": [
+      "images/diqiti.png"
+    ]
   }
 ]
