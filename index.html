@@ -141,12 +141,15 @@
 
         /* 主页面样式 */
         .quiz-type-selector {
-            padding: 30px 20px;
+            padding: 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
             gap: 20px;
             max-width: 800px;
             margin: 0 auto;
+            min-height: 450px;
+            width: 100%;
         }
 
         .type-card {
@@ -159,6 +162,8 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            display: block;
+            min-height: 180px;
         }
 
         .type-card:hover {
@@ -841,6 +846,45 @@
             border: 2px solid var(--success-color);
             text-align: center;
             font-weight: 600;
+        }
+
+        /* 计算题图片样式 */
+        .calculation-images {
+            margin: 20px 0;
+        }
+
+        /* 计算题题目图片特殊样式 - 自适应高度 */
+        .calculation-question-image {
+            min-height: auto !important;
+            height: auto !important;
+            padding: 0 !important;
+            background: transparent !important;
+            border: none !important;
+        }
+
+        .calculation-question-image img {
+            width: 100% !important;
+            height: auto !important;
+            max-width: 100% !important;
+            object-fit: contain !important;
+            display: block !important;
+        }
+
+        .calculation-image-item {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .calculation-image-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .calculation-image-item img:hover {
+            transform: scale(1.02);
         }
 
         .calculation-controls {
@@ -1714,16 +1758,16 @@
 
             .quiz-type-selector {
                 padding: 20px 15px;
-                grid-template-columns: 1fr;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(2, 1fr);
                 gap: 15px;
+                min-height: 320px;
             }
 
             .type-card {
-                padding: 25px 15px !important;
-                min-height: 120px !important; /* 确保足够的触摸区域 */
-                display: flex !important;
-                flex-direction: column !important;
-                justify-content: center !important;
+                padding: 20px 15px !important;
+                min-height: 140px !important; /* 确保足够的触摸区域 */
             }
 
             .type-card:active {
@@ -1943,6 +1987,39 @@
                 margin-right: auto;
             }
 
+            /* 移动端计算题图片样式 */
+            .calculation-images {
+                margin: 15px 0;
+            }
+
+            .calculation-image-item {
+                margin-bottom: 10px;
+            }
+
+            .calculation-image-item img {
+                border-radius: 6px;
+            }
+
+            /* 移动端计算题题目图片特殊样式 - 覆盖默认限制 */
+            .calculation-question-image {
+                min-height: auto !important;
+                height: auto !important;
+                padding: 0 !important;
+                background: transparent !important;
+                border: none !important;
+                margin: 10px 0 !important;
+            }
+
+            .calculation-question-image img {
+                width: 100% !important;
+                height: auto !important;
+                max-width: 100% !important;
+                min-height: auto !important;
+                object-fit: contain !important;
+                display: block !important;
+                border-radius: 8px !important;
+            }
+
             .MathJax {
                 font-size: 1em !important;
             }
@@ -1977,9 +2054,11 @@
         </div>
 
         <!-- 题目类型选择 -->
-        <div class="quiz-type-selector" id="quizTypeSelector">
-            <h2 style="text-align: center; margin-bottom: 30px; color: var(--text-color); font-weight: 600;">选择练习类型</h2>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h2 style="color: var(--text-color); font-weight: 600; margin: 0;">选择练习类型</h2>
+        </div>
 
+        <div class="quiz-type-selector" id="quizTypeSelector">
             <div class="type-card" onclick="startQuiz('gongpeidian_choice')">
                 <div class="type-icon">📝</div>
                 <h3>选择题练习</h3>
@@ -2404,12 +2483,13 @@
                     document.getElementById('questionText').textContent = question.question;
                 }
 
-                // 处理图片显示
-                const questionImage = document.getElementById('questionImage');
-                const questionImg = document.getElementById('questionImg');
+                // 处理图片显示（计算题有自己的图片处理逻辑，跳过通用处理）
+                if (this.quizType !== 'gongpeidian_calculation') {
+                    const questionImage = document.getElementById('questionImage');
+                    const questionImg = document.getElementById('questionImg');
 
-                // 只有当题目明确标记有图片且提供了图片URL时才显示图片
-                if (question.hasImage === true && question.imageUrl && question.imageUrl.trim() !== '') {
+                    // 只有当题目明确标记有图片且提供了图片URL时才显示图片
+                    if (question.hasImage === true && question.imageUrl && question.imageUrl.trim() !== '') {
                     console.log('显示图片:', question.imageUrl);
 
                     // 重置容器内容，确保有img元素
@@ -2443,17 +2523,18 @@
                         newQuestionImg.style.backgroundColor = '#f8f9fa';
                     }
 
-                    // 最后设置图片源（确保事件监听器已设置）
-                    newQuestionImg.src = question.imageUrl;
-                } else {
-                    // 没有图片的题目，完全隐藏图片容器
-                    console.log('题目无图片，隐藏图片容器');
-                    questionImage.style.display = 'none';
-                    questionImage.style.minHeight = '0';
-                    questionImage.style.padding = '0';
-                    questionImage.style.margin = '0';
-                    questionImage.style.border = 'none';
-                    questionImage.innerHTML = '';
+                        // 最后设置图片源（确保事件监听器已设置）
+                        newQuestionImg.src = question.imageUrl;
+                    } else {
+                        // 没有图片的题目，完全隐藏图片容器
+                        console.log('题目无图片，隐藏图片容器');
+                        questionImage.style.display = 'none';
+                        questionImage.style.minHeight = '0';
+                        questionImage.style.padding = '0';
+                        questionImage.style.margin = '0';
+                        questionImage.style.border = 'none';
+                        questionImage.innerHTML = '';
+                    }
                 }
 
                 // 生成选项（填空题和计算题不需要选项）
@@ -2682,23 +2763,87 @@
             displayCalculationQuestion(question) {
                 console.log('显示计算题:', question);
 
-                let questionHtml = `
-                    <div class="calculation-container">
-                        <div class="calculation-title">${question.title}</div>
-                        <div class="calculation-problem">
-                            ${question.problem}
+                // 隐藏通用的题目图片容器，因为我们要将图片嵌入到题目文本中
+                const questionImage = document.getElementById('questionImage');
+                questionImage.style.display = 'none';
+                questionImage.innerHTML = '';
+
+                // 处理题目中的图片（嵌入到题目文本中）
+                let questionImageHtml = '';
+                if (question.hasImage === true && question.imageUrl && question.imageUrl.trim() !== '') {
+                    questionImageHtml = `
+                        <div class="question-image calculation-question-image" style="margin: 15px 0; text-align: center; min-height: auto !important; height: auto !important; padding: 0 !important;">
+                            <img src="${question.imageUrl}" alt="题目图片"
+                                 style="max-width: 100%; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); border: 1px solid #e0e0e0; display: block;"
+                                 onerror="this.parentElement.innerHTML='<div style=\\'padding: 20px; text-align: center; color: #666; border: 1px dashed #ddd; border-radius: 8px;\\'>📷 题目图片加载失败</div>'">
                         </div>
+                    `;
+                }
+
+                // 处理答案图片显示（在答案区域显示）
+                let imagesHtml = '';
+                if (question.imageUrls && Array.isArray(question.imageUrls) && question.imageUrls.length > 0) {
+                    imagesHtml = `
+                        <div class="calculation-images" style="margin: 20px 0;">
+                            ${question.imageUrls.map((imageUrl, index) => `
+                                <div class="calculation-image-item" style="margin-bottom: 15px;">
+                                    <img src="${imageUrl}" alt="答案图片 ${index + 1}"
+                                         style="max-width: 100%; width: 100%; height: auto; object-fit: contain; border-radius: 8px; background: #f8f9fa; border: 1px solid #e0e0e0;"
+                                         onerror="this.parentElement.innerHTML='<div style=\\'padding: 20px; text-align: center; color: #666; border: 1px dashed #ddd; border-radius: 8px;\\'>📷 图片 ${index + 1} 加载失败</div>'">
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+
+                // 构建解答部分HTML
+                let solutionHtml = '';
+                let controlsHtml = '';
+
+                if (question.solution) {
+                    // 有文字解答的题目
+                    solutionHtml = `
                         <div class="calculation-solution" id="calculationSolution" style="display: none;">
                             <h4>详细解答</h4>
                             <div class="calculation-steps">
-                                ${question.solution}
+                                ${question.solution.replace(/\\n/g, '<br>')}
                             </div>
+                            ${imagesHtml}
                         </div>
+                    `;
+                    controlsHtml = `
                         <div class="calculation-controls" style="margin-top: 20px; text-align: center;">
                             <button class="btn btn-secondary" onclick="toggleCalculationSolution()" id="solutionBtn">
                                 💡 显示详细解答
                             </button>
                         </div>
+                    `;
+                } else if (question.imageUrls && question.imageUrls.length > 0) {
+                    // 只有图片答案的题目（如结构图题）
+                    solutionHtml = `
+                        <div class="calculation-solution" id="calculationSolution" style="display: none;">
+                            <h4>答案</h4>
+                            ${imagesHtml}
+                        </div>
+                    `;
+                    controlsHtml = `
+                        <div class="calculation-controls" style="margin-top: 20px; text-align: center;">
+                            <button class="btn btn-secondary" onclick="toggleCalculationSolution()" id="solutionBtn">
+                                💡 显示答案
+                            </button>
+                        </div>
+                    `;
+                }
+
+                let questionHtml = `
+                    <div class="calculation-container">
+                        <div class="calculation-title">${question.title}</div>
+                        <div class="calculation-problem">
+                            ${question.problem.replace(/\\n/g, '<br>')}
+                            ${questionImageHtml}
+                        </div>
+                        ${solutionHtml}
+                        ${controlsHtml}
                     </div>
                 `;
 
@@ -3117,6 +3262,56 @@
             }
 
             generateCalculationReviewContent(question, index) {
+                // 处理题目图片显示
+                let questionImageHtml = '';
+                if (question.hasImage === true && question.imageUrl && question.imageUrl.trim() !== '') {
+                    questionImageHtml = `
+                        <div class="question-image" style="margin: 15px 0;">
+                            <img src="${question.imageUrl}" alt="题目图片"
+                                 style="max-width: 100%; width: 100%; height: auto; object-fit: contain; border-radius: 8px; background: #f8f9fa; border: 1px solid #e0e0e0;"
+                                 onerror="this.parentElement.innerHTML='<div style=\\'padding: 20px; text-align: center; color: #666; border: 1px dashed #ddd; border-radius: 8px;\\'>📷 题目图片加载失败</div>'">
+                        </div>
+                    `;
+                }
+
+                // 处理答案图片显示（只显示答案专用的图片，不显示题目图片）
+                let answerImagesHtml = '';
+                if (question.imageUrls && Array.isArray(question.imageUrls) && question.imageUrls.length > 0) {
+                    answerImagesHtml = `
+                        <div class="calculation-images" style="margin: 20px 0;">
+                            ${question.imageUrls.map((imageUrl, imgIndex) => `
+                                <div class="calculation-image-item" style="margin-bottom: 15px;">
+                                    <img src="${imageUrl}" alt="答案图片 ${imgIndex + 1}"
+                                         style="max-width: 100%; width: 100%; height: auto; object-fit: contain; border-radius: 8px; background: #f8f9fa; border: 1px solid #e0e0e0;"
+                                         onerror="this.parentElement.innerHTML='<div style=\\'padding: 20px; text-align: center; color: #666; border: 1px dashed #ddd; border-radius: 8px;\\'>📷 图片 ${imgIndex + 1} 加载失败</div>'">
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+
+                // 构建解答部分HTML
+                let solutionHtml = '';
+                if (question.solution) {
+                    // 有文字解答的题目 - 只显示文字，不显示图片（图片已在题目部分显示）
+                    solutionHtml = `
+                        <div class="calculation-solution">
+                            <h4>详细解答</h4>
+                            <div class="calculation-steps">
+                                ${question.solution.replace(/\\n/g, '<br>')}
+                            </div>
+                        </div>
+                    `;
+                } else if (question.imageUrls && question.imageUrls.length > 0) {
+                    // 只有图片答案的题目（如结构图题）- 这种情况才在答案部分显示图片
+                    solutionHtml = `
+                        <div class="calculation-solution">
+                            <h4>答案</h4>
+                            ${answerImagesHtml}
+                        </div>
+                    `;
+                }
+
                 return `
                     <div class="review-question-header">
                         <span class="review-question-number">第 ${index + 1} 题</span>
@@ -3128,14 +3323,10 @@
                     <div class="calculation-container">
                         <div class="calculation-title">${question.title}</div>
                         <div class="calculation-problem">
-                            ${question.problem}
+                            ${question.problem.replace(/\\n/g, '<br>')}
+                            ${questionImageHtml}
                         </div>
-                        <div class="calculation-solution">
-                            <h4>详细解答</h4>
-                            <div class="calculation-steps">
-                                ${question.solution}
-                            </div>
-                        </div>
+                        ${solutionHtml}
                     </div>
                 `;
             }
@@ -3712,30 +3903,6 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
         }
 
         // 计算题控制函数
-        function toggleCalculationSolution() {
-            const solutionElement = document.getElementById('calculationSolution');
-            const solutionBtn = document.getElementById('solutionBtn');
-
-            if (solutionElement && solutionBtn) {
-                if (solutionElement.style.display === 'none') {
-                    solutionElement.style.display = 'block';
-                    solutionBtn.innerHTML = '💡 隐藏详细解答';
-
-                    // 重新渲染 MathJax 公式
-                    if (window.MathJax) {
-                        MathJax.typesetPromise([solutionElement]).then(() => {
-                            console.log('详细解答 MathJax 渲染完成');
-                        }).catch((err) => {
-                            console.error('详细解答 MathJax 渲染失败:', err);
-                        });
-                    }
-                } else {
-                    solutionElement.style.display = 'none';
-                    solutionBtn.innerHTML = '💡 显示详细解答';
-                }
-            }
-        }
-
         function toggleCalculationThinking() {
             const thinkingElement = document.getElementById('calculationThinking');
             const thinkingBtn = document.getElementById('thinkingBtn');
@@ -3767,7 +3934,14 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
             if (solutionElement && solutionBtn) {
                 if (solutionElement.style.display === 'none') {
                     solutionElement.style.display = 'block';
-                    solutionBtn.innerHTML = '💡 隐藏详细解答';
+
+                    // 根据内容类型决定按钮文本
+                    const hasSteps = solutionElement.querySelector('.calculation-steps');
+                    if (hasSteps && hasSteps.textContent.trim()) {
+                        solutionBtn.innerHTML = '💡 隐藏详细解答';
+                    } else {
+                        solutionBtn.innerHTML = '💡 隐藏答案';
+                    }
 
                     // 重新渲染 MathJax
                     if (window.MathJax) {
@@ -3779,7 +3953,14 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                     }
                 } else {
                     solutionElement.style.display = 'none';
-                    solutionBtn.innerHTML = '💡 显示详细解答';
+
+                    // 根据内容类型决定按钮文本
+                    const hasSteps = solutionElement.querySelector('.calculation-steps');
+                    if (hasSteps && hasSteps.textContent.trim()) {
+                        solutionBtn.innerHTML = '💡 显示详细解答';
+                    } else {
+                        solutionBtn.innerHTML = '💡 显示答案';
+                    }
                 }
             }
         }
