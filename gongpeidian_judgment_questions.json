@@ -1,0 +1,152 @@
+[
+  {
+    "id": 14,
+    "question": "高压负荷开关专门用于高压装置中中断负荷电流。",
+    "options": [
+      "正确",
+      "错误"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 15,
+    "question": "低压断路器的功能和高压断路器一致",
+    "options": [
+      "正确",
+      "错误"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 16,
+    "question": "发电厂可以将一次能源转化为电能",
+    "options": [
+      "正确",
+      "错误"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 17,
+    "question": "多油断路器的油起绝缘和灭弧作用。",
+    "correctAnswer": 0,
+    "explanation": "",
+    "options": [
+      "正确",
+      "错误"
+    ]
+  },
+  {
+    "id": 18,
+    "question": "电气设备在正常工作时，必须保证工作安全可靠，运行维护方波，投资经济合理。",
+    "correctAnswer": 0,
+    "explanation": "",
+    "options": [
+      "正确",
+      "错误"
+    ]
+  },
+  {
+    "id": 19,
+    "question": "TN系统表示中性点直接接地的系统",
+    "correctAnswer": 0,
+    "explanation": "",
+    "options": [
+      "正确",
+      "错误"
+    ]
+  },
+  {
+    "id": 20,
+    "question": "三相短路冲击电流是两相短路冲击电流产生的电动力的1.15倍。",
+    "correctAnswer": 0,
+    "explanation": "",
+    "options": [
+      "正确",
+      "错误"
+    ]
+  },
+  {
+    "id": 21,
+    "question": "电压互感器一次侧匝数多，二次侧匝数少",
+    "correctAnswer": 0,
+    "explanation": "",
+    "options": [
+      "正确",
+      "错误"
+    ]
+  },
+  {
+    "id": 22,
+    "question": "三相短路冲击电流通过中间相导体产生的电动力最大",
+    "correctAnswer": 0,
+    "explanation": "",
+    "options": [
+      "正确",
+      "错误"
+    ]
+  },
+  {
+    "id": 23,
+    "question": "电力系统发生三相短路的可能性最大",
+    "correctAnswer": 1,
+    "explanation": "",
+    "options": [
+      "正确",
+      "错误"
+    ]
+  },
+  {
+    "id": 24,
+    "question": "低压配电屏是按一定的线路方案将有关一、二次设备组装而成的一种高压成套配电装置，在低压配电系统中作动力和照明配电之用。",
+    "correctAnswer": 1,
+    "explanation": "",
+    "options": [
+      "正确",
+      "错误"
+    ]
+  },
+  {
+    "id": 25,
+    "question": "负荷系数表征该设备或设备组的容量是否被充分利用",
+    "correctAnswer": 0,
+    "explanation": "",
+    "options": [
+      "正确",
+      "错误"
+    ]
+  },
+  {
+    "id": 26,
+    "question": "尖峰电流主要用来选择熔断器和低压断路器，整定继电保护装置及检验电动机自启动条件",
+    "correctAnswer": 0,
+    "explanation": "",
+    "options": [
+      "正确",
+      "错误"
+    ]
+  },
+  {
+    "id": 27,
+    "question": "企业用电一般是3-66KV系统，一般采用中性点直接接地系统提高供电可靠性",
+    "correctAnswer": 1,
+    "explanation": "",
+    "options": [
+      "正确",
+      "错误"
+    ]
+  },
+  {
+    "id": 28,
+    "question": "电气设备在短路情况下，可以不需要满足动稳定和热稳定的要求。",
+    "correctAnswer": 1,
+    "explanation": "",
+    "options": [
+      "正确",
+      "错误"
+    ]
+  }
+]

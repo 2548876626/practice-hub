@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <title>⚡ 电力电子技术 - 智能练习系统</title>
+    <title>🔌 供配电 - 智能练习系统</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%234285f4'/><text x='50' y='65' text-anchor='middle' font-size='45' font-weight='bold' fill='white'>⚡</text></svg>">
@@ -1969,7 +1969,7 @@
                     <div class="sparkle sparkle-2">💡</div>
                 </div>
                 <div class="logo-text">
-                    <h1>电力电子技术</h1>
+                    <h1>供配电</h1>
                     <h2>智能练习系统</h2>
                     <p>掌握核心知识点 · 提升专业技能</p>
                 </div>
@@ -1979,51 +1979,52 @@
         <!-- 题目类型选择 -->
         <div class="quiz-type-selector" id="quizTypeSelector">
             <h2 style="text-align: center; margin-bottom: 30px; color: var(--text-color); font-weight: 600;">选择练习类型</h2>
-            <div class="type-card" onclick="startQuiz('choice')">
+
+            <div class="type-card" onclick="startQuiz('gongpeidian_choice')">
                 <div class="type-icon">📝</div>
                 <h3>选择题练习</h3>
-                <p>40道选择题</p>
-                <p>涵盖电力电子技术核心知识点</p>
+                <p>10道选择题</p>
+                <p>供配电系统基础知识</p>
                 <div class="type-features">
                     <span>• 单选题</span>
-                    <span>• 多选项</span>
-                    <span>• 图片题</span>
+                    <span>• 系统知识</span>
+                    <span>• 基础概念</span>
                 </div>
             </div>
 
-            <div class="type-card" onclick="startQuiz('judgment')">
+            <div class="type-card" onclick="startQuiz('gongpeidian_judgment')">
                 <div class="type-icon">⚡</div>
                 <h3>判断题练习</h3>
-                <p>25道判断题</p>
-                <p>快速检验概念理解能力</p>
+                <p>15道判断题</p>
+                <p>供配电系统概念判断</p>
                 <div class="type-features">
                     <span>• 正确/错误</span>
-                    <span>• 快速判断</span>
-                    <span>• 概念理解</span>
+                    <span>• 概念判断</span>
+                    <span>• 系统理解</span>
                 </div>
             </div>
 
-            <div class="type-card" onclick="startQuiz('fill')">
+            <div class="type-card" onclick="startQuiz('gongpeidian_fill')">
                 <div class="type-icon">✏️</div>
                 <h3>填空题练习</h3>
-                <p>24道填空题</p>
-                <p>深度掌握核心概念要点</p>
+                <p>3道填空题</p>
+                <p>供配电关键术语填空</p>
                 <div class="type-features">
-                    <span>• 填空作答</span>
-                    <span>• 概念记忆</span>
+                    <span>• 关键术语</span>
+                    <span>• 概念填空</span>
                     <span>• 知识要点</span>
                 </div>
             </div>
 
-            <div class="type-card" onclick="startQuiz('calculation')">
+            <div class="type-card" onclick="startQuiz('gongpeidian_calculation')">
                 <div class="type-icon">🧮</div>
-                <h3>计算题练习</h3>
-                <p>3道计算题</p>
-                <p>综合运用理论知识计算</p>
+                <h3>简答计算题</h3>
+                <p>7道题目</p>
+                <p>供配电系统分析计算</p>
                 <div class="type-features">
-                    <span>• 公式推导</span>
-                    <span>• 数值计算</span>
-                    <span>• 综合应用</span>
+                    <span>• 简答题</span>
+                    <span>• 计算题</span>
+                    <span>• 系统分析</span>
                 </div>
             </div>
         </div>
@@ -2164,334 +2165,7 @@
     </div>
 
     <script>
-        // 题目数据直接嵌入
-        const choiceQuestions = [
-            {
-                "id": 1,
-                "question": "晶闸管属于",
-                "options": ["不可控器件", "半控器件", "全控器件"],
-                "correctAnswer": 1,
-                "explanation": ""
-            },
-            {
-                "id": 2,
-                "question": "电力二极管属于",
-                "options": ["全控器件", "不可控器件", "半控器件"],
-                "correctAnswer": 1,
-                "explanation": ""
-            },
-            {
-                "id": 3,
-                "question": "IGBT是",
-                "options": ["电压驱动型器件", "电流驱动型器件", "混合驱动型器件"],
-                "correctAnswer": 0,
-                "explanation": ""
-            },
-            {
-                "id": 4,
-                "question": "PWM控制技术的优点是",
-                "options": ["控制简单", "谐波含量低", "功耗大", "成本高"],
-                "correctAnswer": 1,
-                "explanation": ""
-            },
-            {
-                "id": 5,
-                "question": "三相桥式整流电路的输出电压纹波频率是",
-                "options": ["50Hz", "100Hz", "150Hz", "300Hz"],
-                "correctAnswer": 3,
-                "explanation": ""
-            },
-            {
-                "id": 6,
-                "question": "Buck变换器是",
-                "options": ["升压电路", "降压电路", "升降压电路", "隔离电路"],
-                "correctAnswer": 1,
-                "explanation": ""
-            },
-            {
-                "id": 7,
-                "question": "Boost变换器是",
-                "options": ["升压电路", "降压电路", "升降压电路", "隔离电路"],
-                "correctAnswer": 0,
-                "explanation": ""
-            },
-            {
-                "id": 8,
-                "question": "SPWM调制技术中，载波通常采用",
-                "options": ["正弦波", "三角波", "方波", "锯齿波"],
-                "correctAnswer": 1,
-                "explanation": ""
-            },
-            {
-                "id": 9,
-                "question": "电力电子器件的发展趋势是",
-                "options": ["高频化", "大功率化", "智能化", "以上都是"],
-                "correctAnswer": 3,
-                "explanation": ""
-            },
-            {
-                "id": 10,
-                "question": "逆变器的作用是",
-                "options": ["AC→DC", "DC→AC", "AC→AC", "DC→DC"],
-                "correctAnswer": 1,
-                "explanation": ""
-            }
-        ];
-
-        const judgmentQuestions = [
-            {
-                "id": 1,
-                "question": "电压型逆变电路输出电压波形是幅值一定的矩形波，而电流波形则不一定（由负阻决定）。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 0,
-                "explanation": ""
-            },
-            {
-                "id": 2,
-                "question": "电力晶体管属电压驱动型开关管",
-                "options": ["正确", "错误"],
-                "correctAnswer": 1,
-                "explanation": ""
-            },
-            {
-                "id": 3,
-                "question": "电力二极管和普通二极管的工作原理一样的，具有单向导电性。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 0,
-                "explanation": ""
-            },
-            {
-                "id": 4,
-                "question": "给晶闸管加上正向阳极电压它就会导通。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 1,
-                "explanation": ""
-            },
-            {
-                "id": 5,
-                "question": "普通晶闸管外部有三个电极，分别是基极、发射极和集电极。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 1,
-                "explanation": ""
-            },
-            {
-                "id": 6,
-                "question": "在电压型逆变器中，同一桥臂上的上、下开关管允许同时导通。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 1,
-                "explanation": ""
-            },
-            {
-                "id": 7,
-                "question": "电压型无源逆变电路的输出电压波形与负载性质无关。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 0,
-                "explanation": ""
-            },
-            {
-                "id": 8,
-                "question": "电压型无源逆变电路输出电流波形与负载性质无关。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 1,
-                "explanation": ""
-            },
-            {
-                "id": 9,
-                "question": "电压型无源逆变电路上、下桥臂的控制需遵循'先断后开'的原则。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 0,
-                "explanation": ""
-            },
-            {
-                "id": 10,
-                "question": "三相桥式电压型逆变电路采用180°导电方式",
-                "options": ["正确", "错误"],
-                "correctAnswer": 0,
-                "explanation": ""
-            },
-            {
-                "id": 11,
-                "question": "三相桥式电流型逆变电路采用120°导电方式。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 0,
-                "explanation": ""
-            },
-            {
-                "id": 12,
-                "question": "有源逆变指的是把直流电能转换成交流电能送给交流电网。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 0,
-                "explanation": ""
-            },
-            {
-                "id": 13,
-                "question": "在PWM控制技术中，通常保持载波频率fc固定不变,因而当信号波频率ft变化时,载波比N是变化的，该调制方式称为同步调制方式。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 1,
-                "explanation": ""
-            },
-            {
-                "id": 14,
-                "question": "SPWM 即正弦脉宽调制波形，是指与正弦波等效的一系列等幅不等宽的矩形脉冲列。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 0,
-                "explanation": ""
-            },
-            {
-                "id": 15,
-                "question": "变频器只改变交流电频率不改变交流电电压。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 1,
-                "explanation": ""
-            },
-            {
-                "id": 16,
-                "question": "变频调速中的交-直-交PWM型变频器一般由整流器、滤波器及PWM逆变器三部分组成",
-                "options": ["正确", "错误"],
-                "correctAnswer": 0,
-                "explanation": ""
-            },
-            {
-                "id": 17,
-                "question": "boost电路中，其输出电压低于输入电压。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 1,
-                "explanation": ""
-            },
-            {
-                "id": 18,
-                "question": "降压斩波电路中，其输出电压的瞬时值低于输入电压瞬时值。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 1,
-                "explanation": "注意：此题答错了，正确答案应该是错误"
-            },
-            {
-                "id": 19,
-                "question": "对于三相全控桥整流电路，控制角α的计量起点为自然换相点。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 0,
-                "explanation": ""
-            },
-            {
-                "id": 20,
-                "question": "IGBT属于电压驱动型器件。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 0,
-                "explanation": ""
-            },
-            {
-                "id": 21,
-                "question": "三相可控整流电路中晶闸管采用'共阴'接法或'共阳'接法，输出结果都一样。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 1,
-                "explanation": ""
-            },
-            {
-                "id": 22,
-                "question": "可控整流电路通过调整晶闸管控制角即可改变输出电压。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 0,
-                "explanation": ""
-            },
-            {
-                "id": 23,
-                "question": "电力场效应晶体管和绝缘栅双极型晶体管都属电压驱动型开关管。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 0,
-                "explanation": ""
-            },
-            {
-                "id": 24,
-                "question": "非隔离型DC/DC变换电路与隔离型DC/DC变换电路的主要区别在于变换电路中有无高频脉冲变压器。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 0,
-                "explanation": ""
-            },
-            {
-                "id": 25,
-                "question": "占空比用D来表示，D=ton/T。其中，ton表示开关管一个周期导通时间，T表示开关周期。",
-                "options": ["正确", "错误"],
-                "correctAnswer": 0,
-                "explanation": ""
-            }
-        ];
-
-        // AI解析配置 - 使用Netlify函数
-        const AI_CONFIG = {
-            apiUrl: '/.netlify/functions/ask-gemini',
-            model: 'google/gemini-2.0-flash-exp:free',
-            enabled: true // 使用Netlify函数，默认启用
-        };
-
-        // AI解析函数 - 使用Netlify函数
-        async function getAIAnalysis(question, userAnswer, correctAnswer, quizType) {
-            if (!AI_CONFIG.enabled) {
-                return '💡 AI解析功能暂时不可用，请查看题目解答或咨询老师。';
-            }
-
-            try {
-                let prompt = '';
-
-                if (quizType === 'choice' || quizType === 'judgment') {
-                    const answerText = quizType === 'judgment' ?
-                        (userAnswer === 0 ? '正确' : '错误') :
-                        question.options[userAnswer];
-                    const correctText = quizType === 'judgment' ?
-                        (correctAnswer === 0 ? '正确' : '错误') :
-                        question.options[correctAnswer];
-
-                    prompt = `请简短解析这道电力电子技术题目（50字以内）：
-
-题目：${question.question}
-${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 + i)}. ${opt}`).join('\n') : ''}
-用户选择：${answerText}
-正确答案：${correctText}
-
-请简短说明为什么正确答案是对的。`;
-                } else if (quizType === 'fill') {
-                    prompt = `请简短解析这道电力电子技术填空题（50字以内）：
-
-题目：${question.question}
-用户答案：${userAnswer}
-正确答案：${question.answer}
-
-请简短说明正确答案的要点。`;
-                } else if (quizType === 'calculation') {
-                    prompt = `请简短解析这道电力电子技术计算题的关键点（50字以内）：
-
-题目：${question.problem}
-请简短说明解题的关键思路。`;
-                }
-
-                const response = await fetch(AI_CONFIG.apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        prompt: prompt
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`API请求失败: ${response.status}`);
-                }
-
-                const data = await response.json();
-
-                // 处理Gemini API的响应格式
-                if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) {
-                    return data.candidates[0].content.parts[0].text.trim();
-                } else {
-                    throw new Error('响应格式不正确');
-                }
-            } catch (error) {
-                console.error('AI解析获取失败:', error);
-                return '💡 解析暂时不可用，请查看题目解答或咨询老师。';
-            }
-        }
-
-
+        // 题目训练系统类
 
         // 题目训练系统类
         class QuizApp {
@@ -2512,16 +2186,7 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
 
                 // 状态保存：每种题目类型的状态独立保存
                 this.states = {
-                    choice: {
-                        currentQuestionIndex: 0,
-                        mode: 'sequential',
-                        selectedAnswers: {}, // 保存每题的选择状态
-                        questionOrder: [],
-                        correctCount: 0,
-                        answeredQuestions: [],
-                        reviewScrollPosition: 0 // 浏览学习模式的滚动位置
-                    },
-                    judgment: {
+                    gongpeidian_choice: {
                         currentQuestionIndex: 0,
                         mode: 'sequential',
                         selectedAnswers: {},
@@ -2530,7 +2195,7 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                         answeredQuestions: [],
                         reviewScrollPosition: 0
                     },
-                    fill: {
+                    gongpeidian_judgment: {
                         currentQuestionIndex: 0,
                         mode: 'sequential',
                         selectedAnswers: {},
@@ -2539,7 +2204,16 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                         answeredQuestions: [],
                         reviewScrollPosition: 0
                     },
-                    calculation: {
+                    gongpeidian_fill: {
+                        currentQuestionIndex: 0,
+                        mode: 'sequential',
+                        selectedAnswers: {},
+                        questionOrder: [],
+                        correctCount: 0,
+                        answeredQuestions: [],
+                        reviewScrollPosition: 0
+                    },
+                    gongpeidian_calculation: {
                         currentQuestionIndex: 0,
                         mode: 'sequential',
                         selectedAnswers: {},
@@ -2550,8 +2224,29 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                     }
                 };
 
+                this.selectedAnswers = {};
+                this.reviewScrollPosition = 0;
+
                 this.loadStates();
-                this.init();
+                this.setupThemeDetection();
+                this.setupResizeListener();
+            }
+
+            setupThemeDetection() {
+                const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+                const handleThemeChange = (e) => {
+                    console.log('主题模式:', e.matches ? '暗色' : '浅色');
+                };
+                handleThemeChange(mediaQuery);
+                if (mediaQuery.addEventListener) {
+                    mediaQuery.addEventListener('change', handleThemeChange);
+                }
+            }
+
+            setupResizeListener() {
+                window.addEventListener('resize', () => {
+                    console.log('窗口大小变化');
+                });
             }
 
             init() {
@@ -2577,10 +2272,10 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
 
                 // 更新标题
                 const titles = {
-                    'choice': '📝 选择题练习',
-                    'judgment': '⚡ 判断题练习',
-                    'fill': '✏️ 填空题练习',
-                    'calculation': '🧮 计算题练习'
+                    'gongpeidian_choice': '📝 供配电选择题',
+                    'gongpeidian_judgment': '⚡ 供配电判断题',
+                    'gongpeidian_fill': '✏️ 供配电填空题',
+                    'gongpeidian_calculation': '🧮 供配电简答计算题'
                 };
                 document.getElementById('quizTitle').textContent = titles[type] || '题目练习';
 
@@ -2591,85 +2286,28 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                 this.restoreState(type);
 
                 try {
-                    // 加载对应的题目数据
-                    if (type === 'choice') {
-                        // 选择题从外部JSON文件加载
-                        const response = await fetch('questions_data.json');
+                    // 供配电题目加载
+                    const subType = type.replace('gongpeidian_', '');
+                    const fileName = `gongpeidian_${subType}_questions.json`;
+
+                    try {
+                        const response = await fetch(`${fileName}?t=${Date.now()}`);
                         if (!response.ok) {
                             throw new Error(`HTTP error! status: ${response.status}`);
                         }
                         this.questions = await response.json();
-                    } else if (type === 'fill') {
-                        // 填空题从专门的JSON文件加载
-                        console.log('开始加载填空题数据...');
-                        try {
-                            const response = await fetch(`fill_questions.json?t=${Date.now()}`);
-                            console.log('填空题文件响应状态:', response.status);
-                            if (!response.ok) {
-                                throw new Error(`HTTP error! status: ${response.status}`);
-                            }
-                            const data = await response.json();
-                            console.log('填空题原始数据:', data);
-                            this.questions = data;
-                            console.log('填空题加载成功:', this.questions.length, '道题目');
-                        } catch (error) {
-                            console.error('填空题加载失败:', error);
-                            alert('填空题数据加载失败，使用备用数据');
-                            // 提供备用数据
-                            this.questions = [
-                                {
-                                    id: 1,
-                                    question: "电力电子器件按照控制能力可分为____、____和____三类。",
-                                    answers: ["不可控器件", "半控器件", "全控器件"],
-                                    explanation: "电力电子器件根据其控制特性分为三大类"
-                                },
-                                {
-                                    id: 2,
-                                    question: "PWM控制技术中，通过调节____来控制输出电压的大小。",
-                                    answers: ["占空比", "脉宽"],
-                                    explanation: "PWM通过改变脉冲宽度来控制平均输出电压"
-                                },
-                                {
-                                    id: 3,
-                                    question: "晶闸管的导通条件是阳极电压____阴极电压，且门极有____信号。",
-                                    answers: ["大于", "触发"],
-                                    explanation: "晶闸管需要正向电压和触发信号才能导通"
-                                }
-                            ];
-                            console.log('使用备用填空题数据:', this.questions.length, '道题目');
-                        }
-                    } else if (type === 'calculation') {
-                        // 计算题从外部JSON文件加载
-                        try {
-                            const response = await fetch(`calculation_questions.json?t=${Date.now()}`);
-                            if (!response.ok) {
-                                throw new Error(`HTTP error! status: ${response.status}`);
-                            }
-                            this.questions = await response.json();
-                            console.log('计算题加载成功:', this.questions.length, '道题目');
-                        } catch (error) {
-                            console.error('计算题加载失败:', error);
-                            // 提供备用数据
-                            this.questions = [
-                                {
-                                    id: 1,
-                                    title: "第1题",
-                                    problem: "单相半波可控整流电路带电阻负载工作，设交流电压有效值 \\( U_2 = 220\\,V \\)，控制角 \\( \\alpha = 30° \\)，负载电阻 \\( R_d = 20\\,\\Omega \\)。<br><br>试求：<br>（1）输出电压的平均值 \\( U_d \\)；<br>（2）输出电流的平均值 \\( I_d \\)。",
-                                    thinking: "<strong>解题思路：</strong><br>单相半波可控整流的平均输出电压公式：<br>\\[ U_d = \\frac{U_m}{2\\pi}(1 + \\cos\\alpha) \\]<br>其中<br>\\[ U_m = \\sqrt{2} \\times U_2 \\]<br>先求出峰值，再代入公式计算平均电压，最后除以电阻求出平均电流。",
-                                    solution: "<strong>详细计算：</strong><br>\\[ U_m = \\sqrt{2} \\times 220 = 311\\,V \\]<br>\\[ \\cos 30° = 0.866 \\]<br>\\[ U_d = \\frac{311}{2\\pi}(1 + 0.866) \\]<br>\\[ = \\frac{311}{6.283}(1.866) \\]<br>\\[ = 49.5 \\times 1.866 = 92.3\\,V \\]<br><br><strong>输出电流：</strong><br>\\[ I_d = \\frac{U_d}{R_d} = \\frac{92.3}{20} = 4.615\\,A \\]<br><br><strong>答案：</strong><br>\\[ \\boxed{U_d = 92.3\\,V} \\quad \\boxed{I_d = 4.615\\,A} \\]"
-                                }
-                            ];
-                        }
-                    } else {
-                        // 判断题使用内嵌数据
-                        this.questions = judgmentQuestions;
+                        console.log(`供配电${subType}题加载成功:`, this.questions.length, '道题目');
+                    } catch (error) {
+                        console.error(`供配电${subType}题加载失败:`, error);
+                        alert(`供配电${subType}题数据加载失败，请检查文件是否存在`);
+                        this.questions = [];
                     }
 
                     const typeNames = {
-                        'choice': '选择题',
-                        'judgment': '判断题',
-                        'fill': '填空题',
-                        'calculation': '计算题'
+                        'gongpeidian_choice': '供配电选择题',
+                        'gongpeidian_judgment': '供配电判断题',
+                        'gongpeidian_fill': '供配电填空题',
+                        'gongpeidian_calculation': '供配电简答计算题'
                     };
                     console.log(`成功加载 ${this.questions.length} 道${typeNames[type]}`);
 
@@ -2696,15 +2334,8 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                     document.getElementById('autoNextControls').classList.add('show');
                 } catch (error) {
                     console.error('加载题目失败:', error);
-                    // 如果加载失败，使用备用数据
-                    this.questions = type === 'choice' ? choiceQuestions : judgmentQuestions;
-                    console.log(`使用备用数据: ${this.questions.length} 道${type === 'choice' ? '选择题' : '判断题'}`);
-
-                    this.setupQuestionOrder();
-                    this.displayQuestion();
-                    this.updateStats();
-
-                    document.getElementById('autoNextControls').classList.add('show');
+                    alert('题目数据加载失败，请刷新页面重试');
+                    this.showHomePage();
                 }
             }
 
@@ -2765,9 +2396,9 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                 document.getElementById('questionNumber').textContent = `第 ${this.currentQuestionIndex + 1} 题`;
 
                 // 根据题目类型处理题目文本
-                if (this.quizType === 'fill') {
+                if (this.quizType === 'gongpeidian_fill') {
                     this.displayFillQuestion(question);
-                } else if (this.quizType === 'calculation') {
+                } else if (this.quizType === 'gongpeidian_calculation') {
                     this.displayCalculationQuestion(question);
                 } else {
                     document.getElementById('questionText').textContent = question.question;
@@ -2793,35 +2424,15 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                         // 移动端图片优化
                         if (window.innerWidth <= 768) {
                             this.style.maxWidth = '100%';
-                            this.style.width = '100%';
                             this.style.height = 'auto';
                             this.style.objectFit = 'contain';
-                            this.style.borderRadius = '8px';
                         }
                     };
 
                     newQuestionImg.onerror = function() {
                         console.error('图片加载失败:', question.imageUrl);
-                        // 移动端优化的图片加载失败提示
-                        const isMobile = window.innerWidth <= 768;
-                        questionImage.innerHTML = `
-                            <div style="padding: ${isMobile ? '15px' : '20px'}; text-align: center; color: var(--secondary-color); border: 1px dashed var(--border-color); border-radius: 8px; background: rgba(255, 193, 7, 0.1);">
-                                📷 图片暂时无法显示<br>
-                                <small style="color: #666; font-size: ${isMobile ? '12px' : '14px'};">网络问题或图片链接失效</small><br>
-                                <button onclick="window.quizApp.reloadQuestionImage('${question.imageUrl}')"
-                                        style="margin-top: 10px; padding: ${isMobile ? '8px 12px' : '5px 10px'}; background: var(--primary-color); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: ${isMobile ? '14px' : '12px'};">
-                                    🔄 重新加载
-                                </button>
-                            </div>
-                        `;
-                        questionImage.style.display = 'block';
+                        questionImage.style.display = 'none';
                     };
-
-                    // 设置图片基本样式（在设置src之前）
-                    newQuestionImg.style.maxWidth = '100%';
-                    newQuestionImg.style.height = 'auto';
-                    newQuestionImg.style.display = 'block';
-                    newQuestionImg.style.margin = '0 auto';
 
                     // 移动端特殊处理
                     if (window.innerWidth <= 768) {
@@ -2846,7 +2457,8 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                 }
 
                 // 生成选项（填空题和计算题不需要选项）
-                if (this.quizType !== 'fill' && this.quizType !== 'calculation') {
+                const noOptionsTypes = ['gongpeidian_fill', 'gongpeidian_calculation'];
+                if (!noOptionsTypes.includes(this.quizType)) {
                     this.displayOptions(question.options);
                 } else {
                     // 清空选项区域
@@ -2874,12 +2486,146 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                     this.selectOption(this.selectedAnswer);
                     // 如果已经答过题，显示结果
                     if (this.answeredQuestions.includes(questionIndex)) {
-                        this.showAnswerResult(questionIndex);
+                        this.showResult();
                     }
                 }
 
                 this.updateButtons();
                 this.updateProgress();
+            }
+
+            displayOptions(options) {
+                const optionsList = document.getElementById('optionsList');
+                optionsList.innerHTML = '';
+
+                if (!options || options.length === 0) {
+                    return;
+                }
+
+                options.forEach((option, index) => {
+                    const optionElement = document.createElement('li');
+                    optionElement.className = 'option';
+                    optionElement.onclick = () => this.selectOption(index);
+
+                    const label = String.fromCharCode(65 + index); // A, B, C, D
+                    optionElement.innerHTML = `
+                        <span class="option-label">${label}</span>
+                        <span class="option-text">${option}</span>
+                    `;
+
+                    optionsList.appendChild(optionElement);
+                });
+            }
+
+            selectOption(index) {
+                this.selectedAnswer = index;
+
+                // 清除所有选项的选中状态
+                document.querySelectorAll('.option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+
+                // 标记当前选中的选项
+                const options = document.querySelectorAll('.option');
+                if (options[index]) {
+                    options[index].classList.add('selected');
+                }
+
+                // 保存选择
+                const questionIndex = this.questionOrder[this.currentQuestionIndex];
+                this.selectedAnswers[questionIndex] = index;
+                this.saveCurrentState();
+            }
+
+            showResult() {
+                const questionIndex = this.questionOrder[this.currentQuestionIndex];
+                const question = this.questions[questionIndex];
+                const selectedAnswer = this.selectedAnswers[questionIndex];
+
+                if (selectedAnswer === undefined) return;
+
+                const isCorrect = selectedAnswer === question.correctAnswer;
+
+                // 标记选项
+                const options = document.querySelectorAll('.option');
+                options.forEach((option, index) => {
+                    if (index === question.correctAnswer) {
+                        option.classList.add('correct');
+                    } else if (index === selectedAnswer && !isCorrect) {
+                        option.classList.add('incorrect');
+                    }
+                });
+
+                // 显示结果面板
+                const resultPanel = document.getElementById('resultPanel');
+                const resultText = document.getElementById('resultText');
+
+                if (resultPanel && resultText) {
+                    resultPanel.className = 'result-panel show';
+                    if (isCorrect) {
+                        resultPanel.classList.add('result-correct');
+                        resultText.innerHTML = `<strong>✅ 回答正确！</strong><br>${question.explanation || '继续加油！'}`;
+                    } else {
+                        resultPanel.classList.add('result-incorrect');
+                        resultText.innerHTML = `<strong>❌ 回答错误</strong><br>正确答案是：<strong>${String.fromCharCode(65 + question.correctAnswer)}. ${question.options[question.correctAnswer]}</strong><br>${question.explanation || ''}`;
+                    }
+                }
+            }
+
+            // 基本方法
+            setupThemeDetection() {
+                const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+                const handleThemeChange = (e) => {
+                    console.log('主题模式:', e.matches ? '暗色' : '浅色');
+                };
+                handleThemeChange(mediaQuery);
+                if (mediaQuery.addEventListener) {
+                    mediaQuery.addEventListener('change', handleThemeChange);
+                }
+            }
+
+            setupResizeListener() {
+                window.addEventListener('resize', () => {
+                    console.log('窗口大小变化');
+                });
+            }
+
+            loadStates() {
+                // 加载状态的逻辑
+            }
+
+            saveCurrentState() {
+                // 保存当前状态的逻辑
+            }
+
+            restoreState(type) {
+                // 恢复状态的逻辑
+            }
+
+            generateQuickSwitchButtons(type) {
+                const quickSwitchContainer = document.getElementById('quickSwitchButtons');
+                if (!quickSwitchContainer) return;
+
+                // 供配电题目类型
+                const typeInfo = {
+                    'gongpeidian_choice': { name: '📝 选择题', count: '10题' },
+                    'gongpeidian_judgment': { name: '⚡ 判断题', count: '15题' },
+                    'gongpeidian_fill': { name: '✏️ 填空题', count: '3题' },
+                    'gongpeidian_calculation': { name: '🧮 简答计算题', count: '7题' }
+                };
+                const allTypes = ['gongpeidian_choice', 'gongpeidian_judgment', 'gongpeidian_fill', 'gongpeidian_calculation'];
+
+                quickSwitchContainer.innerHTML = allTypes.map(type => {
+                    const isCurrentType = type === this.quizType;
+                    const info = typeInfo[type];
+                    return `
+                        <button class="quick-switch-btn ${isCurrentType ? 'current' : ''}"
+                                onclick="${isCurrentType ? '' : `quickSwitchQuizType('${type}')`}"
+                                title="${info.name} (${info.count})">
+                            ${info.name}
+                        </button>
+                    `;
+                }).join('');
             }
 
             displayFillQuestion(question) {
@@ -2942,22 +2688,15 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                         <div class="calculation-problem">
                             ${question.problem}
                         </div>
-                        <div class="calculation-thinking" id="calculationThinking" style="display: none;">
-                            <h4>解题思路</h4>
-                            ${question.thinking}
-                        </div>
                         <div class="calculation-solution" id="calculationSolution" style="display: none;">
-                            <h4>解题过程</h4>
+                            <h4>详细解答</h4>
                             <div class="calculation-steps">
                                 ${question.solution}
                             </div>
                         </div>
                         <div class="calculation-controls" style="margin-top: 20px; text-align: center;">
-                            <button class="btn btn-secondary" onclick="toggleCalculationThinking()" id="thinkingBtn">
-                                💭 显示解题思路
-                            </button>
                             <button class="btn btn-secondary" onclick="toggleCalculationSolution()" id="solutionBtn">
-                                💡 显示解题过程
+                                💡 显示详细解答
                             </button>
                         </div>
                     </div>
@@ -2973,580 +2712,6 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                         console.error('计算题 MathJax 渲染失败:', err);
                     });
                 }
-            }
-
-            displayOptions(options) {
-                const optionsList = document.getElementById('optionsList');
-                optionsList.innerHTML = '';
-
-                // 检测是否为判断题
-                const isJudgmentQuestion = options.length === 2 &&
-                    (options.includes('正确') && options.includes('错误'));
-
-                options.forEach((option, index) => {
-                    const li = document.createElement('li');
-                    li.className = 'option';
-                    li.onclick = () => this.selectOption(index);
-
-                    if (isJudgmentQuestion) {
-                        // 判断题使用 ✓ 和 ✗ 符号
-                        const symbol = option === '正确' ? '✓' : '✗';
-                        const color = option === '正确' ? '#28a745' : '#dc3545';
-                        li.innerHTML = `
-                            <div class="option-label" style="background: ${color};">${symbol}</div>
-                            <div class="option-text">${option}</div>
-                        `;
-                    } else {
-                        // 选择题使用 A、B、C、D
-                        li.innerHTML = `
-                            <div class="option-label">${String.fromCharCode(65 + index)}</div>
-                            <div class="option-text">${option}</div>
-                        `;
-                    }
-
-                    optionsList.appendChild(li);
-                });
-            }
-
-            selectOption(index) {
-                // 移除之前的选择
-                document.querySelectorAll('.option').forEach(option => {
-                    option.classList.remove('selected');
-                });
-
-                // 添加新选择
-                document.querySelectorAll('.option')[index].classList.add('selected');
-                this.selectedAnswer = index;
-
-                // 启用提交按钮
-                document.getElementById('submitBtn').disabled = false;
-            }
-
-            updateStats() {
-                document.getElementById('totalQuestions').textContent = this.questions.length;
-                document.getElementById('currentQuestion').textContent = this.currentQuestionIndex + 1;
-                document.getElementById('correctCount').textContent = this.correctCount;
-
-                const accuracy = this.answeredQuestions.length > 0 ?
-                    Math.round((this.correctCount / this.answeredQuestions.length) * 100) : 0;
-                document.getElementById('accuracy').textContent = accuracy + '%';
-            }
-
-            setupThemeDetection() {
-                const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-                const handleThemeChange = (e) => {
-                    console.log('主题模式:', e.matches ? '暗色' : '浅色');
-                };
-                handleThemeChange(mediaQuery);
-                if (mediaQuery.addEventListener) {
-                    mediaQuery.addEventListener('change', handleThemeChange);
-                }
-            }
-
-            setupResizeListener() {
-                window.addEventListener('resize', () => {
-                    this.updateButtons();
-                });
-            }
-
-            loadFavorites() {
-                try {
-                    const saved = localStorage.getItem('quiz_favorites');
-                    return saved ? JSON.parse(saved) : [];
-                } catch (error) {
-                    return [];
-                }
-            }
-
-            saveFavorites() {
-                try {
-                    localStorage.setItem('quiz_favorites', JSON.stringify(this.favoriteQuestions));
-                } catch (error) {
-                    console.error('保存收藏失败:', error);
-                }
-            }
-
-            loadStates() {
-                try {
-                    const saved = localStorage.getItem('quiz_states');
-                    if (saved) {
-                        const loadedStates = JSON.parse(saved);
-                        // 合并保存的状态，保留默认值
-                        this.states.choice = { ...this.states.choice, ...loadedStates.choice };
-                        this.states.judgment = { ...this.states.judgment, ...loadedStates.judgment };
-                    }
-                } catch (error) {
-                    console.error('加载状态失败:', error);
-                }
-            }
-
-            saveStates() {
-                try {
-                    localStorage.setItem('quiz_states', JSON.stringify(this.states));
-                } catch (error) {
-                    console.error('保存状态失败:', error);
-                }
-            }
-
-            restoreState(type) {
-                const state = this.states[type];
-                this.currentQuestionIndex = state.currentQuestionIndex;
-                this.mode = state.mode;
-                this.questionOrder = [...state.questionOrder];
-                this.correctCount = state.correctCount;
-                this.answeredQuestions = [...state.answeredQuestions];
-
-                // 恢复选择状态
-                this.selectedAnswers = { ...state.selectedAnswers };
-
-                // 恢复浏览学习模式的滚动位置
-                this.reviewScrollPosition = state.reviewScrollPosition || 0;
-            }
-
-            saveCurrentState() {
-                if (!this.quizType) return;
-
-                const state = this.states[this.quizType];
-                state.currentQuestionIndex = this.currentQuestionIndex;
-                state.mode = this.mode;
-                state.questionOrder = [...this.questionOrder];
-                state.correctCount = this.correctCount;
-                state.answeredQuestions = [...this.answeredQuestions];
-                state.selectedAnswers = { ...this.selectedAnswers };
-
-                // 保存浏览学习模式的滚动位置
-                const reviewMode = document.getElementById('reviewMode');
-                if (reviewMode && reviewMode.style.display !== 'none') {
-                    state.reviewScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-                }
-
-                this.saveStates();
-            }
-
-            showAnswerResult(questionIndex) {
-                const question = this.questions[questionIndex];
-                const selectedAnswer = this.selectedAnswers[questionIndex];
-                const isCorrect = selectedAnswer === question.correctAnswer;
-
-                // 标记选项
-                const options = document.querySelectorAll('.option');
-                options.forEach((option, index) => {
-                    if (index === question.correctAnswer) {
-                        option.classList.add('correct');
-                    } else if (index === selectedAnswer && !isCorrect) {
-                        option.classList.add('incorrect');
-                    }
-                });
-
-                // 显示结果面板
-                const resultPanel = document.getElementById('resultPanel');
-                const resultText = document.getElementById('resultText');
-
-                resultPanel.className = 'result-panel show';
-                if (isCorrect) {
-                    resultPanel.classList.add('result-correct');
-                    resultText.innerHTML = `<strong>✅ 回答正确！</strong><br>${question.explanation || '继续加油！'}`;
-                } else {
-                    resultPanel.classList.add('result-incorrect');
-                    let incorrectHtml = `<strong>❌ 回答错误</strong><br>正确答案是：<strong>${String.fromCharCode(65 + question.correctAnswer)}. ${question.options[question.correctAnswer]}</strong><br>${question.explanation || ''}`;
-
-                    // 只在练习模式中添加AI解析
-                    const normalMode = document.getElementById('normalMode');
-                    const isPracticeMode = normalMode && normalMode.style.display !== 'none';
-
-                    if (isPracticeMode) {
-                        // 添加AI解析加载提示
-                        incorrectHtml += '<br><div id="aiAnalysis" style="margin-top: 10px; padding: 10px; background: rgba(255, 193, 7, 0.1); border-radius: 6px; border-left: 3px solid #ffc107;"><strong>🤖 AI解析：</strong><span id="aiAnalysisText">正在生成解析...</span></div>';
-
-                        resultText.innerHTML = incorrectHtml;
-
-                        // 异步获取AI解析
-                        this.getAIAnalysisForWrongAnswer(question, selectedAnswer, question.correctAnswer);
-                    } else {
-                        // 浏览学习模式不显示AI解析
-                        resultText.innerHTML = incorrectHtml;
-                    }
-                }
-            }
-
-            async getAIAnalysisForWrongAnswer(question, userAnswer, correctAnswer) {
-                try {
-                    const analysisText = await getAIAnalysis(question, userAnswer, correctAnswer, this.quizType);
-                    const aiAnalysisElement = document.getElementById('aiAnalysisText');
-                    if (aiAnalysisElement) {
-                        aiAnalysisElement.textContent = analysisText;
-                    }
-                } catch (error) {
-                    console.error('获取AI解析失败:', error);
-                    const aiAnalysisElement = document.getElementById('aiAnalysisText');
-                    if (aiAnalysisElement) {
-                        aiAnalysisElement.textContent = '解析暂时不可用，请查看题目解答。';
-                    }
-                }
-            }
-
-            hideResult() {
-                const resultPanel = document.getElementById('resultPanel');
-                if (resultPanel) {
-                    resultPanel.className = 'result-panel';
-                }
-
-                // 清除选项的正确/错误标记和选中状态
-                document.querySelectorAll('.option').forEach(option => {
-                    option.classList.remove('correct', 'incorrect', 'selected');
-                });
-            }
-
-            clearAllVisualStates() {
-                // 清除结果面板
-                this.hideResult();
-
-                // 清除所有选项的状态
-                document.querySelectorAll('.option').forEach(option => {
-                    option.classList.remove('correct', 'incorrect', 'selected');
-                    option.style.backgroundColor = '';
-                    option.style.borderColor = '';
-                });
-
-                // 重置选择状态
-                this.selectedAnswer = null;
-            }
-
-            // 重新加载题目图片
-            reloadQuestionImage(imageUrl) {
-                const questionImage = document.getElementById('questionImage');
-                if (questionImage && imageUrl) {
-                    questionImage.innerHTML = `
-                        <div style="padding: 20px; text-align: center; color: var(--secondary-color);">
-                            <div style="margin-bottom: 10px;">🔄 正在重新加载图片...</div>
-                        </div>
-                    `;
-
-                    // 延迟一下再重新加载，给用户反馈
-                    setTimeout(() => {
-                        const newImg = document.createElement('img');
-                        newImg.style.cssText = 'max-width: 100%; width: 100%; height: auto; object-fit: contain; border-radius: 8px; background: #f8f9fa;';
-                        newImg.alt = '题目图片';
-
-                        newImg.onload = function() {
-                            questionImage.innerHTML = '';
-                            questionImage.appendChild(newImg);
-                            questionImage.style.display = 'block';
-                        };
-
-                        newImg.onerror = function() {
-                            const isMobile = window.innerWidth <= 768;
-                            questionImage.innerHTML = `
-                                <div style="padding: ${isMobile ? '15px' : '20px'}; text-align: center; color: #dc3545; border: 1px dashed #dc3545; border-radius: 8px; background: rgba(220, 53, 69, 0.1);">
-                                    ❌ 图片无法加载<br>
-                                    <small style="color: #666; font-size: ${isMobile ? '12px' : '14px'};">请联系老师或稍后再试</small>
-                                </div>
-                            `;
-                        };
-
-                        // 添加时间戳防止缓存
-                        newImg.src = imageUrl + '?t=' + Date.now();
-                    }, 500);
-                }
-            }
-
-            updateFavoriteButton(questionIndex) {
-                const favoriteBtn = document.getElementById('favoriteBtn');
-                const favoriteIcon = document.getElementById('favoriteIcon');
-                const isFavorited = this.favoriteQuestions.includes(questionIndex);
-
-                if (isFavorited) {
-                    favoriteBtn.classList.add('favorited');
-                    favoriteIcon.textContent = '★';
-                    favoriteBtn.title = '取消收藏';
-                } else {
-                    favoriteBtn.classList.remove('favorited');
-                    favoriteIcon.textContent = '☆';
-                    favoriteBtn.title = '收藏题目';
-                }
-            }
-
-            showReviewMode() {
-                const reviewQuestions = document.getElementById('reviewQuestions');
-                reviewQuestions.innerHTML = '';
-
-                // 生成题目类型切换按钮
-                const quizTypeSwitch = document.getElementById('quizTypeSwitch');
-                this.generateQuizTypeSwitchButtons(quizTypeSwitch);
-
-                this.questions.forEach((question, index) => {
-                    const questionItem = document.createElement('div');
-                    questionItem.className = 'review-question-item';
-
-                    let questionContent = '';
-
-                    if (this.quizType === 'fill') {
-                        // 填空题浏览学习模式
-                        questionContent = this.generateFillReviewContent(question, index);
-                    } else if (this.quizType === 'calculation') {
-                        // 计算题浏览学习模式
-                        questionContent = this.generateCalculationReviewContent(question, index);
-                    } else {
-                        // 选择题和判断题浏览学习模式
-                        questionContent = this.generateChoiceReviewContent(question, index);
-                    }
-
-                    questionItem.innerHTML = questionContent;
-                    reviewQuestions.appendChild(questionItem);
-                });
-
-                // 渲染 MathJax 公式（如果有计算题）
-                if (this.quizType === 'calculation' && window.MathJax) {
-                    MathJax.typesetPromise([reviewQuestions]).then(() => {
-                        console.log('浏览学习模式 MathJax 渲染完成');
-                    }).catch((err) => {
-                        console.error('浏览学习模式 MathJax 渲染失败:', err);
-                    });
-                }
-
-                // 恢复滚动位置
-                setTimeout(() => {
-                    if (this.reviewScrollPosition > 0) {
-                        window.scrollTo(0, this.reviewScrollPosition);
-                    }
-                }, 100);
-            }
-
-            generateQuickSwitchButtons(currentType) {
-                const quickSwitchContainer = document.getElementById('quickSwitchButtons');
-                if (!quickSwitchContainer) return;
-
-                const typeInfo = {
-                    'choice': { name: '📝 选择题', count: '57题' },
-                    'judgment': { name: '⚡ 判断题', count: '25题' },
-                    'fill': { name: '✏️ 填空题', count: '24题' },
-                    'calculation': { name: '🧮 计算题', count: '3题' }
-                };
-
-                const allTypes = ['choice', 'judgment', 'fill', 'calculation'];
-
-                quickSwitchContainer.innerHTML = allTypes.map(type => {
-                    const isCurrentType = type === currentType;
-                    const info = typeInfo[type];
-                    return `
-                        <button class="quick-switch-btn ${isCurrentType ? 'current' : ''}"
-                                onclick="${isCurrentType ? '' : `quickSwitchQuizType('${type}')`}"
-                                title="${info.name} (${info.count})">
-                            ${info.name}
-                        </button>
-                    `;
-                }).join('');
-            }
-
-            generateQuizTypeSwitchButtons(quizTypeSwitch) {
-                const typeNames = {
-                    'choice': '📝 选择题',
-                    'judgment': '⚡ 判断题',
-                    'fill': '✏️ 填空题',
-                    'calculation': '🧮 计算题'
-                };
-
-                const allTypes = ['choice', 'judgment', 'fill', 'calculation'];
-                const otherTypes = allTypes.filter(type => type !== this.quizType);
-
-                quizTypeSwitch.innerHTML = otherTypes.map(type => `
-                    <button class="btn show" onclick="switchQuizType('${type}')" title="切换到${typeNames[type]}">
-                        ${typeNames[type]}
-                    </button>
-                `).join('');
-            }
-
-            generateChoiceReviewContent(question, index) {
-                return `
-                    <div class="review-question-header">
-                        <span class="review-question-number">第 ${index + 1} 题</span>
-                        <button class="btn-favorite ${this.favoriteQuestions.includes(index) ? 'favorited' : ''}" onclick="toggleReviewFavorite(${index})" title="收藏题目">
-                            <span id="reviewFavoriteIcon${index}">${this.favoriteQuestions.includes(index) ? '★' : '☆'}</span>
-                        </button>
-                    </div>
-
-                    <div class="review-question-text">${question.question}</div>
-
-                    ${question.hasImage && question.imageUrl ? `
-                        <div class="question-image">
-                            <img src="${question.imageUrl}" alt="题目图片"
-                                 style="max-width: 100%; width: 100%; height: auto; object-fit: contain; border-radius: 8px; background: #f8f9fa;"
-                                 onerror="this.parentElement.innerHTML='<div style=\\'padding: 20px; text-align: center; color: #666; border: 1px dashed #ddd; border-radius: 8px;\\'>📷 图片加载失败</div>'">
-                        </div>
-                    ` : ''}
-
-                    <div class="review-options">
-                        ${question.options.map((option, optionIndex) => `
-                            <div class="review-option ${optionIndex === question.correctAnswer ? 'correct' : ''}">
-                                <div class="review-option-label">${String.fromCharCode(65 + optionIndex)}</div>
-                                <div class="review-option-text">${option}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-
-                    ${question.explanation ? `
-                        <div class="review-answer">
-                            <div class="review-answer-label">解析</div>
-                            <div>${question.explanation}</div>
-                        </div>
-                    ` : ''}
-                `;
-            }
-
-            generateFillReviewContent(question, index) {
-                // 为填空题生成显示答案的版本
-                let questionWithAnswers = question.question;
-                let answerIndex = 0;
-
-                // 替换空白标记为答案
-                questionWithAnswers = questionWithAnswers.replace(/_{2,}/g, () => {
-                    const answer = question.answers[answerIndex] || '答案';
-                    answerIndex++;
-                    return `<span class="fill-answer">${answer}</span>`;
-                });
-
-                questionWithAnswers = questionWithAnswers.replace(/（\s*）/g, () => {
-                    const answer = question.answers[answerIndex] || '答案';
-                    answerIndex++;
-                    return `<span class="fill-answer">${answer}</span>`;
-                });
-
-                questionWithAnswers = questionWithAnswers.replace(/\(\s*\)/g, () => {
-                    const answer = question.answers[answerIndex] || '答案';
-                    answerIndex++;
-                    return `<span class="fill-answer">${answer}</span>`;
-                });
-
-                // 如果没有找到空白处，显示所有答案
-                if (!questionWithAnswers.includes('fill-answer')) {
-                    const answersHtml = question.answers.map((answer, idx) =>
-                        `<div class="fill-answer-item">答案${idx + 1}：<span class="fill-answer">${answer}</span></div>`
-                    ).join('');
-                    questionWithAnswers += '<br><br>' + answersHtml;
-                }
-
-                return `
-                    <div class="review-question-header">
-                        <span class="review-question-number">第 ${index + 1} 题</span>
-                        <button class="btn-favorite ${this.favoriteQuestions.includes(index) ? 'favorited' : ''}" onclick="toggleReviewFavorite(${index})" title="收藏题目">
-                            <span id="reviewFavoriteIcon${index}">${this.favoriteQuestions.includes(index) ? '★' : '☆'}</span>
-                        </button>
-                    </div>
-
-                    <div class="review-question-text">${questionWithAnswers}</div>
-                `;
-            }
-
-            generateCalculationReviewContent(question, index) {
-                return `
-                    <div class="review-question-header">
-                        <span class="review-question-number">第 ${index + 1} 题</span>
-                        <button class="btn-favorite ${this.favoriteQuestions.includes(index) ? 'favorited' : ''}" onclick="toggleReviewFavorite(${index})" title="收藏题目">
-                            <span id="reviewFavoriteIcon${index}">${this.favoriteQuestions.includes(index) ? '★' : '☆'}</span>
-                        </button>
-                    </div>
-
-                    <div class="calculation-container">
-                        <div class="calculation-title">${question.title}</div>
-                        <div class="calculation-problem">
-                            ${question.problem}
-                        </div>
-                        <div class="calculation-thinking">
-                            <h4>解题思路</h4>
-                            ${question.thinking}
-                        </div>
-                        <div class="calculation-solution">
-                            <h4>解题过程</h4>
-                            <div class="calculation-steps">
-                                ${question.solution}
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
-
-            hideResult() {
-                const resultPanel = document.getElementById('resultPanel');
-                resultPanel.className = 'result-panel';
-            }
-
-            updateProgress() {
-                const progress = ((this.currentQuestionIndex + 1) / this.questionOrder.length) * 100;
-                document.getElementById('progressFill').style.width = progress + '%';
-            }
-
-            cancelAutoNext() {
-                if (this.autoNextTimer) {
-                    clearTimeout(this.autoNextTimer);
-                    this.autoNextTimer = null;
-                }
-            }
-
-            updateButtons() {
-                const submitBtn = document.getElementById('submitBtn');
-                const nextBtn = document.getElementById('nextBtn');
-                const nextOnlyBtn = document.getElementById('nextOnlyBtn');
-                const prevBtn = document.getElementById('prevBtn');
-                const showAnswerBtn = document.getElementById('showAnswerBtn');
-
-                const hasAnswered = document.getElementById('resultPanel').classList.contains('show');
-                const isLastQuestion = this.currentQuestionIndex >= this.questionOrder.length - 1;
-                const isMobile = window.innerWidth <= 768;
-
-                if (isMobile) {
-                    // 移动端：三个按钮固定布局 - 上一题 | 下一题 | 提交答案
-                    // 第二列：下一题按钮（始终显示）
-                    nextOnlyBtn.style.display = 'block';
-                    nextOnlyBtn.disabled = isLastQuestion;
-
-                    // 第三列：提交答案按钮（不变功能，答题后禁用或变为完成）
-                    if (hasAnswered) {
-                        // 答题后，提交按钮变为"完成"或禁用
-                        submitBtn.innerHTML = '✅ 已完成';
-                        submitBtn.disabled = true;
-                        submitBtn.setAttribute('onclick', '');
-                    } else {
-                        // 未答题时，显示"提交答案"
-                        if (this.quizType === 'calculation') {
-                            submitBtn.innerHTML = '📚 学习模式';
-                            submitBtn.disabled = true; // 计算题不需要提交
-                        } else {
-                            submitBtn.innerHTML = '✅ 提交答案';
-                            // 填空题不需要检查selectedAnswer
-                            submitBtn.disabled = this.quizType !== 'fill' && this.selectedAnswer === null;
-                        }
-                        submitBtn.setAttribute('onclick', 'submitAnswer()');
-                    }
-
-                    // 移动端不使用nextBtn
-                    nextBtn.style.display = 'none';
-                } else {
-                    submitBtn.innerHTML = '✅ 提交答案';
-                    submitBtn.setAttribute('onclick', 'submitAnswer()');
-
-                    if (hasAnswered) {
-                        submitBtn.style.display = 'none';
-                        nextBtn.style.display = 'inline-block';
-                        nextBtn.disabled = isLastQuestion;
-                        nextOnlyBtn.style.display = 'none';
-                    } else {
-                        submitBtn.style.display = 'inline-block';
-                        // 填空题和计算题不需要检查selectedAnswer
-                        submitBtn.disabled = (this.quizType !== 'fill' && this.quizType !== 'calculation') && this.selectedAnswer === null;
-                        nextBtn.style.display = 'none';
-                        nextOnlyBtn.style.display = 'inline-block';
-                        nextOnlyBtn.disabled = isLastQuestion;
-                    }
-                }
-
-                // 控制显示答案按钮（仅填空题显示，计算题有自己的控制按钮）
-                if (showAnswerBtn) {
-                    showAnswerBtn.style.display = this.quizType === 'fill' ? 'inline-block' : 'none';
-                    showAnswerBtn.innerHTML = '💡 显示答案';
-                    showAnswerBtn.setAttribute('onclick', 'showFillAnswer()');
-                }
-
-                prevBtn.disabled = this.currentQuestionIndex === 0;
             }
 
             checkFillAnswer() {
@@ -3603,73 +2768,8 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                 } else {
                     setTimeout(() => {
                         this.showFillAnswer();
-
-                        // 只在练习模式中显示AI解析
-                        const normalMode = document.getElementById('normalMode');
-                        const isPracticeMode = normalMode && normalMode.style.display !== 'none';
-
-                        if (isPracticeMode) {
-                            this.showFillResultWithAI(question, inputs);
-                        } else {
-                            // 浏览学习模式只显示简单的错误提示，不需要AI解析
-                            alert('❌ 回答有误，请查看正确答案');
-                        }
+                        alert('❌ 回答有误，请查看正确答案');
                     }, 100);
-                }
-            }
-
-            async showFillResultWithAI(question, inputs) {
-                // 收集用户答案
-                const userAnswers = Array.from(inputs).map(input => input.value.trim()).filter(val => val);
-                const userAnswerText = userAnswers.join(', ');
-
-                // 创建结果显示面板
-                const existingPanel = document.querySelector('.fill-result-panel');
-                if (existingPanel) {
-                    existingPanel.remove();
-                }
-
-                const resultPanel = document.createElement('div');
-                resultPanel.className = 'fill-result-panel';
-                resultPanel.style.cssText = `
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    background: white;
-                    padding: 20px;
-                    border-radius: 12px;
-                    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-                    max-width: 400px;
-                    width: 90%;
-                    z-index: 1000;
-                    border: 2px solid #dc3545;
-                `;
-
-                resultPanel.innerHTML = `
-                    <h4 style="color: #dc3545; margin-bottom: 15px;">❌ 回答有误</h4>
-                    <p><strong>正确答案：</strong>${question.answers.join(' / ')}</p>
-                    <div id="fillAIAnalysis" style="margin-top: 15px; padding: 10px; background: rgba(255, 193, 7, 0.1); border-radius: 6px; border-left: 3px solid #ffc107;">
-                        <strong>🤖 AI解析：</strong><span id="fillAIAnalysisText">正在生成解析...</span>
-                    </div>
-                    <button onclick="this.parentElement.remove()" style="margin-top: 15px; padding: 8px 16px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">确定</button>
-                `;
-
-                document.body.appendChild(resultPanel);
-
-                // 获取AI解析
-                try {
-                    const analysisText = await getAIAnalysis(question, userAnswerText, question.answers.join(', '), 'fill');
-                    const aiAnalysisElement = document.getElementById('fillAIAnalysisText');
-                    if (aiAnalysisElement) {
-                        aiAnalysisElement.textContent = analysisText;
-                    }
-                } catch (error) {
-                    console.error('获取填空题AI解析失败:', error);
-                    const aiAnalysisElement = document.getElementById('fillAIAnalysisText');
-                    if (aiAnalysisElement) {
-                        aiAnalysisElement.textContent = '解析暂时不可用，请查看正确答案。';
-                    }
                 }
             }
 
@@ -3707,22 +2807,552 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
                 }
             }
 
-            showCalculationAnswer() {
-                const solutionElement = document.getElementById('calculationSolution');
-                if (solutionElement) {
-                    solutionElement.classList.add('show');
+            updateFavoriteButton(questionIndex) {
+                const favoriteBtn = document.getElementById('favoriteBtn');
+                const favoriteIcon = document.getElementById('favoriteIcon');
 
-                    // 重新渲染 MathJax 公式
-                    if (window.MathJax) {
-                        MathJax.typesetPromise([solutionElement]).then(() => {
-                            console.log('计算题答案 MathJax 渲染完成');
-                        }).catch((err) => {
-                            console.error('计算题答案 MathJax 渲染失败:', err);
-                        });
+                if (favoriteBtn && favoriteIcon) {
+                    const isFavorited = this.isFavorited(questionIndex);
+
+                    if (isFavorited) {
+                        favoriteBtn.classList.add('favorited');
+                        favoriteIcon.textContent = '★';
+                        favoriteBtn.title = '取消收藏';
+                    } else {
+                        favoriteBtn.classList.remove('favorited');
+                        favoriteIcon.textContent = '☆';
+                        favoriteBtn.title = '收藏题目';
                     }
                 }
             }
+
+            cancelAutoNext() {
+                if (this.autoNextTimer) {
+                    clearTimeout(this.autoNextTimer);
+                    this.autoNextTimer = null;
+                }
+            }
+
+            hideResult() {
+                const resultPanel = document.getElementById('resultPanel');
+                if (resultPanel) {
+                    resultPanel.className = 'result-panel';
+                }
+
+                // 清除选项的正确/错误标记和选中状态
+                document.querySelectorAll('.option').forEach(option => {
+                    option.classList.remove('correct', 'incorrect', 'selected');
+                });
+            }
+
+            updateButtons() {
+                const submitBtn = document.getElementById('submitBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                const nextOnlyBtn = document.getElementById('nextOnlyBtn');
+                const prevBtn = document.getElementById('prevBtn');
+                const showAnswerBtn = document.getElementById('showAnswerBtn');
+
+                if (!submitBtn || !nextOnlyBtn || !prevBtn) return;
+
+                const hasAnswered = document.getElementById('resultPanel').classList.contains('show');
+                const isLastQuestion = this.currentQuestionIndex >= this.questionOrder.length - 1;
+                const isMobile = window.innerWidth <= 768;
+
+                if (isMobile) {
+                    // 移动端：三个按钮固定布局 - 上一题 | 下一题 | 提交答案
+                    nextOnlyBtn.style.display = 'block';
+                    nextOnlyBtn.disabled = isLastQuestion;
+
+                    if (hasAnswered) {
+                        submitBtn.innerHTML = '✅ 已完成';
+                        submitBtn.disabled = true;
+                        submitBtn.setAttribute('onclick', '');
+                    } else {
+                        if (this.quizType === 'gongpeidian_calculation') {
+                            submitBtn.innerHTML = '📚 学习模式';
+                            submitBtn.disabled = true;
+                        } else {
+                            submitBtn.innerHTML = '✅ 提交答案';
+                            submitBtn.disabled = (this.quizType !== 'gongpeidian_fill') && this.selectedAnswer === null;
+                        }
+                        submitBtn.setAttribute('onclick', 'submitAnswer()');
+                    }
+
+                    if (nextBtn) nextBtn.style.display = 'none';
+                } else {
+                    submitBtn.innerHTML = '✅ 提交答案';
+                    submitBtn.setAttribute('onclick', 'submitAnswer()');
+
+                    if (hasAnswered) {
+                        submitBtn.style.display = 'none';
+                        if (nextBtn) {
+                            nextBtn.style.display = 'inline-block';
+                            nextBtn.disabled = isLastQuestion;
+                        }
+                        nextOnlyBtn.style.display = 'none';
+                    } else {
+                        submitBtn.style.display = 'inline-block';
+                        submitBtn.disabled = (this.quizType !== 'gongpeidian_fill' && this.quizType !== 'gongpeidian_calculation') && this.selectedAnswer === null;
+                        if (nextBtn) nextBtn.style.display = 'none';
+                        nextOnlyBtn.style.display = 'inline-block';
+                        nextOnlyBtn.disabled = isLastQuestion;
+                    }
+                }
+
+                // 控制显示答案按钮
+                if (showAnswerBtn) {
+                    showAnswerBtn.style.display = this.quizType === 'gongpeidian_fill' ? 'inline-block' : 'none';
+                    showAnswerBtn.innerHTML = '💡 显示答案';
+                    showAnswerBtn.setAttribute('onclick', 'showFillAnswer()');
+                }
+
+                prevBtn.disabled = this.currentQuestionIndex === 0;
+            }
+
+            updateProgress() {
+                const progressFill = document.getElementById('progressFill');
+                if (progressFill && this.questionOrder.length > 0) {
+                    const progress = ((this.currentQuestionIndex + 1) / this.questionOrder.length) * 100;
+                    progressFill.style.width = progress + '%';
+                }
+            }
+
+            updateStats() {
+                const totalQuestionsElement = document.getElementById('totalQuestions');
+                const currentQuestionElement = document.getElementById('currentQuestion');
+                const correctCountElement = document.getElementById('correctCount');
+                const accuracyElement = document.getElementById('accuracy');
+
+                if (totalQuestionsElement) {
+                    totalQuestionsElement.textContent = this.questions.length;
+                }
+                if (currentQuestionElement) {
+                    currentQuestionElement.textContent = this.currentQuestionIndex + 1;
+                }
+                if (correctCountElement) {
+                    correctCountElement.textContent = this.correctCount;
+                }
+                if (accuracyElement) {
+                    const accuracy = this.answeredQuestions.length > 0 ?
+                        Math.round((this.correctCount / this.answeredQuestions.length) * 100) : 0;
+                    accuracyElement.textContent = accuracy + '%';
+                }
+            }
+
+            loadFavorites() {
+                try {
+                    const saved = localStorage.getItem('quiz_favorites');
+                    return saved ? JSON.parse(saved) : {};
+                } catch (error) {
+                    console.error('加载收藏失败:', error);
+                    return {};
+                }
+            }
+
+            saveFavorites() {
+                try {
+                    localStorage.setItem('quiz_favorites', JSON.stringify(this.favoriteQuestions));
+                } catch (error) {
+                    console.error('保存收藏失败:', error);
+                }
+            }
+
+            getFavoriteKey(questionIndex) {
+                return `${this.quizType}_${questionIndex}`;
+            }
+
+            isFavorited(questionIndex) {
+                const key = this.getFavoriteKey(questionIndex);
+                return this.favoriteQuestions[key] === true;
+            }
+
+            getCurrentTypeFavorites() {
+                if (!this.quizType) return [];
+                const favorites = [];
+                Object.keys(this.favoriteQuestions).forEach(key => {
+                    if (key.startsWith(`${this.quizType}_`) && this.favoriteQuestions[key]) {
+                        const index = parseInt(key.split('_')[1]);
+                        if (!isNaN(index)) {
+                            favorites.push(index);
+                        }
+                    }
+                });
+                return favorites;
+            }
+
+            showReviewMode() {
+                const reviewQuestions = document.getElementById('reviewQuestions');
+                if (!reviewQuestions) return;
+
+                reviewQuestions.innerHTML = '';
+
+                // 生成题目类型切换按钮
+                const quizTypeSwitch = document.getElementById('quizTypeSwitch');
+                if (quizTypeSwitch) {
+                    this.generateQuizTypeSwitchButtons(quizTypeSwitch);
+                }
+
+                this.questions.forEach((question, index) => {
+                    const questionItem = document.createElement('div');
+                    questionItem.className = 'review-question-item';
+
+                    let questionContent = '';
+
+                    if (this.quizType === 'gongpeidian_fill') {
+                        questionContent = this.generateFillReviewContent(question, index);
+                    } else if (this.quizType === 'gongpeidian_calculation') {
+                        questionContent = this.generateCalculationReviewContent(question, index);
+                    } else {
+                        questionContent = this.generateChoiceReviewContent(question, index);
+                    }
+
+                    questionItem.innerHTML = questionContent;
+                    reviewQuestions.appendChild(questionItem);
+                });
+
+                // 渲染 MathJax 公式（如果有计算题）
+                if (this.quizType === 'gongpeidian_calculation' && window.MathJax) {
+                    MathJax.typesetPromise([reviewQuestions]).then(() => {
+                        console.log('浏览学习模式 MathJax 渲染完成');
+                    }).catch((err) => {
+                        console.error('浏览学习模式 MathJax 渲染失败:', err);
+                    });
+                }
+            }
+
+            generateQuizTypeSwitchButtons(quizTypeSwitch) {
+                const typeNames = {
+                    'gongpeidian_choice': '📝 选择题',
+                    'gongpeidian_judgment': '⚡ 判断题',
+                    'gongpeidian_fill': '✏️ 填空题',
+                    'gongpeidian_calculation': '🧮 简答计算题'
+                };
+                const allTypes = ['gongpeidian_choice', 'gongpeidian_judgment', 'gongpeidian_fill', 'gongpeidian_calculation'];
+                const otherTypes = allTypes.filter(type => type !== this.quizType);
+
+                quizTypeSwitch.innerHTML = otherTypes.map(type => `
+                    <button class="btn show" onclick="switchQuizType('${type}')" title="切换到${typeNames[type]}">
+                        ${typeNames[type]}
+                    </button>
+                `).join('');
+            }
+
+            generateChoiceReviewContent(question, index) {
+                return `
+                    <div class="review-question-header">
+                        <span class="review-question-number">第 ${index + 1} 题</span>
+                        <button class="btn-favorite ${this.isFavorited(index) ? 'favorited' : ''}" onclick="toggleReviewFavorite(${index})" title="收藏题目">
+                            <span id="reviewFavoriteIcon${index}">${this.isFavorited(index) ? '★' : '☆'}</span>
+                        </button>
+                    </div>
+
+                    <div class="review-question-text">${question.question}</div>
+
+                    ${question.hasImage && question.imageUrl ? `
+                        <div class="question-image">
+                            <img src="${question.imageUrl}" alt="题目图片"
+                                 style="max-width: 100%; width: 100%; height: auto; object-fit: contain; border-radius: 8px; background: #f8f9fa;"
+                                 onerror="this.parentElement.innerHTML='<div style=\\'padding: 20px; text-align: center; color: #666; border: 1px dashed #ddd; border-radius: 8px;\\'>📷 图片加载失败</div>'">
+                        </div>
+                    ` : ''}
+
+                    <div class="review-options">
+                        ${question.options.map((option, optionIndex) => `
+                            <div class="review-option ${optionIndex === question.correctAnswer ? 'correct' : ''}">
+                                <div class="review-option-label">${String.fromCharCode(65 + optionIndex)}</div>
+                                <div class="review-option-text">${option}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    ${question.explanation ? `
+                        <div class="review-answer">
+                            <div class="review-answer-label">解析</div>
+                            <div>${question.explanation}</div>
+                        </div>
+                    ` : ''}
+                `;
+            }
+
+            generateFillReviewContent(question, index) {
+                let questionWithAnswers = question.question;
+                let answerIndex = 0;
+
+                // 替换空白标记为答案
+                questionWithAnswers = questionWithAnswers.replace(/_{2,}/g, () => {
+                    const answer = question.answers[answerIndex] || '答案';
+                    answerIndex++;
+                    return `<span class="fill-answer">${answer}</span>`;
+                });
+
+                questionWithAnswers = questionWithAnswers.replace(/（\s*）/g, () => {
+                    const answer = question.answers[answerIndex] || '答案';
+                    answerIndex++;
+                    return `<span class="fill-answer">${answer}</span>`;
+                });
+
+                questionWithAnswers = questionWithAnswers.replace(/\(\s*\)/g, () => {
+                    const answer = question.answers[answerIndex] || '答案';
+                    answerIndex++;
+                    return `<span class="fill-answer">${answer}</span>`;
+                });
+
+                if (!questionWithAnswers.includes('fill-answer')) {
+                    const answersHtml = question.answers.map((answer, idx) =>
+                        `<div class="fill-answer-item">答案${idx + 1}：<span class="fill-answer">${answer}</span></div>`
+                    ).join('');
+                    questionWithAnswers += '<br><br>' + answersHtml;
+                }
+
+                return `
+                    <div class="review-question-header">
+                        <span class="review-question-number">第 ${index + 1} 题</span>
+                        <button class="btn-favorite ${this.isFavorited(index) ? 'favorited' : ''}" onclick="toggleReviewFavorite(${index})" title="收藏题目">
+                            <span id="reviewFavoriteIcon${index}">${this.isFavorited(index) ? '★' : '☆'}</span>
+                        </button>
+                    </div>
+
+                    <div class="review-question-text">${questionWithAnswers}</div>
+                `;
+            }
+
+            generateCalculationReviewContent(question, index) {
+                return `
+                    <div class="review-question-header">
+                        <span class="review-question-number">第 ${index + 1} 题</span>
+                        <button class="btn-favorite ${this.isFavorited(index) ? 'favorited' : ''}" onclick="toggleReviewFavorite(${index})" title="收藏题目">
+                            <span id="reviewFavoriteIcon${index}">${this.isFavorited(index) ? '★' : '☆'}</span>
+                        </button>
+                    </div>
+
+                    <div class="calculation-container">
+                        <div class="calculation-title">${question.title}</div>
+                        <div class="calculation-problem">
+                            ${question.problem}
+                        </div>
+                        <div class="calculation-solution">
+                            <h4>详细解答</h4>
+                            <div class="calculation-steps">
+                                ${question.solution}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            clearAllVisualStates() {
+                // 清除结果面板
+                this.hideResult();
+
+                // 清除所有选项的状态
+                document.querySelectorAll('.option').forEach(option => {
+                    option.classList.remove('correct', 'incorrect', 'selected');
+                    option.style.backgroundColor = '';
+                    option.style.borderColor = '';
+                });
+
+                // 重置选择状态
+                this.selectedAnswer = null;
+            }
+
+            setupQuestionOrder() {
+                if (!this.questions || this.questions.length === 0) {
+                    this.questionOrder = [];
+                    return;
+                }
+
+                switch (this.mode) {
+                    case 'sequential':
+                        this.questionOrder = Array.from({length: this.questions.length}, (_, i) => i);
+                        break;
+                    case 'random':
+                        this.questionOrder = this.shuffleArray(Array.from({length: this.questions.length}, (_, i) => i));
+                        break;
+                    case 'wrong':
+                        this.questionOrder = [...this.wrongQuestions];
+                        if (this.questionOrder.length === 0) {
+                            alert('暂无错题，切换到顺序练习模式');
+                            this.mode = 'sequential';
+                            this.setupQuestionOrder();
+                            return;
+                        }
+                        break;
+                    case 'favorites':
+                        this.questionOrder = this.getCurrentTypeFavorites();
+                        if (this.questionOrder.length === 0) {
+                            alert('暂无收藏题目，切换到顺序练习模式');
+                            this.mode = 'sequential';
+                            this.setupQuestionOrder();
+                            return;
+                        }
+                        break;
+                    default:
+                        this.questionOrder = Array.from({length: this.questions.length}, (_, i) => i);
+                        break;
+                }
+                this.currentQuestionIndex = 0;
+            }
+
+            shuffleArray(array) {
+                const shuffled = [...array];
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+
+            saveCurrentState() {
+                try {
+                    // 保存收藏状态
+                    this.saveFavorites();
+
+                    // 保存当前题目类型的状态
+                    if (this.quizType) {
+                        const state = {
+                            currentQuestionIndex: this.currentQuestionIndex,
+                            selectedAnswers: this.selectedAnswers || {},
+                            correctCount: this.correctCount,
+                            questionOrder: this.questionOrder,
+                            mode: this.mode,
+                            answeredQuestions: this.answeredQuestions,
+                            wrongQuestions: this.wrongQuestions
+                        };
+                        localStorage.setItem(`quiz_state_${this.quizType}`, JSON.stringify(state));
+                    }
+                } catch (error) {
+                    console.error('保存状态失败:', error);
+                }
+            }
+
+            showHomePage() {
+                document.getElementById('quizTypeSelector').style.display = 'block';
+                document.getElementById('quizInterface').style.display = 'none';
+                this.isQuizStarted = false;
+            }
+
+            saveStates() {
+                try {
+                    localStorage.setItem('quiz_states', JSON.stringify(this.states));
+                } catch (error) {
+                    console.error('保存状态失败:', error);
+                }
+            }
+
+            loadStates() {
+                try {
+                    const saved = localStorage.getItem('quiz_states');
+                    if (saved) {
+                        const loadedStates = JSON.parse(saved);
+                        // 合并保存的状态，保留默认值
+                        Object.keys(this.states).forEach(key => {
+                            if (loadedStates[key]) {
+                                this.states[key] = { ...this.states[key], ...loadedStates[key] };
+                            }
+                        });
+                    }
+                } catch (error) {
+                    console.error('加载状态失败:', error);
+                }
+            }
+
+            restoreState(type) {
+                try {
+                    const state = this.states[type];
+                    if (state) {
+                        this.currentQuestionIndex = state.currentQuestionIndex || 0;
+                        this.selectedAnswers = { ...state.selectedAnswers } || {};
+                        this.correctCount = state.correctCount || 0;
+                        this.questionOrder = [...state.questionOrder] || [];
+                        this.mode = state.mode || 'sequential';
+                        this.answeredQuestions = [...state.answeredQuestions] || [];
+                        this.wrongQuestions = [...state.wrongQuestions] || [];
+                        this.reviewScrollPosition = state.reviewScrollPosition || 0;
+                        return true;
+                    }
+                } catch (error) {
+                    console.error('恢复状态失败:', error);
+                }
+                return false;
+            }
         }
+
+        // AI解析配置 - 使用Netlify函数
+        const AI_CONFIG = {
+            apiUrl: '/.netlify/functions/ask-gemini',
+            model: 'google/gemini-2.0-flash-exp:free',
+            enabled: true // 使用Netlify函数，默认启用
+        };
+
+        // AI解析函数 - 使用Netlify函数
+        async function getAIAnalysis(question, userAnswer, correctAnswer, quizType) {
+            if (!AI_CONFIG.enabled) {
+                return '💡 AI解析功能暂时不可用，请查看题目解答或咨询老师。';
+            }
+
+            try {
+                let prompt = '';
+
+                if (quizType === 'choice' || quizType === 'judgment') {
+                    const answerText = quizType === 'judgment' ?
+                        (userAnswer === 0 ? '正确' : '错误') :
+                        question.options[userAnswer];
+                    const correctText = quizType === 'judgment' ?
+                        (correctAnswer === 0 ? '正确' : '错误') :
+                        question.options[correctAnswer];
+
+                    prompt = `请简短解析这道供配电题目（50字以内）：
+
+题目：${question.question}
+${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 + i)}. ${opt}`).join('\n') : ''}
+用户选择：${answerText}
+正确答案：${correctText}
+
+请简短说明为什么正确答案是对的。`;
+                } else if (quizType === 'gongpeidian_fill') {
+                    prompt = `请简短解析这道供配电填空题（50字以内）：
+
+题目：${question.question}
+用户答案：${userAnswer}
+正确答案：${question.answer}
+
+请简短说明正确答案的要点。`;
+                } else if (quizType === 'gongpeidian_calculation') {
+                    prompt = `请简短解析这道供配电计算题的关键点（50字以内）：
+
+题目：${question.problem}
+请简短说明解题的关键思路。`;
+                }
+
+                const response = await fetch(AI_CONFIG.apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        prompt: prompt
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API请求失败: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                // 处理Gemini API的响应格式
+                if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) {
+                    return data.candidates[0].content.parts[0].text.trim();
+                } else {
+                    throw new Error('响应格式不正确');
+                }
+            } catch (error) {
+                console.error('AI解析获取失败:', error);
+                return '💡 解析暂时不可用，请查看题目解答或咨询老师。';
+            }
+        }
+
+
 
         // 全局函数
         async function startQuiz(type) {
@@ -3771,13 +3401,13 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
 
         function submitAnswer() {
             // 填空题使用不同的提交逻辑
-            if (window.quizApp.quizType === 'fill') {
+            if (window.quizApp.quizType === 'gongpeidian_fill') {
                 window.quizApp.checkFillAnswer();
                 return;
             }
 
             // 计算题不需要提交，用户通过按钮控制显示
-            if (window.quizApp.quizType === 'calculation') {
+            if (window.quizApp.quizType === 'gongpeidian_calculation') {
                 return;
             }
 
@@ -3963,19 +3593,19 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
 
         function toggleFavorite() {
             const questionIndex = window.quizApp.questionOrder[window.quizApp.currentQuestionIndex];
-            const isFavorited = window.quizApp.favoriteQuestions.includes(questionIndex);
+            const favoriteKey = window.quizApp.getFavoriteKey(questionIndex);
+            const isFavorited = window.quizApp.isFavorited(questionIndex);
 
             if (isFavorited) {
-                const index = window.quizApp.favoriteQuestions.indexOf(questionIndex);
-                window.quizApp.favoriteQuestions.splice(index, 1);
+                delete window.quizApp.favoriteQuestions[favoriteKey];
             } else {
-                window.quizApp.favoriteQuestions.push(questionIndex);
+                window.quizApp.favoriteQuestions[favoriteKey] = true;
             }
 
             window.quizApp.saveFavorites();
             window.quizApp.updateFavoriteButton(questionIndex);
 
-            if (window.quizApp.mode === 'favorites' && !isFavorited) {
+            if (window.quizApp.mode === 'favorites' && isFavorited) {
                 window.quizApp.setupQuestionOrder();
                 if (window.quizApp.currentQuestionIndex >= window.quizApp.questionOrder.length) {
                     window.quizApp.currentQuestionIndex = Math.max(0, window.quizApp.questionOrder.length - 1);
@@ -3987,13 +3617,13 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
         }
 
         function toggleReviewFavorite(questionIndex) {
-            const isFavorited = window.quizApp.favoriteQuestions.includes(questionIndex);
+            const favoriteKey = window.quizApp.getFavoriteKey(questionIndex);
+            const isFavorited = window.quizApp.isFavorited(questionIndex);
 
             if (isFavorited) {
-                const index = window.quizApp.favoriteQuestions.indexOf(questionIndex);
-                window.quizApp.favoriteQuestions.splice(index, 1);
+                delete window.quizApp.favoriteQuestions[favoriteKey];
             } else {
-                window.quizApp.favoriteQuestions.push(questionIndex);
+                window.quizApp.favoriteQuestions[favoriteKey] = true;
             }
 
             window.quizApp.saveFavorites();
@@ -4003,7 +3633,7 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
             const favoriteBtn = favoriteIcon?.parentElement;
 
             if (favoriteIcon && favoriteBtn) {
-                const isNowFavorited = window.quizApp.favoriteQuestions.includes(questionIndex);
+                const isNowFavorited = window.quizApp.isFavorited(questionIndex);
                 favoriteIcon.textContent = isNowFavorited ? '★' : '☆';
                 favoriteBtn.classList.toggle('favorited', isNowFavorited);
             }
@@ -4079,6 +3709,31 @@ ${question.options ? question.options.map((opt, i) => `${String.fromCharCode(65 
 
         function showCalculationAnswer() {
             window.quizApp.showCalculationAnswer();
+        }
+
+        // 计算题控制函数
+        function toggleCalculationSolution() {
+            const solutionElement = document.getElementById('calculationSolution');
+            const solutionBtn = document.getElementById('solutionBtn');
+
+            if (solutionElement && solutionBtn) {
+                if (solutionElement.style.display === 'none') {
+                    solutionElement.style.display = 'block';
+                    solutionBtn.innerHTML = '💡 隐藏详细解答';
+
+                    // 重新渲染 MathJax 公式
+                    if (window.MathJax) {
+                        MathJax.typesetPromise([solutionElement]).then(() => {
+                            console.log('详细解答 MathJax 渲染完成');
+                        }).catch((err) => {
+                            console.error('详细解答 MathJax 渲染失败:', err);
+                        });
+                    }
+                } else {
+                    solutionElement.style.display = 'none';
+                    solutionBtn.innerHTML = '💡 显示详细解答';
+                }
+            }
         }
 
         function toggleCalculationThinking() {
