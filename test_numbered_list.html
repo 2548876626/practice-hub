@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数字列表换行测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #2c3e50;
+            color: white;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #34495e;
+            padding: 20px;
+            border-radius: 12px;
+        }
+        .calculation-solution {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(40, 167, 69, 0.08);
+            border-radius: 12px;
+            border: 1px solid rgba(40, 167, 69, 0.3);
+        }
+        .calculation-solution h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #28a745;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .calculation-solution h4::before {
+            content: "💡";
+            font-size: 20px;
+        }
+        .calculation-steps {
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            padding: 18px;
+            background: #2c3e50;
+            border-radius: 10px;
+            border: 1px solid #4a5f7a;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .before, .after {
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .before {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+        }
+        .after {
+            background: rgba(40, 167, 69, 0.1);
+            border: 1px solid rgba(40, 167, 69, 0.3);
+        }
+        h3 {
+            color: #ffd700;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 数字列表换行修复测试</h1>
+        
+        <div class="comparison">
+            <div class="before">
+                <h3>❌ 修复前（问题版本）</h3>
+                <div class="calculation-solution">
+                    <h4>详细解答</h4>
+                    <div class="calculation-steps" id="beforeFix">
+                        <!-- 修复前的效果 -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="after">
+                <h3>✅ 修复后（改进版本）</h3>
+                <div class="calculation-solution">
+                    <h4>详细解答</h4>
+                    <div class="calculation-steps" id="afterFix">
+                        <!-- 修复后的效果 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: rgba(255, 193, 7, 0.1); border-radius: 8px; border: 1px solid rgba(255, 193, 7, 0.3);">
+            <h3>💡 修复说明</h3>
+            <ul>
+                <li><strong>问题</strong>：长文本掩盖了换行效果，数字条目不够突出</li>
+                <li><strong>解决方案</strong>：为数字条目添加额外间距和样式突出显示</li>
+                <li><strong>技术实现</strong>：使用正则表达式 <code>/\\n(\d+\.)/g</code> 匹配数字条目</li>
+                <li><strong>样式增强</strong>：添加双换行、金色高亮、粗体显示</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // 测试数据
+        const testText = "变压器并列运行的条件：\\n1. 变压器的接线组别必须相同，以确保二次侧电压相位一致，避免产生大的电位差和环流。\\n2. 变压器的变比（即额定电压）应相同，允许有±0.5%的差值，这是为了保证空载时绕组内不会有环流，避免影响变压器容量的合理利用。\\n3. 变压器的短路电压应相等，允许有±10%的差值，这个条件保证负荷分配与容量成正比，避免容量大的变压器轻载，容量小的变压器过载。\\n4. 并列变压器的容量比不宜超过3:1，这限制了变压器的短路电压值相差不致过大，防止负载分配不均。";
+
+        // 修复前的函数（原版本）
+        function oldFormatTextWithLineBreaks(text) {
+            return text.replace(/\\n/g, '<br>');
+        }
+
+        // 修复后的函数（新版本）
+        function newFormatTextWithLineBreaks(text) {
+            return text
+                .replace(/\\n(\d+\.)/g, '<br><br><strong style="color: #ffd700; display: block; margin-top: 8px;">$1</strong>')
+                .replace(/\\n/g, '<br>');
+        }
+
+        // 显示对比效果
+        document.getElementById('beforeFix').innerHTML = oldFormatTextWithLineBreaks(testText);
+        document.getElementById('afterFix').innerHTML = newFormatTextWithLineBreaks(testText);
+
+        console.log('数字列表换行测试页面加载完成');
+    </script>
+</body>
+</html>

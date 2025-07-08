@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>换行符调试分析</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .debug-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .debug-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .text-display {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        .raw-text {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .analysis {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .solution {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .highlight {
+            background: yellow;
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 换行符问题调试分析</h1>
+        
+        <!-- 原始数据展示 -->
+        <div class="debug-section">
+            <h3>📋 原始JSON数据</h3>
+            <div class="raw-text" id="rawData"></div>
+        </div>
+
+        <!-- 字符分析 -->
+        <div class="debug-section">
+            <h3>🔬 字符级别分析</h3>
+            <div id="charAnalysis"></div>
+        </div>
+
+        <!-- 当前处理结果 -->
+        <div class="debug-section">
+            <h3>❌ 当前处理结果（有问题）</h3>
+            <div class="text-display" id="currentResult"></div>
+        </div>
+
+        <!-- 问题分析 -->
+        <div class="debug-section">
+            <h3>🧐 问题分析</h3>
+            <div class="analysis" id="problemAnalysis"></div>
+        </div>
+
+        <!-- 修复方案 -->
+        <div class="debug-section">
+            <h3>✅ 修复方案</h3>
+            <div class="solution" id="fixedResult"></div>
+        </div>
+
+        <!-- 最终效果 -->
+        <div class="debug-section">
+            <h3>🎉 修复后效果</h3>
+            <div class="text-display" id="finalResult"></div>
+        </div>
+    </div>
+
+    <script>
+        // 原始数据（从你的JSON文件中提取）
+        const originalText = "变压器并列运行的条件：\\n1. 变压器的接线组别必须相同，以确保二次侧电压相位一致，避免产生大的电位差和环流。\\n2. 变压器的变比（即额定电压）应相同，允许有±0.5%的差值，这是为了保证空载时绕组内不会有环流，避免影响变压器容量的合理利用。\\n3. 变压器的短路电压应相等，允许有±10%的差值，这个条件保证负荷分配与容量成正比，避免容量大的变压器轻载，容量小的变压器过载。\\n4. 并列变压器的容量比不宜超过3:1，这限制了变压器的短路电压值相差不致过大，防止负载分配不均。";
+
+        // 显示原始数据
+        document.getElementById('rawData').textContent = originalText;
+
+        // 字符级别分析
+        function analyzeCharacters() {
+            const parts = originalText.split('\\n');
+            let analysis = '<div style="font-family: monospace; font-size: 14px;">';
+            
+            parts.forEach((part, index) => {
+                analysis += `<div style="margin: 5px 0; padding: 5px; background: #f8f9fa; border-left: 3px solid #007bff;">`;
+                analysis += `<strong>部分 ${index + 1}:</strong> "${part}"`;
+                if (index < parts.length - 1) {
+                    analysis += ` <span class="highlight">[后面有\\n]</span>`;
+                }
+                analysis += `</div>`;
+            });
+            
+            analysis += '</div>';
+            document.getElementById('charAnalysis').innerHTML = analysis;
+        }
+
+        // 当前处理函数（有问题的版本）
+        function formatTextWithLineBreaks(text) {
+            return text.replace(/\\n/g, '<br>');
+        }
+
+        // 显示当前处理结果
+        document.getElementById('currentResult').innerHTML = formatTextWithLineBreaks(originalText);
+
+        // 问题分析
+        function analyzeProblem() {
+            let analysis = `
+                <h4>🔍 问题根源分析：</h4>
+                <ol>
+                    <li><strong>换行符位置正确</strong>：每个数字前都有 \\n</li>
+                    <li><strong>处理函数正确</strong>：replace(/\\\\n/g, '&lt;br&gt;') 工作正常</li>
+                    <li><strong>真正问题</strong>：长文本在HTML中的自动换行行为</li>
+                </ol>
+                
+                <h4>📝 具体分析：</h4>
+                <ul>
+                    <li><strong>第1条</strong>：文本较短，在 &lt;br&gt; 处正常换行</li>
+                    <li><strong>第2条</strong>：文本很长，浏览器自动换行，视觉上看起来像没有换行</li>
+                    <li><strong>第3条</strong>：同样的问题，长文本掩盖了换行效果</li>
+                    <li><strong>第4条</strong>：文本相对较短，换行效果明显</li>
+                </ul>
+                
+                <h4>🎯 解决思路：</h4>
+                <p>需要在每个数字条目之间增加更明显的视觉分隔，或者调整文本格式。</p>
+            `;
+            document.getElementById('problemAnalysis').innerHTML = analysis;
+        }
+
+        // 改进的处理函数
+        function improvedFormatTextWithLineBreaks(text) {
+            return text
+                .replace(/\\n(\d+\.)/g, '<br><br>$1') // 数字前加双换行
+                .replace(/^\\n/, '<br>'); // 处理开头的换行符
+        }
+
+        // 另一种解决方案：添加样式
+        function styledFormatTextWithLineBreaks(text) {
+            return text
+                .replace(/\\n(\d+\.)/g, '<br><span style="display: block; margin-top: 10px; font-weight: bold; color: #ffd700;">$1</span>')
+                .replace(/^\\n/, '<br>');
+        }
+
+        // 显示修复方案
+        function showFixedResults() {
+            const solution1 = improvedFormatTextWithLineBreaks(originalText);
+            const solution2 = styledFormatTextWithLineBreaks(originalText);
+            
+            document.getElementById('fixedResult').innerHTML = `
+                <h4>方案1：增加换行间距</h4>
+                <div class="text-display">${solution1}</div>
+                
+                <h4>方案2：添加样式突出</h4>
+                <div class="text-display">${solution2}</div>
+                
+                <h4>代码实现：</h4>
+                <pre style="background: #f8f9fa; padding: 10px; border-radius: 4px; font-size: 12px;">
+// 方案1：增加换行间距
+function improvedFormatTextWithLineBreaks(text) {
+    return text
+        .replace(/\\\\n(\\d+\\.)/g, '&lt;br&gt;&lt;br&gt;$1') // 数字前加双换行
+        .replace(/^\\\\n/, '&lt;br&gt;'); // 处理开头的换行符
+}
+
+// 方案2：添加样式突出
+function styledFormatTextWithLineBreaks(text) {
+    return text
+        .replace(/\\\\n(\\d+\\.)/g, '&lt;br&gt;&lt;span style="display: block; margin-top: 10px; font-weight: bold; color: #ffd700;"&gt;$1&lt;/span&gt;')
+        .replace(/^\\\\n/, '&lt;br&gt;');
+}</pre>
+            `;
+        }
+
+        // 最终推荐方案
+        function finalSolution(text) {
+            return text
+                .replace(/\\n(\d+\.)/g, '<br><br><strong style="color: #ffd700;">$1</strong>')
+                .replace(/^\\n/, '<br>');
+        }
+
+        // 显示最终效果
+        document.getElementById('finalResult').innerHTML = finalSolution(originalText);
+
+        // 执行分析
+        analyzeCharacters();
+        analyzeProblem();
+        showFixedResults();
+    </script>
+</body>
+</html>

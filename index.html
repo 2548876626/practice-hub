@@ -2248,7 +2248,34 @@
     </div>
 
     <script>
-        // 题目训练系统类
+        // 文本换行符处理工具函数
+        function formatTextWithLineBreaks(text, useHTML = true) {
+            if (!text || typeof text !== 'string') return '';
+
+            if (useHTML) {
+                // 将 \n 转换为 <br> 标签，并对数字条目进行特殊处理
+                return text
+                    .replace(/\\n(\d+\.)/g, '<br><br><strong style="color: #ffd700; display: block; margin-top: 8px;">$1</strong>')
+                    .replace(/\\n/g, '<br>');
+            } else {
+                // 将 \n 转换为实际换行符（用于 CSS white-space: pre-line）
+                return text.replace(/\\n/g, '\n');
+            }
+        }
+
+        // 安全的HTML转义函数（防止XSS攻击）
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // 安全的换行符处理函数
+        function safeFormatTextWithLineBreaks(text) {
+            if (!text) return '';
+            return escapeHtml(text).replace(/\\n/g, '<br>');
+        }
 
         // 题目训练系统类
         class QuizApp {
@@ -2811,7 +2838,7 @@
                         <div class="calculation-solution" id="calculationSolution" style="display: none;">
                             <h4>详细解答</h4>
                             <div class="calculation-steps">
-                                ${question.solution.replace(/\\n/g, '<br>')}
+                                ${formatTextWithLineBreaks(question.solution)}
                             </div>
                             ${imagesHtml}
                         </div>
@@ -2844,7 +2871,7 @@
                     <div class="calculation-container">
                         <div class="calculation-title">${question.title}</div>
                         <div class="calculation-problem">
-                            ${question.problem.replace(/\\n/g, '<br>')}
+                            ${formatTextWithLineBreaks(question.problem)}
                             ${questionImageHtml}
                         </div>
                         ${solutionHtml}
@@ -3298,22 +3325,28 @@
 
                 // 构建解答部分HTML
                 let solutionHtml = '';
-                if (question.solution) {
-                    // 有文字解答的题目 - 只显示文字，不显示图片（图片已在题目部分显示）
-                    solutionHtml = `
-                        <div class="calculation-solution">
-                            <h4>详细解答</h4>
+                if (question.solution || (question.imageUrls && question.imageUrls.length > 0)) {
+                    // 有解答内容的题目（文字或图片）
+                    let contentHtml = '';
+
+                    // 添加文字解答
+                    if (question.solution) {
+                        contentHtml += `
                             <div class="calculation-steps">
-                                ${question.solution.replace(/\\n/g, '<br>')}
+                                ${formatTextWithLineBreaks(question.solution)}
                             </div>
-                        </div>
-                    `;
-                } else if (question.imageUrls && question.imageUrls.length > 0) {
-                    // 只有图片答案的题目（如结构图题）- 这种情况才在答案部分显示图片
+                        `;
+                    }
+
+                    // 添加图片解答
+                    if (question.imageUrls && question.imageUrls.length > 0) {
+                        contentHtml += answerImagesHtml;
+                    }
+
                     solutionHtml = `
                         <div class="calculation-solution">
-                            <h4>答案</h4>
-                            ${answerImagesHtml}
+                            <h4>${question.solution ? '详细解答' : '答案'}</h4>
+                            ${contentHtml}
                         </div>
                     `;
                 }
@@ -3329,7 +3362,7 @@
                     <div class="calculation-container">
                         <div class="calculation-title">${question.title}</div>
                         <div class="calculation-problem">
-                            ${question.problem.replace(/\\n/g, '<br>')}
+                            ${formatTextWithLineBreaks(question.problem)}
                             ${questionImageHtml}
                         </div>
                         ${solutionHtml}

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文本换行符处理示例</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .demo-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .demo-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .text-display {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            border-left: 4px solid #007bff;
+        }
+        .error {
+            border-left-color: #dc3545;
+            background: #f8d7da;
+        }
+        .success {
+            border-left-color: #28a745;
+            background: #d4edda;
+        }
+        .code {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+        .button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 文本换行符处理解决方案</h1>
+        <p>演示如何将JSON中的 <code>\\n</code> 换行符正确转换为HTML的 <code>&lt;br&gt;</code> 标签</p>
+
+        <!-- 原始JSON数据展示 -->
+        <div class="demo-section">
+            <h3>📋 原始JSON数据</h3>
+            <div class="code" id="jsonDisplay"></div>
+        </div>
+
+        <!-- 问题演示 -->
+        <div class="demo-section">
+            <h3>❌ 问题演示：直接显示（换行符不生效）</h3>
+            <div class="text-display error" id="problemDemo">
+                <!-- 这里会显示问题效果 -->
+            </div>
+        </div>
+
+        <!-- 解决方案1：innerHTML -->
+        <div class="demo-section">
+            <h3>✅ 解决方案1：使用 innerHTML + replace()</h3>
+            <button class="button" onclick="showInnerHTMLSolution()">应用解决方案1</button>
+            <div class="text-display success" id="innerHTMLSolution">
+                <!-- 这里会显示正确效果 -->
+            </div>
+            <div class="code">
+                <strong>JavaScript代码：</strong><br>
+                <code>element.innerHTML = text.replace(/\\n/g, '&lt;br&gt;');</code>
+            </div>
+        </div>
+
+        <!-- 解决方案2：通用函数 -->
+        <div class="demo-section">
+            <h3>✅ 解决方案2：通用处理函数</h3>
+            <button class="button" onclick="showUniversalSolution()">应用解决方案2</button>
+            <div class="text-display success" id="universalSolution">
+                <!-- 这里会显示正确效果 -->
+            </div>
+            <div class="code">
+                <strong>JavaScript代码：</strong><br>
+                <pre>function formatTextWithLineBreaks(text, useHTML = true) {
+    if (!text) return '';
+    if (useHTML) {
+        return text.replace(/\\n/g, '&lt;br&gt;');
+    } else {
+        return text.replace(/\\n/g, '\n');
+    }
+}</pre>
+            </div>
+        </div>
+
+        <!-- 解决方案3：CSS方式 -->
+        <div class="demo-section">
+            <h3>✅ 解决方案3：CSS white-space 属性</h3>
+            <button class="button" onclick="showCSSSolution()">应用解决方案3</button>
+            <div class="text-display success" id="cssSolution" style="white-space: pre-line;">
+                <!-- 这里会显示正确效果 -->
+            </div>
+            <div class="code">
+                <strong>CSS + JavaScript代码：</strong><br>
+                <code>element.style.whiteSpace = 'pre-line';</code><br>
+                <code>element.textContent = text.replace(/\\n/g, '\n');</code>
+            </div>
+        </div>
+
+        <!-- 实际应用示例 -->
+        <div class="demo-section">
+            <h3>🚀 实际应用：模拟你的计算题场景</h3>
+            <button class="button" onclick="showRealExample()">加载计算题示例</button>
+            <div id="realExample">
+                <!-- 这里会显示实际应用效果 -->
+            </div>
+        </div>
+
+        <!-- 最佳实践建议 -->
+        <div class="demo-section">
+            <h3>💡 最佳实践建议</h3>
+            <ul>
+                <li><strong>推荐方案1</strong>：使用 <code>innerHTML + replace(/\\n/g, '&lt;br&gt;')</code> - 简单直接</li>
+                <li><strong>推荐方案2</strong>：创建通用函数 - 便于维护和复用</li>
+                <li><strong>方案3适用于</strong>：纯文本内容且不需要其他HTML标签的场景</li>
+                <li><strong>安全提醒</strong>：使用 innerHTML 时要注意XSS安全，确保文本内容可信</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // 模拟你的JSON数据
+        const sampleData = {
+            "id": 34,
+            "title": "计算题",
+            "problem": "根据题目图片内容进行计算。",
+            "solution": "根据计算结果：\\n6.3/121KV；110KV；35KV\\n\\n详细步骤：\\n1. 分析电路图\\n2. 计算各级电压\\n3. 得出最终结果",
+            "thinking": "这是一个多行文本示例\\n包含换行符\\n需要正确显示"
+        };
+
+        // 显示原始JSON数据
+        document.getElementById('jsonDisplay').textContent = JSON.stringify(sampleData, null, 2);
+
+        // 问题演示：直接显示（换行符不生效）
+        document.getElementById('problemDemo').textContent = sampleData.solution;
+
+        // 解决方案1：innerHTML + replace
+        function showInnerHTMLSolution() {
+            const element = document.getElementById('innerHTMLSolution');
+            element.innerHTML = sampleData.solution.replace(/\\n/g, '<br>');
+        }
+
+        // 解决方案2：通用处理函数
+        function formatTextWithLineBreaks(text, useHTML = true) {
+            if (!text) return '';
+            if (useHTML) {
+                return text.replace(/\\n/g, '<br>');
+            } else {
+                return text.replace(/\\n/g, '\n');
+            }
+        }
+
+        function showUniversalSolution() {
+            const element = document.getElementById('universalSolution');
+            element.innerHTML = formatTextWithLineBreaks(sampleData.solution);
+        }
+
+        // 解决方案3：CSS white-space
+        function showCSSSolution() {
+            const element = document.getElementById('cssSolution');
+            element.style.whiteSpace = 'pre-line';
+            element.textContent = sampleData.solution.replace(/\\n/g, '\n');
+        }
+
+        // 实际应用示例
+        function showRealExample() {
+            const container = document.getElementById('realExample');
+            
+            // 模拟你的计算题显示逻辑
+            const questionHtml = `
+                <div style="border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin: 10px 0;">
+                    <h4>${sampleData.title}</h4>
+                    <div style="margin: 10px 0;">
+                        <strong>题目：</strong><br>
+                        <div style="background: #f8f9fa; padding: 10px; border-radius: 4px;">
+                            ${sampleData.problem}
+                        </div>
+                    </div>
+                    <div style="margin: 10px 0;">
+                        <strong>解题思路：</strong><br>
+                        <div style="background: #e3f2fd; padding: 10px; border-radius: 4px;">
+                            ${formatTextWithLineBreaks(sampleData.thinking)}
+                        </div>
+                    </div>
+                    <div style="margin: 10px 0;">
+                        <strong>详细解答：</strong><br>
+                        <div style="background: #e8f5e8; padding: 10px; border-radius: 4px;">
+                            ${formatTextWithLineBreaks(sampleData.solution)}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = questionHtml;
+        }
+
+        // 页面加载时显示问题演示
+        window.addEventListener('load', function() {
+            // 自动显示问题演示
+            console.log('页面加载完成，演示数据已准备就绪');
+        });
+
+        // 额外的工具函数：处理更复杂的文本格式
+        function advancedTextFormatter(text) {
+            if (!text) return '';
+            
+            return text
+                .replace(/\\n/g, '<br>')           // 换行符转换
+                .replace(/\\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;')  // 制表符转换
+                .replace(/\s{2,}/g, '&nbsp;&nbsp;'); // 多个空格保持
+        }
+
+        // 安全的HTML转义函数（防止XSS）
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // 安全的换行符处理函数
+        function safeFormatTextWithLineBreaks(text) {
+            if (!text) return '';
+            return escapeHtml(text).replace(/\\n/g, '<br>');
+        }
+    </script>
+</body>
+</html>
