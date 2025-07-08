@@ -16,9 +16,9 @@
     "title": "简答题",
     "problem": "画出TN-C，TN-S，TN-C-S结构图。",
     "imageUrls": [
-      "images/38cf2506219f077aef58aac2f1cd41bf.png",
-      "images/0f43836938b3cf65f813b412a7cc3757.png",
-      "images/df8607712ef11867aefde6142fc20f63.png"
+      "https://p.ananas.chaoxing.com/star3/origin/38cf2506219f077aef58aac2f1cd41bf.png",
+      "https://p.ananas.chaoxing.com/star3/origin/0f43836938b3cf65f813b412a7cc3757.png",
+      "https://p.ananas.chaoxing.com/star3/origin/df8607712ef11867aefde6142fc20f63.png"
     ]
   },
   {
@@ -39,7 +39,7 @@
     "problem": "根据题目图片内容进行计算。",
     "solution": "根据计算结果：\n6.3/121KV；110KV；35KV",
     "hasImage": true,
-    "imageUrl": "images/a4041b3b88df9113c5fdf52220bf7c22.png"
+    "imageUrl": "https://p.ananas.chaoxing.com/star3/origin/a4041b3b88df9113c5fdf52220bf7c22.png"
   },
   {
     "id": 35,

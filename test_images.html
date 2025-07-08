@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片加载测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .image-test {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .image-test h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .image-test img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .status {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📷 本地图片加载测试</h1>
+        <p>测试下载到本地的图片是否能正常加载</p>
+
+        <div class="image-test">
+            <h3>第三题 - TN-C结构图</h3>
+            <img src="images/38cf2506219f077aef58aac2f1cd41bf.png" alt="TN-C结构图" 
+                 onload="showStatus(this, true)" 
+                 onerror="showStatus(this, false)">
+            <div id="status-1" class="status"></div>
+        </div>
+
+        <div class="image-test">
+            <h3>第三题 - TN-S结构图</h3>
+            <img src="images/0f43836938b3cf65f813b412a7cc3757.png" alt="TN-S结构图" 
+                 onload="showStatus(this, true)" 
+                 onerror="showStatus(this, false)">
+            <div id="status-2" class="status"></div>
+        </div>
+
+        <div class="image-test">
+            <h3>第三题 - TN-C-S结构图</h3>
+            <img src="images/df8607712ef11867aefde6142fc20f63.png" alt="TN-C-S结构图" 
+                 onload="showStatus(this, true)" 
+                 onerror="showStatus(this, false)">
+            <div id="status-3" class="status"></div>
+        </div>
+
+        <div class="image-test">
+            <h3>第六题 - 计算题电路图</h3>
+            <img src="images/a4041b3b88df9113c5fdf52220bf7c22.png" alt="计算题电路图" 
+                 onload="showStatus(this, true)" 
+                 onerror="showStatus(this, false)">
+            <div id="status-4" class="status"></div>
+        </div>
+
+        <div style="margin-top: 30px; padding: 15px; background: #e9ecef; border-radius: 8px;">
+            <h3>📋 测试说明</h3>
+            <ul>
+                <li>✅ 绿色表示图片加载成功</li>
+                <li>❌ 红色表示图片加载失败</li>
+                <li>如果所有图片都显示成功，说明本地图片配置正确</li>
+                <li>如果有图片加载失败，请检查文件路径和权限</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let statusIndex = 1;
+        
+        function showStatus(img, success) {
+            const statusDiv = document.getElementById(`status-${statusIndex}`);
+            if (success) {
+                statusDiv.className = 'status success';
+                statusDiv.textContent = '✅ 图片加载成功';
+                console.log('图片加载成功:', img.src);
+            } else {
+                statusDiv.className = 'status error';
+                statusDiv.textContent = '❌ 图片加载失败';
+                console.error('图片加载失败:', img.src);
+            }
+            statusIndex++;
+        }
+
+        // 页面加载完成后的统计
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                const successCount = document.querySelectorAll('.status.success').length;
+                const totalCount = document.querySelectorAll('.image-test').length;
+                
+                console.log(`图片加载统计: ${successCount}/${totalCount} 成功`);
+                
+                if (successCount === totalCount) {
+                    console.log('🎉 所有图片加载成功！');
+                } else {
+                    console.log('⚠️ 部分图片加载失败，请检查文件路径');
+                }
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
